@@ -1,61 +1,44 @@
+export type ColorOption = { name: string; hex: string }
+
 export type Product = {
   slug: string
   name: string
-  short: string
-  description: string
+  platform: 'Google' | 'Instagram'
+  size: string
   price: number
-  compareAt?: number
-  color: string // brand accent per card, used for the product-card gradient
-  material: string
-  features: string[]
+  image: string
+  description: string
+  colors: ColorOption[]
 }
 
 export const products: Product[] = [
   {
-    slug: 'karbon-siyah',
-    name: 'Karbon Siyah',
-    short: 'Mat siyah PVC, imza serisi',
-    description:
-      'Mat siyah zemin üzerine lazerle kazınmış logo. Dijital Kartım\'ın en çok tercih edilen kartı — sade, kurumsal, her cepte iddialı durur.',
+    slug: 'google-degerlendirme-karti',
+    name: 'Google Değerlendirme Kartı',
+    platform: 'Google',
+    size: '8,5 × 5,5 cm',
     price: 349,
-    compareAt: 449,
-    color: '#101114',
-    material: 'Mat PVC + NFC çip (NTAG 215)',
-    features: ['Telefonu yaklaştırınca anında profil açılır', 'Çizilmeye dayanıklı mat kaplama', 'Tek kart, sınırsız güncellenebilir bağlantı'],
+    image: '/images/products/google-mavi.png',
+    description:
+      'Müşterin telefonunu yaklaştırdığında doğrudan Google yorum sayfana yönlenir. Kasada, masada ya da resepsiyonda dursun — yorum bırakmak tek dokunuşluk hale gelir.',
+    colors: [
+      { name: 'Lacivert', hex: '#2B3E8C' },
+      { name: 'Siyah', hex: '#15161B' },
+    ],
   },
   {
-    slug: 'sinyal-yesil',
-    name: 'Sinyal Yeşil',
-    short: 'İmza rengiyle parlayan kart',
+    slug: 'instagram-takip-karti',
+    name: 'Instagram Takip Kartı',
+    platform: 'Instagram',
+    size: '8,5 × 5,5 cm',
+    price: 349,
+    image: '/images/products/instagram-siyah.png',
     description:
-      'Markanın imza rengi sinyal yeşili ile üretilen sınırlı seri. Etkinliklerde, networking\'te fark edilmek isteyenler için.',
-    price: 379,
-    color: '#C6FF3D',
-    material: 'Parlak PVC + NFC çip (NTAG 215)',
-    features: ['Yüksek görünürlük — kalabalıkta öne çıkar', 'Su ve leke direnci', 'Kişiye özel QR + NFC ikili çalışma'],
-  },
-  {
-    slug: 'ahsap-dogal',
-    name: 'Ahşap Doğal',
-    short: 'Gerçek ahşap yüzey, gravür logo',
-    description:
-      'Gerçek ceviz kaplama üzerine gravürlü logo. Her kart kendine has damarlarıyla tek — sürdürülebilir ve sıcak bir doku arıyorsanız.',
-    price: 429,
-    color: '#8B5E34',
-    material: 'Ceviz ahşap kaplama + NFC çip (NTAG 215)',
-    features: ['Doğal ahşap desen, iki kart aynı değil', 'Hafif ve ince (0.8mm)', 'Hediye kutusuyla teslim edilir'],
-  },
-  {
-    slug: 'metal-gumus',
-    name: 'Metal Gümüş',
-    short: 'Fırçalanmış metal, premium seri',
-    description:
-      'Fırçalanmış paslanmaz çelik yüzey ve lazer kazıma logo. Dijital Kartım\'ın en premium kartı — üst düzey yöneticiler ve ajanslar için.',
-    price: 599,
-    compareAt: 699,
-    color: '#B8BCC4',
-    material: 'Paslanmaz çelik + gömülü NFC anten',
-    features: ['Metal ağırlık hissi, kırılmaz gövde', 'Lazer kazıma logo/isim', 'Ömür boyu çizilmeye karşı garanti'],
+      'Telefon yaklaştırıldığında Instagram profiline yönlenir, takip tek dokunuşla tamamlanır. İşletmenin sosyal medyasını büyütmenin en kolay yolu.',
+    colors: [
+      { name: 'Siyah', hex: '#15161B' },
+      { name: 'Gradyan', hex: '#C4287A' },
+    ],
   },
 ]
 

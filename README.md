@@ -1,6 +1,8 @@
 # Dijital Kartım
 
-NFC dokunmatik kartvizit kartları için mağaza sitesi. Yerinde/civar satış modeli — kargo yok. Next.js (App Router) + Tailwind CSS.
+İşletmeler için NFC kart kataloğu — Google değerlendirme ve Instagram takip kartları.
+Bu bir online mağaza değil, katalog sitesi: sepet, ödeme ya da kargo akışı yok; satış
+yerinde/civarda yapılıyor. Next.js (App Router) + Tailwind CSS.
 
 ## Geliştirme
 
@@ -11,18 +13,13 @@ npm run dev
 
 ## Sayfalar
 
-- `/` — ana sayfa, hero, "nasıl çalışır", ürün vitrini
-- `/urunler` — tüm kartlar
-- `/urunler/[slug]` — ürün detayı, sepete ekle
-- `/sepet` — localStorage tabanlı sepet
-- `/siparis` — sipariş formu (yerinde satış modeli, kargo/teslimat adresi yok;
-  ödeme sağlayıcısı henüz bağlı değil — `app/siparis/page.tsx` içindeki
-  `submitOrder` fonksiyonu gerçek bir ödeme/checkout sağlayıcısı ile
-  değiştirilecek tek nokta)
-- `/hakkimizda`, `/iletisim`
+- `/` — ana sayfa: resepsiyon fotoğraflı hero + kartların ne işe yaradığı, ardından
+  ürün kataloğu satır satır (fiyat/sipariş butonu yok)
+- `/katalog` — tüm kartların grid görünümü (boyut, fiyat, renk seçenekleri)
+- `/nfc-kart-nedir` — NFC kart nedir, nasıl çalışır, nerede kullanılır
+- `/iletisim` — telefon, WhatsApp, e-posta, Instagram, adres
 
 ## Ürünler
 
-`data/products.ts` içinde tanımlı. Gerçek ürün fotoğrafları eklenene kadar
-`components/ProductVisual.tsx` her ürünün marka rengiyle bir kart görseli
-üretiyor.
+`data/products.ts` içinde tanımlı. Ürün fotoğrafları `public/images/products/`
+altında — gerçek kart tasarımları.

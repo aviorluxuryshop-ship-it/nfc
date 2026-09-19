@@ -1,21 +1,22 @@
 export const siteConfig = {
   name: 'Dijital Kartım',
-  tagline: 'Telefonunu yaklaştır, tanıt.',
+  tagline: 'Telefonunu yaklaştır, işletmeni büyüt.',
   description:
-    'Dijital Kartım NFC kartvizit kartları: telefonunu yaklaştırdığında profilini, portfolyonu ya da menünü açan akıllı kart. Uygulama yok, kod okutma yok — tek kart, sınırsız paylaşım.',
+    'Dijital Kartım — işletmeler için NFC kartlar. Masada, kasada ya da resepsiyonda dur; müşterin telefonunu yaklaştırdığında Google yorumuna ya da Instagram sayfana yönlensin. Uygulama yok, kod okutma yok.',
   url: 'https://dijitalkartim.com',
   phone: '+90 555 000 00 00',
+  whatsapp: '+90 555 000 00 00',
   email: 'merhaba@dijitalkartim.com',
-  instagram: '@dijitalkartim',
-  address: 'Türkiye',
+  instagram: { handle: '@dijitalkartim', url: 'https://instagram.com/dijitalkartim' },
+  address: 'Türkiye — yerinde satış ve teslim',
   currency: '₺',
 }
 
 export type NavLink = { label: string; href: string }
 
 export const navLinks: NavLink[] = [
-  { label: 'Ürünler', href: '/urunler' },
-  { label: 'Nasıl Çalışır', href: '/#nasil-calisir' },
-  { label: 'Hakkımızda', href: '/hakkimizda' },
+  { label: 'Ana Sayfa', href: '/' },
+  { label: 'Ürün Kataloğu', href: '/katalog' },
+  { label: 'NFC Kart Nedir?', href: '/nfc-kart-nedir' },
   { label: 'İletişim', href: '/iletisim' },
 ]

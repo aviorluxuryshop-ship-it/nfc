@@ -5,7 +5,6 @@
 :root {
   --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --header-height: 4.5rem;
 }
 
 html {
@@ -17,7 +16,7 @@ body {
 }
 
 ::selection {
-  @apply bg-signal text-carbon;
+  @apply bg-gold text-ink;
 }
 
 .container-prose {

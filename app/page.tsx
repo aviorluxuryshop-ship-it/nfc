@@ -1,95 +1,63 @@
-import Link from 'next/link'
-import { ArrowRight, ScanLine, Share2, Zap } from 'lucide-react'
+import Image from 'next/image'
+import { CheckCircle2 } from 'lucide-react'
 
-import { ProductCard } from '@/components/ProductCard'
+import { ProductRow } from '@/components/ProductRow'
 import { products } from '@/data/products'
-import { siteConfig } from '@/data/site'
+
+const benefits = [
+  'Uygulama indirmeye gerek yok, telefon yaklaştırmak yeterli',
+  'Google yorumlarını ve Instagram takipçini kalıcı olarak artırır',
+  'Kasada, masada ya da resepsiyonda durur — her müşteriye ulaşır',
+  'Dayanıklı baskı, uzun ömürlü kullanım',
+]
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-carbon text-paper">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-40 right-[-10%] h-[32rem] w-[32rem] rounded-full bg-signal opacity-20 blur-[120px]"
-        />
-        <div className="container relative grid gap-12 py-20 md:grid-cols-2 md:items-center md:py-28">
-          <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-white/70">
-              NFC Kartvizit Kartları
+      {/* Hero: full-bleed photo, header floats over it */}
+      <section className="relative overflow-hidden bg-ink">
+        <div className="relative h-[56vh] min-h-[420px] w-full sm:h-[70vh]">
+          <Image
+            src="/images/hero/hero-recepsiyon.webp"
+            alt="Resepsiyon masasında duran NFC kart ve telefonunu yaklaştıran bir müşteri"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+        </div>
+
+        <div className="container -mt-16 pb-16 sm:-mt-20 sm:pb-20">
+          <div className="relative rounded-card bg-paper-raised p-7 shadow-lift sm:p-10">
+            <span className="inline-flex items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-dim">
+              İşletmeler için NFC kart
             </span>
-            <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
-              Kartını çıkarma, <span className="text-signal">yaklaştır.</span>
+            <h1 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-ink sm:text-4xl">
+              Telefonunu yaklaştır, <span className="text-magenta">işletmeni büyüt.</span>
             </h1>
-            <p className="mt-5 max-w-md text-base text-white/70">
-              {siteConfig.description}
+            <p className="mt-4 max-w-xl text-ink-soft">
+              Masana ya da kasana koyduğun tek bir kart; müşterin telefonunu yaklaştırdığında doğrudan Google yorum
+              sayfana ya da Instagram profiline yönlenir. Kod okutmak, uygulama açmak yok.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/urunler"
-                className="inline-flex items-center gap-2 rounded-full bg-signal px-6 py-3 text-sm font-semibold text-carbon transition hover:bg-signal-dim"
-              >
-                Ürünleri Keşfet <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="#nasil-calisir"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50"
-              >
-                Nasıl Çalışır?
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-sm animate-fade-up [animation-delay:150ms]">
-            <div className="animate-tap rounded-card border border-white/10 bg-gradient-to-br from-signal to-[#7fb800] p-8 shadow-signal">
-              <div className="flex items-center justify-between text-carbon">
-                <span className="text-xs font-bold uppercase tracking-[0.3em]">Dijital Kartım</span>
-                <ScanLine className="h-6 w-6" />
-              </div>
-              <div className="mt-16">
-                <p className="text-lg font-semibold text-carbon">Sinyal Yeşil</p>
-                <p className="text-xs uppercase tracking-[0.2em] text-carbon/70">Yaklaştır · Paylaş · Tanıt</p>
-              </div>
-            </div>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {benefits.map((benefit) => (
+                <li key={benefit} className="flex items-start gap-2 text-sm text-ink-soft">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-royal" />
+                  {benefit}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Nasıl çalışır */}
-      <section id="nasil-calisir" className="border-b border-ink/10 bg-paper py-20">
-        <div className="container">
-          <h2 className="font-display text-2xl font-semibold text-ink sm:text-3xl">Nasıl çalışır?</h2>
-          <div className="mt-10 grid gap-8 sm:grid-cols-3">
-            {[
-              { icon: Zap, title: '1. Bilgilerini gir', text: 'Profilini, sosyal medya linklerini, portfolyonu ya da menünü tek bir sayfada topla.' },
-              { icon: ScanLine, title: '2. Telefonu yaklaştır', text: 'Kartını herhangi bir NFC destekli telefona yaklaştır, uygulama gerekmez.' },
-              { icon: Share2, title: '3. Anında paylaş', text: 'Sayfan telefonda açılır — karşı taraf tek yaklaştırmayla bilgilerine ulaşır, kaydeder.' },
-            ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="rounded-card border border-ink/10 bg-paper-raised p-6">
-                <Icon className="h-6 w-6 text-signal-dim" strokeWidth={1.75} />
-                <h3 className="mt-4 text-base font-semibold text-ink">{title}</h3>
-                <p className="mt-2 text-sm text-ink-mute">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ürünler */}
-      <section className="bg-paper py-20">
-        <div className="container">
-          <div className="flex items-end justify-between">
-            <h2 className="font-display text-2xl font-semibold text-ink sm:text-3xl">Kartlar</h2>
-            <Link href="/urunler" className="text-sm font-medium text-ink-soft hover:text-ink">
-              Tümünü gör →
-            </Link>
-          </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
-          </div>
+      {/* Catalog rows — the homepage ends here, nothing below */}
+      <section className="bg-paper pb-24">
+        <div className="container flex flex-col gap-16 sm:gap-24">
+          {products.map((product, i) => (
+            <ProductRow key={product.slug} product={product} reverse={i % 2 === 1} />
+          ))}
         </div>
       </section>
     </>

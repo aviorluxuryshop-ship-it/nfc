@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { CartProvider } from '@/lib/cart'
 import { siteConfig } from '@/data/site'
 
 import './globals.css'
@@ -32,11 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr" className={inter.variable}>
       <body>
-        <CartProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </CartProvider>
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   )

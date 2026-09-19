@@ -2,7 +2,7 @@
   "name": "dijital-kartim",
   "version": "1.0.0",
   "private": true,
-  "description": "Dijital Kartım — NFC dokunmatik kartvizit kartları",
+  "description": "Dijital Kartım — işletmeler için NFC kart kataloğu",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

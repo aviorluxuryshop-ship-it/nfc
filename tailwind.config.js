@@ -15,29 +15,34 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Carbon: the near-black the cards float on. Not pure #000 — a
-        // hair of blue keeps it from going dead under the signal color.
-        carbon: {
-          DEFAULT: '#0B0C10',
-          soft: '#14161C',
-          raised: '#1B1E26',
-        },
-        // Signal: the tap. One vivid color standing for the NFC handshake
-        // itself — everything else in the palette exists to set it off.
-        signal: {
-          DEFAULT: '#C6FF3D',
-          dim: '#9FE01A',
-          50: '#F4FFDD',
-          100: '#E6FFB0',
-        },
+        // Ink/paper: the neutral ground the catalog sits on. Bright white,
+        // near-black text — a catalog is read, not stared into.
         paper: {
-          DEFAULT: '#F6F5F1',
-          raised: '#FFFFFF',
+          DEFAULT: '#FFFFFF',
+          raised: '#F7F7FA',
         },
         ink: {
-          DEFAULT: '#101114',
-          soft: '#4A4B52',
-          mute: '#82838C',
+          DEFAULT: '#12131A',
+          soft: '#4B4C58',
+          mute: '#84858F',
+        },
+        // The two card platforms get their own colors, matching the actual
+        // card designs: Google's blue, Instagram's magenta. Gold is the
+        // shared accent (the stars on every card).
+        royal: {
+          DEFAULT: '#2B3E8C',
+          dim: '#22316E',
+          50: '#EBEEFA',
+        },
+        magenta: {
+          DEFAULT: '#E8306B',
+          dim: '#C41F55',
+          50: '#FDE9F0',
+        },
+        gold: {
+          DEFAULT: '#F2B705',
+          dim: '#D19E00',
+          50: '#FEF6DC',
         },
       },
       fontFamily: {
@@ -48,22 +53,17 @@ module.exports = {
         card: '1.25rem',
       },
       boxShadow: {
-        signal: '0 0 0 1px rgba(198,255,61,0.4), 0 24px 48px -24px rgba(198,255,61,0.35)',
-        lift: '0 40px 80px -32px rgba(0,0,0,0.55)',
+        card: '0 30px 60px -30px rgba(18,19,26,0.25)',
+        lift: '0 40px 80px -32px rgba(0,0,0,0.35)',
       },
       keyframes: {
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        tap: {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.04)' },
-        },
       },
       animation: {
         'fade-up': 'fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both',
-        tap: 'tap 2.4s ease-in-out infinite',
       },
     },
   },
