@@ -1,13 +1,13 @@
 export const siteConfig = {
-  name: 'TagOne',
-  tagline: 'Dokun, tanıt.',
+  name: 'Dijital Kartım',
+  tagline: 'Telefonunu yaklaştır, tanıt.',
   description:
-    'TagOne NFC kartvizit kartları: telefona dokunduğunda profilini, portfolyonu ya da menünü açan akıllı kart. Tek dokunuş, sınırsız paylaşım.',
-  url: 'https://tagone.store',
+    'Dijital Kartım NFC kartvizit kartları: telefonunu yaklaştırdığında profilini, portfolyonu ya da menünü açan akıllı kart. Uygulama yok, kod okutma yok — tek kart, sınırsız paylaşım.',
+  url: 'https://dijitalkartim.com',
   phone: '+90 555 000 00 00',
-  email: 'merhaba@tagone.store',
-  instagram: '@tagone.card',
-  address: 'Türkiye — yurt içi kargo',
+  email: 'merhaba@dijitalkartim.com',
+  instagram: '@dijitalkartim',
+  address: 'Türkiye',
   currency: '₺',
 }
 

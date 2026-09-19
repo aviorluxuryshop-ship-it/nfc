@@ -20,7 +20,7 @@ export default function HomePage() {
               NFC Kartvizit Kartları
             </span>
             <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
-              Kartını çıkarma, <span className="text-signal">dokundur.</span>
+              Kartını çıkarma, <span className="text-signal">yaklaştır.</span>
             </h1>
             <p className="mt-5 max-w-md text-base text-white/70">
               {siteConfig.description}
@@ -44,12 +44,12 @@ export default function HomePage() {
           <div className="relative mx-auto w-full max-w-sm animate-fade-up [animation-delay:150ms]">
             <div className="animate-tap rounded-card border border-white/10 bg-gradient-to-br from-signal to-[#7fb800] p-8 shadow-signal">
               <div className="flex items-center justify-between text-carbon">
-                <span className="text-xs font-bold uppercase tracking-[0.3em]">TagOne</span>
+                <span className="text-xs font-bold uppercase tracking-[0.3em]">Dijital Kartım</span>
                 <ScanLine className="h-6 w-6" />
               </div>
               <div className="mt-16">
                 <p className="text-lg font-semibold text-carbon">Sinyal Yeşil</p>
-                <p className="text-xs uppercase tracking-[0.2em] text-carbon/70">Dokun · Paylaş · Tanıt</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-carbon/70">Yaklaştır · Paylaş · Tanıt</p>
               </div>
             </div>
           </div>
@@ -63,8 +63,8 @@ export default function HomePage() {
           <div className="mt-10 grid gap-8 sm:grid-cols-3">
             {[
               { icon: Zap, title: '1. Bilgilerini gir', text: 'Profilini, sosyal medya linklerini, portfolyonu ya da menünü tek bir sayfada topla.' },
-              { icon: ScanLine, title: '2. Kartını dokunt', text: 'TagOne kartını herhangi bir NFC destekli telefona yaklaştır, uygulama gerekmez.' },
-              { icon: Share2, title: '3. Anında paylaş', text: 'Sayfan telefonda açılır — karşı taraf tek dokunuşla bilgilerine ulaşır, kaydeder.' },
+              { icon: ScanLine, title: '2. Telefonu yaklaştır', text: 'Kartını herhangi bir NFC destekli telefona yaklaştır, uygulama gerekmez.' },
+              { icon: Share2, title: '3. Anında paylaş', text: 'Sayfan telefonda açılır — karşı taraf tek yaklaştırmayla bilgilerine ulaşır, kaydeder.' },
             ].map(({ icon: Icon, title, text }) => (
               <div key={title} className="rounded-card border border-ink/10 bg-paper-raised p-6">
                 <Icon className="h-6 w-6 text-signal-dim" strokeWidth={1.75} />

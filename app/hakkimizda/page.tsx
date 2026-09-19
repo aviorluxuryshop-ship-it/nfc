@@ -16,17 +16,16 @@ export default function AboutPage() {
         <div className="mt-6 space-y-5 text-ink-soft">
           <p>
             {siteConfig.name}, kağıt kartvizitlerin çöpe attığın, unuttuğun, tükendiğinde yeniden bastırman gereken halini
-            geride bırakmak için kuruldu. Her kartımızın içine gömülü bir NFC çip var — telefona dokunduğu an profilini,
-            portfolyonu ya da menünü açıyor. Uygulama yok, kod okutma yok, sadece dokunuş.
+            geride bırakmak için kuruldu. Her kartımızın içine gömülü bir NFC çip var — telefonunu yaklaştırdığın an
+            profilini, portfolyonu ya da menünü açıyor. Uygulama yok, kod okutma yok, sadece yaklaştırma.
           </p>
           <p>
-            Kartlarımızı Türkiye&apos;de üretiyor, elle kontrol ediyor ve yurt içi kargoyla gönderiyoruz. Her kart, bağlı
-            olduğu sayfayı istediğin zaman güncelleyebileceğin şekilde tasarlandı — kart elinde kalır, üzerindeki bilgi
-            değişebilir.
+            Kartlarımızı Türkiye&apos;de üretiyor ve elle kontrol ediyoruz. Her kart, bağlı olduğu sayfayı istediğin
+            zaman güncelleyebileceğin şekilde tasarlandı — kart elinde kalır, üzerindeki bilgi değişebilir.
           </p>
           <p>
             İster kişisel bir kartvizit, ister bir işletme menüsü, ister etkinlik networking&apos;i için — {siteConfig.name}
-            tek dokunuşla paylaşımı senin için basitleştirir.
+            tek yaklaştırmayla paylaşımı senin için basitleştirir.
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
-# TagOne Store
+# Dijital Kartım
 
-NFC dokunmatik kartvizit kartları için mağaza sitesi. Next.js (App Router) + Tailwind CSS.
+NFC dokunmatik kartvizit kartları için mağaza sitesi. Yerinde/civar satış modeli — kargo yok. Next.js (App Router) + Tailwind CSS.
 
 ## Geliştirme
 
@@ -15,8 +15,9 @@ npm run dev
 - `/urunler` — tüm kartlar
 - `/urunler/[slug]` — ürün detayı, sepete ekle
 - `/sepet` — localStorage tabanlı sepet
-- `/siparis` — sipariş formu (ödeme sağlayıcısı henüz bağlı değil — `app/siparis/page.tsx`
-  içindeki `submitOrder` fonksiyonu gerçek bir ödeme/checkout sağlayıcısı ile
+- `/siparis` — sipariş formu (yerinde satış modeli, kargo/teslimat adresi yok;
+  ödeme sağlayıcısı henüz bağlı değil — `app/siparis/page.tsx` içindeki
+  `submitOrder` fonksiyonu gerçek bir ödeme/checkout sağlayıcısı ile
   değiştirilecek tek nokta)
 - `/hakkimizda`, `/iletisim`
 

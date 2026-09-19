@@ -7,18 +7,19 @@ import { useCart } from '@/lib/cart'
 import { siteConfig } from '@/data/site'
 
 /**
- * There is no payment provider wired in yet. This form collects the order
- * and, on submit, hands it to `submitOrder` below — a single seam to swap
- * for a real checkout (iyzico, Stripe, PayTR…) once one is chosen. For now
- * it just packages the order as a WhatsApp/email handoff so orders can
- * start flowing before a gateway is integrated.
+ * There is no payment provider wired in yet, and sales happen in person /
+ * locally rather than shipped — this form just reserves an order and, on
+ * submit, hands it to `submitOrder` below. That's the seam to swap for a
+ * real checkout (iyzico, PayTR…) once one is chosen. For now it just
+ * records the order so it can be picked up in a call/message before a
+ * gateway is integrated.
  */
 async function submitOrder(payload: Record<string, unknown>) {
   // TODO: replace with a real payment/checkout provider call.
   // Until then, we simply resolve — the confirmation screen tells the
-  // customer TagOne will reach out to confirm and collect payment.
+  // customer we'll reach out to confirm and arrange pickup/payment.
   await new Promise((r) => setTimeout(r, 600))
-  return { ok: true, orderId: `TAG-${Date.now().toString().slice(-6)}`, payload }
+  return { ok: true, orderId: `DK-${Date.now().toString().slice(-6)}`, payload }
 }
 
 export default function CheckoutPage() {
@@ -50,7 +51,7 @@ export default function CheckoutPage() {
         <div className="container max-w-lg text-center">
           <h1 className="font-display text-2xl font-semibold text-ink">Siparişin alındı 🎉</h1>
           <p className="mt-3 text-ink-mute">
-            Sipariş numaran: <span className="font-semibold text-ink">{orderId}</span>. Ödeme ve kargo detayları için{' '}
+            Sipariş numaran: <span className="font-semibold text-ink">{orderId}</span>. Teslim alma ve ödeme detayları için{' '}
             {siteConfig.phone} veya {siteConfig.email} üzerinden en kısa sürede seninle iletişime geçeceğiz.
           </p>
           <Link
@@ -74,7 +75,6 @@ export default function CheckoutPage() {
         name: form.get('name'),
         phone: form.get('phone'),
         email: form.get('email'),
-        address: form.get('address'),
         note: form.get('note'),
         items,
         total,
@@ -99,7 +99,6 @@ export default function CheckoutPage() {
           <Field label="Ad Soyad" name="name" required />
           <Field label="Telefon" name="phone" type="tel" required />
           <Field label="E-posta" name="email" type="email" required />
-          <Field label="Teslimat Adresi" name="address" textarea required />
           <Field label="Not (opsiyonel)" name="note" textarea />
 
           {error && <p className="text-sm text-red-600">{error}</p>}

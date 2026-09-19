@@ -1,8 +1,8 @@
 {
-  "name": "tagone-store",
+  "name": "dijital-kartim",
   "version": "1.0.0",
   "private": true,
-  "description": "TagOne — NFC dokunmatik kartvizit kartları",
+  "description": "Dijital Kartım — NFC dokunmatik kartvizit kartları",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

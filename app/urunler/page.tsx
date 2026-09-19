@@ -16,7 +16,7 @@ export default function ProductsPage() {
       <div className="container">
         <h1 className="font-display text-3xl font-semibold text-ink sm:text-4xl">Ürünler</h1>
         <p className="mt-3 max-w-xl text-ink-mute">
-          Her kart aynı teknolojiyi taşır: dokununca profilini açan bir NFC çip. Aradaki fark yüzey ve his — sana uygun olanı seç.
+          Her kart aynı teknolojiyi taşır: telefonu yaklaştırınca profilini açan bir NFC çip. Aradaki fark yüzey ve his — sana uygun olanı seç.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (

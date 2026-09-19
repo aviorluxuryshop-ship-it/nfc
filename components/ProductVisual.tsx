@@ -22,12 +22,12 @@ export function ProductVisual({ color, name }: { color: string; name: string }) 
       />
       <div className="relative flex w-[78%] flex-col justify-between p-5" style={{ color: textColor }}>
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] opacity-80">TagOne</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] opacity-80">Dijital Kartım</span>
           <NfcWave color={textColor} />
         </div>
         <div className="mt-6">
           <p className="text-sm font-semibold leading-tight">{name}</p>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.2em] opacity-70">NFC Kart · Dokun &amp; Paylaş</p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.2em] opacity-70">NFC Kart · Yaklaştır &amp; Paylaş</p>
         </div>
       </div>
     </div>
