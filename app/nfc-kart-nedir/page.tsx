@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { MessageSquareText, Smartphone, Star, Users } from 'lucide-react'
 
+import { Reveal } from '@/components/Reveal'
 import { siteConfig } from '@/data/site'
 
 export const metadata: Metadata = {
@@ -38,33 +39,35 @@ export default function AboutNfcPage() {
   return (
     <section className="bg-paper px-5 pb-20 pt-28 sm:pt-32">
       <div className="container-prose">
-        <span className="inline-flex items-center rounded-full bg-gold-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-dim">
-          {siteConfig.name}
-        </span>
-        <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">NFC Kart Nedir?</h1>
-        <p className="mt-4 text-ink-soft">
-          NFC (Near Field Communication), iki cihazın birbirine birkaç santim yaklaştığında veri alışverişi yapmasını
-          sağlayan kısa mesafeli bir teknolojidir. Kartlarımızın içine gömülü bu çip sayesinde, telefonunu karta
-          yaklaştıran herkes anında istediğin sayfaya yönlenir.
-        </p>
+        <Reveal>
+          <span className="inline-flex items-center rounded-full bg-royal/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-royal">
+            {siteConfig.name}
+          </span>
+          <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">NFC Kart Nedir?</h1>
+          <p className="mt-4 text-ink-soft">
+            NFC (Near Field Communication), iki cihazın birbirine birkaç santim yaklaştığında veri alışverişi yapmasını
+            sağlayan kısa mesafeli bir teknolojidir. Kartlarımızın içine gömülü bu çip sayesinde, telefonunu karta
+            yaklaştıran herkes anında istediğin sayfaya yönlenir.
+          </p>
+        </Reveal>
 
         <div className="mt-12 space-y-8">
-          {steps.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex gap-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-gold">
+          {steps.map(({ icon: Icon, title, text }, i) => (
+            <Reveal key={title} delay={i * 80} className="flex gap-4">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper">
                 <Icon className="h-5 w-5" />
               </span>
               <div>
                 <h2 className="font-semibold text-ink">{title}</h2>
                 <p className="mt-1 text-sm text-ink-soft">{text}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
         <div className="mt-14 rounded-card border border-ink/10 bg-paper-raised p-6 sm:p-8">
           <h2 className="flex items-center gap-2 font-display text-xl font-bold text-ink">
-            <MessageSquareText className="h-5 w-5 text-magenta" />
+            <MessageSquareText className="h-5 w-5 text-royal" />
             Nerede kullanılır?
           </h2>
           <ul className="mt-4 space-y-3">
