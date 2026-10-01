@@ -102,7 +102,7 @@ export function Header(props: HeaderProps) {
           !scrolled || open
             ? 'border-transparent'
             : dimmed
-              ? 'border-white/[0.05] bg-ink/55 backdrop-blur-md'
+              ? 'border-white/[0.05] bg-ink/70 backdrop-blur-xl'
               : 'border-white/[0.08] bg-ink/90 backdrop-blur-xl',
         )}
       >
