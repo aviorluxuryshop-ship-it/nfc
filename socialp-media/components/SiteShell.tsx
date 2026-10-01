@@ -9,6 +9,7 @@ import { anchor, contact, href, SERVICE_IDS, type Locale } from '@/lib/site'
 
 export function SiteShell({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   const t = getDictionary(locale)
+  const line = locale === 'tr' ? 'tr' : 'intl'
 
   return (
     <>
@@ -32,9 +33,10 @@ export function SiteShell({ locale, children }: { locale: Locale; children: Reac
           href: href(locale, id),
         }))}
         labels={t.nav}
+        // English pages lead with the international line, like the brief form.
         contactLines={[
-          { label: contact.tr.phone, href: contact.tr.phoneHref },
-          { label: contact.tr.email, href: `mailto:${contact.tr.email}` },
+          { label: contact[line].phone, href: contact[line].phoneHref },
+          { label: contact[line].email, href: `mailto:${contact[line].email}` },
           { label: contact.instagram.handle, href: contact.instagram.href },
         ]}
       />
