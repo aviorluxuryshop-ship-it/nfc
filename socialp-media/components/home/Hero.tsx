@@ -4,45 +4,52 @@ import { HeroRing } from '@/components/home/HeroRing'
 import type { Dictionary } from '@/lib/content'
 import { href, SERVICE_IDS, type Locale } from '@/lib/site'
 
+// Text and the photo ring never share space: on desktop the copy takes the
+// left columns and the ring gets its own box on the right (bleeding to the
+// page edge); on phones the ring sits in a band under the copy. The services
+// strip has its own row at the bottom.
 export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <section className="grain relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink" aria-labelledby="hero-title">
-      <HeroRing />
+      <div className="container-x relative z-10 flex flex-1 flex-col pb-6 pt-[calc(var(--header-h)+2rem)] sm:pt-[calc(var(--header-h)+3rem)]">
+        <div className="flex flex-1 flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7 lg:flex lg:flex-col lg:justify-center">
+            <p className="eyebrow fade-in flex items-center gap-3 text-bone/70" style={{ '--delay': '200ms' } as React.CSSProperties}>
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal-hot opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-signal-hot" />
+              </span>
+              {t.hero.eyebrow}
+            </p>
 
-      {/* Legibility: darken behind the headline and fade the ring's base into the page. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_70%_at_20%_15%,rgba(11,11,12,0.92)_0%,rgba(11,11,12,0.55)_45%,transparent_75%)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-ink via-ink/70 to-transparent" />
+            <h1
+              id="hero-title"
+              className="mt-7 text-[clamp(3rem,8.2vw,9.5rem)] font-medium leading-[0.88] tracking-[-0.045em] text-bone sm:mt-9"
+            >
+              <span className="rise">
+                <span style={{ '--delay': '150ms' } as React.CSSProperties}>{t.hero.titleA}</span>
+              </span>
+              <span className="rise">
+                <span className="serif-accent pr-[0.05em] text-bone/90" style={{ '--delay': '280ms' } as React.CSSProperties}>
+                  {t.hero.titleB}
+                </span>
+              </span>
+            </h1>
 
-      <div className="container-x relative z-10 flex flex-1 flex-col pb-6 pt-[calc(var(--header-h)+2.5rem)] sm:pt-[calc(var(--header-h)+4rem)]">
-        <p className="eyebrow fade-in flex items-center gap-3 text-bone/70" style={{ '--delay': '200ms' } as React.CSSProperties}>
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal-hot opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-signal-hot" />
-          </span>
-          {t.hero.eyebrow}
-        </p>
+            <p className="lead fade-in mt-8 max-w-[44ch] text-bone/75 sm:mt-10" style={{ '--delay': '650ms' } as React.CSSProperties}>
+              {t.hero.body}
+            </p>
+          </div>
 
-        <h1 id="hero-title" className="display-xl mt-7 max-w-[13ch] text-bone sm:mt-9">
-          <span className="rise">
-            <span style={{ '--delay': '150ms' } as React.CSSProperties}>{t.hero.titleA}</span>
-          </span>
-          <span className="rise">
-            <span className="serif-accent pr-[0.05em] text-bone/90" style={{ '--delay': '280ms' } as React.CSSProperties}>
-              {t.hero.titleB}
-            </span>
-          </span>
-        </h1>
-
-        <div className="mt-8 flex flex-col gap-8 sm:mt-10 md:flex-row md:items-end md:justify-between">
-          <p className="lead fade-in max-w-[36ch] text-bone/75 md:max-w-[64ch]" style={{ '--delay': '650ms' } as React.CSSProperties}>
-            {t.hero.body}
-          </p>
+          <div className="relative -mx-[var(--gutter)] min-h-[300px] flex-1 lg:col-span-5 lg:mx-0 lg:-mr-[var(--gutter)] lg:min-h-[440px] lg:[mask-image:linear-gradient(90deg,black_78%,transparent)]">
+            <HeroRing />
+          </div>
         </div>
 
-        <div className="mt-auto hidden pt-16 sm:block">
+        <div className="mt-6 hidden sm:block">
           <ul className="fade-in grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3" style={{ '--delay': '1000ms' } as React.CSSProperties}>
             {SERVICE_IDS.map((id) => (
-              <li key={id} className="bg-ink/70 backdrop-blur-md">
+              <li key={id} className="bg-ink-2">
                 <Link href={href(locale, id)} className="group flex items-center gap-4 px-5 py-4 text-bone/85 transition-colors hover:bg-white/[0.05] hover:text-bone sm:py-5">
                   <span className="eyebrow text-smoke">{t.services[id].number}</span>
                   <span className="flex-1 text-[0.98rem] tracking-tight">{t.services[id].short}</span>

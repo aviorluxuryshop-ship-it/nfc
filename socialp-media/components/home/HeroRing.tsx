@@ -72,12 +72,12 @@ export function HeroRing() {
       />
       {failed && (
         // No WebGL: the same photos drift past as a flat film strip.
-        <div className="absolute inset-x-0 bottom-[7%] overflow-hidden opacity-70 [mask-image:linear-gradient(90deg,transparent,black_14%,black_86%,transparent)]">
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden opacity-80 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
           <div className="marquee" style={{ '--marquee-duration': '70s' } as React.CSSProperties}>
             {[0, 1].map((half) => (
               <div key={half} className="flex shrink-0 gap-4 pr-4">
                 {RING_TEXTURES.map((src) => (
-                  <Image key={`${half}-${src}`} src={src} alt="" width={600} height={800} sizes="26vh" className="h-[34vh] w-auto rounded-xl object-cover" />
+                  <Image key={`${half}-${src}`} src={src} alt="" width={600} height={800} sizes="26vh" className="h-[min(30vh,280px)] w-auto rounded-xl object-cover" />
                 ))}
               </div>
             ))}

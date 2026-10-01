@@ -4,9 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
-import { BrowserFrame } from '@/components/BrowserFrame'
 import type { Dictionary } from '@/lib/content'
-import { media } from '@/lib/media'
+import { serviceTrays } from '@/lib/media'
 import { href, SERVICE_IDS, type Locale, type ServiceId } from '@/lib/site'
 
 /**
@@ -127,41 +126,15 @@ function ServiceCardBody({ id, locale, t }: { id: ServiceId; locale: Locale; t: 
 }
 
 function ServiceCardMedia({ id, t }: { id: ServiceId; t: Dictionary }) {
-  if (id === 'web') {
-    return (
-      <div className="relative flex min-h-[22rem] items-center justify-center overflow-hidden bg-[radial-gradient(80%_80%_at_70%_30%,#2a2a2e_0%,#141416_70%)] p-5 sm:p-10">
-        <BrowserFrame url={t.featured.url} className="w-full max-w-[40rem]">
-          <Image
-            src={media.dluxStill.src}
-            alt={t.locale === 'tr' ? 'Dlux Professional e-ticaret sitesinin ana sayfası' : 'Home page of the Dlux Professional e-commerce site'}
-            width={media.dluxStill.width}
-            height={media.dluxStill.height}
-            sizes="(min-width: 1024px) 40rem, 92vw"
-            className="h-auto w-full"
-          />
-        </BrowserFrame>
-      </div>
-    )
-  }
-
-  const img = id === 'social' ? media.socialNeedsUs : media.trayInstagram
-  const alt =
-    id === 'social'
-      ? t.locale === 'tr'
-        ? 'Bahçede asılı bez üzerinde “Sosyal Medyanın Bize İhtiyacı Var!” yazısı'
-        : 'A cloth banner in a garden reading “Social media needs us!” in Turkish'
-      : t.locale === 'tr'
-        ? 'Kırmızı fonda, beyaz eldivenli elin tuttuğu tepside Instagram logosu'
-        : 'A white-gloved hand presenting the Instagram logo on a tray against a red wall'
-
+  const tray = serviceTrays[id]
   return (
-    <div className="relative min-h-[24rem] overflow-hidden">
+    <div className="relative min-h-[24rem] overflow-hidden bg-signal-deep">
       <Image
-        src={img.src}
-        alt={alt}
+        src={tray.src}
+        alt={tray.alt[t.locale]}
         fill
         sizes="(min-width: 1024px) 50vw, 100vw"
-        className="object-cover transition-transform duration-[1.6s] ease-[var(--ease-out-expo)] hover:scale-[1.03]"
+        className="object-cover object-[50%_45%] transition-transform duration-[1.6s] ease-[var(--ease-out-expo)] hover:scale-[1.03]"
       />
     </div>
   )

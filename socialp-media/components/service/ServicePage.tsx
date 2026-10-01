@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { BrowserFrame } from '@/components/BrowserFrame'
 import { CtaBand } from '@/components/CtaBand'
 import { FeaturedProject } from '@/components/home/FeaturedProject'
 import { Process } from '@/components/home/Process'
@@ -10,7 +9,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { PageHero } from '@/components/PageHero'
 import { SectorList } from '@/components/service/SectorList'
 import { getDictionary, type Dictionary } from '@/lib/content'
-import { media, platformLogos } from '@/lib/media'
+import { media, platformLogos, serviceTrays } from '@/lib/media'
 import { href, SERVICE_IDS, SITE_URL, type Locale, type ServiceId } from '@/lib/site'
 
 export function ServicePage({ locale, id }: { locale: Locale; id: ServiceId }) {
@@ -86,33 +85,10 @@ export function ServicePage({ locale, id }: { locale: Locale; id: ServiceId }) {
 }
 
 function HeroMedia({ id, t }: { id: ServiceId; t: Dictionary }) {
-  if (id === 'web') {
-    return (
-      <BrowserFrame url={t.featured.url}>
-        <Image
-          src={media.dluxStill.src}
-          alt={t.locale === 'tr' ? 'Dlux Professional e-ticaret sitesinin ana sayfası' : 'Home page of the Dlux Professional e-commerce site'}
-          width={media.dluxStill.width}
-          height={media.dluxStill.height}
-          sizes="(min-width: 1024px) 40vw, 92vw"
-          priority
-          className="h-auto w-full"
-        />
-      </BrowserFrame>
-    )
-  }
-  const img = id === 'social' ? media.beautyCrew : media.trayMeta
-  const alt =
-    id === 'social'
-      ? t.locale === 'tr'
-        ? 'Socialp Media tişörtlü ekip üyesi bir güzellik salonunda çekim yaparken'
-        : 'A Socialp Media crew member filming in a beauty salon'
-      : t.locale === 'tr'
-        ? 'Kırmızı fonda, beyaz eldivenli elin tuttuğu tepside Meta logosu'
-        : 'A white-gloved hand presenting the Meta logo on a tray against a red wall'
+  const tray = serviceTrays[id]
   return (
-    <div className="relative ml-auto aspect-[4/5] w-full max-w-[30rem] overflow-hidden rounded-[1.5rem]">
-      <Image src={img.src} alt={alt} fill priority sizes="(min-width: 1024px) 30rem, 92vw" className="object-cover" />
+    <div className="relative ml-auto aspect-[4/5] w-full max-w-[30rem] overflow-hidden rounded-[1.5rem] bg-signal-deep">
+      <Image src={tray.src} alt={tray.alt[t.locale]} fill priority sizes="(min-width: 1024px) 30rem, 92vw" className="object-cover object-[50%_45%]" />
     </div>
   )
 }
@@ -283,11 +259,6 @@ function AdsExtras({ t }: { t: Dictionary }) {
 
 function OtherServices({ locale, t, current }: { locale: Locale; t: Dictionary; current: ServiceId }) {
   const others = SERVICE_IDS.filter((id) => id !== current)
-  const thumbs: Record<ServiceId, { src: string; width: number; height: number }> = {
-    social: media.trayInstagram,
-    web: media.trayPhone,
-    ads: media.trayMeta,
-  }
   return (
     <section className="bg-ink pt-24 sm:pt-32" aria-labelledby="other-services">
       <div className="container-x">
@@ -299,23 +270,29 @@ function OtherServices({ locale, t, current }: { locale: Locale; t: Dictionary; 
             <Link
               key={id}
               href={href(locale, id)}
-              className="group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-[1.6rem] border border-white/10 bg-signal-deep p-7 sm:min-h-[28rem] sm:p-9"
+              className="group flex flex-col overflow-hidden rounded-[1.6rem] border border-white/10 bg-ink-2 transition-colors hover:border-white/25"
             >
-              <Image
-                src={thumbs[id].src}
-                alt=""
-                fill
-                sizes="(min-width: 640px) 50vw, 100vw"
-                className="object-cover object-[50%_42%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-105"
-              />
-              <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
-              <span className="eyebrow relative text-bone/80">{t.services[id].number}</span>
-              <span className="relative flex items-end justify-between gap-6">
-                <span className="whitespace-nowrap text-[clamp(1.25rem,2.3vw,2.2rem)] font-medium leading-none tracking-[-0.03em] text-bone">{t.services[id].title}</span>
-                <span aria-hidden="true" className="text-3xl text-bone transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
+              {/* Photo and title in separate rows: no text over the image. */}
+              <div className="relative aspect-[16/10] overflow-hidden bg-signal-deep">
+                <Image
+                  src={serviceTrays[id].src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-[50%_42%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-105"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-6 p-6 sm:p-8">
+                <span className="flex min-w-0 items-baseline gap-4">
+                  <span className="eyebrow text-smoke">{t.services[id].number}</span>
+                  <span className="truncate text-[clamp(1.2rem,2vw,1.9rem)] font-medium leading-none tracking-[-0.03em] text-bone">
+                    {t.services[id].title}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="text-2xl text-bone transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
                   ↗
                 </span>
-              </span>
+              </div>
             </Link>
           ))}
         </div>

@@ -129,25 +129,41 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
     disposables.push(tex, geo, mat)
   })
 
-  pivot.rotation.x = 0.1
+  // Framing: the ring lives in its own box (the hero's right column on
+  // desktop, a band under the text on phones), so it never sits behind text.
+  // In squarish boxes the camera looks down a little more, so the ring reads
+  // as an ellipse that fills the height too.
+  let baseTilt = 0.12
+  let baseY = 0
+  pivot.rotation.x = baseTilt
   pivot.rotation.z = -0.045
 
-  // Framing: keep the ring roughly the same share of the screen at any
-  // aspect ratio. Narrow screens pull the camera back.
-  let baseY = 0
   function resize() {
     const w = host.clientWidth
     const h = host.clientHeight
     if (!w || !h) return
     const aspect = w / h
     camera.aspect = aspect
-    const dist = R * (aspect >= 1 ? Math.max(3.3, 4.1 - aspect * 0.42) : 3.3 + (1 - aspect) * 2.6)
+    const tanHalf = Math.tan((camera.fov * Math.PI) / 360)
+    baseTilt = aspect < 1.6 ? 0.28 : 0.12
+    // Beside the text (desktop) the ring is drawn large and pushed right so
+    // it bleeds off the page edge; alone in a band (phones, tablets) it is
+    // centred and only just wider than the screen.
+    const sideBySide = host.getBoundingClientRect().left > 40
+    const fill = sideBySide ? 1.35 : 1.15
+    const distW = R / (fill * tanHalf * aspect)
+    // Stay far enough back that the nearest panel, pushed down by the tilt,
+    // still fits vertically.
+    const drop = R * Math.sin(baseTilt) + H / 2 + 0.3
+    const distH = R + drop / (0.9 * tanHalf)
+    const dist = Math.max(distW, distH)
     camera.position.set(0, 0, dist)
     camera.lookAt(0, 0, 0)
     camera.updateProjectionMatrix()
-    // Sit the ring in the lower half, under the headline.
-    const halfH = Math.tan((camera.fov * Math.PI) / 360) * dist
-    baseY = -halfH * (aspect >= 1 ? 0.44 : 0.36)
+    const halfW = tanHalf * dist * aspect
+    // Keep the ring's left edge inside the box when it sits next to the text.
+    pivot.position.x = sideBySide ? Math.max(0, R - 0.95 * halfW) : 0
+    baseY = -tanHalf * dist * 0.04
     renderer.setSize(w, h, false)
   }
 
@@ -167,7 +183,7 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
   function render() {
     ring.rotation.y = angle
     const scrollOffset = Math.min(window.scrollY / window.innerHeight, 1.2)
-    pivot.position.y = baseY + scrollOffset * 1.6
+    pivot.position.y = baseY + scrollOffset * 1.2
     renderer.render(scene, camera)
   }
 
@@ -181,6 +197,7 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
       // Reduced motion: keep a slow, steady turn; no scroll spin, colour
       // split or pointer tilt.
       angle += dt * 0.035
+      pivot.rotation.x = baseTilt
       render()
       return
     }
@@ -196,7 +213,7 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
 
     pointer.x += (pointer.tx - pointer.x) * 0.04
     pointer.y += (pointer.ty - pointer.y) * 0.04
-    pivot.rotation.x = 0.1 + pointer.y * 0.05
+    pivot.rotation.x = baseTilt + pointer.y * 0.05
     pivot.rotation.z = -0.045 - pointer.x * 0.035
 
     render()

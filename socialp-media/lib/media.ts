@@ -52,6 +52,31 @@ export const media = {
   sectorCorporate: m('/images/sectors/kurumsal.webp', 960, 1200),
 } as const
 
+/** Each service's photo from the brand's red tray series, as on the old site. */
+export const serviceTrays = {
+  social: {
+    ...media.trayInstagram,
+    alt: {
+      tr: 'Kırmızı fonda, beyaz eldivenli elin tuttuğu tepside Instagram logosu',
+      en: 'A white-gloved hand presenting the Instagram logo on a tray against a red wall',
+    },
+  },
+  web: {
+    ...media.trayPhone,
+    alt: {
+      tr: 'Kırmızı fonda, beyaz eldivenli elin tuttuğu tepside bir web sitesi açık akıllı telefon',
+      en: 'A white-gloved hand presenting a smartphone showing a website on a tray against a red wall',
+    },
+  },
+  ads: {
+    ...media.trayMeta,
+    alt: {
+      tr: 'Kırmızı fonda, beyaz eldivenli elin tuttuğu tepside Meta logosu',
+      en: 'A white-gloved hand presenting the Meta logo on a tray against a red wall',
+    },
+  },
+} as const
+
 export const DLUX_VIDEO = '/video/dlux-professional-web.mp4'
 
 export const clientLogos = [
