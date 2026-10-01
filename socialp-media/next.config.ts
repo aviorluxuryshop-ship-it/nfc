@@ -12,6 +12,21 @@ const nextConfig: NextConfig = {
     // unmatched URL has no single layout to render a 404 inside.
     globalNotFound: true,
   },
+  // Addresses of the brand's previous (Wix) site, so links and search
+  // results pointing at them land on the matching new page. Its legal pages
+  // were unfilled Wix templates; they lead to the privacy policy.
+  async redirects() {
+    return [
+      { source: '/about', destination: '/hakkimizda', permanent: true },
+      { source: '/gallery', destination: '/iletisim', permanent: true },
+      { source: '/blank', destination: '/#hizmetler', permanent: true },
+      { source: '/blank-1', destination: '/hizmetler/sosyal-medya-yonetimi', permanent: true },
+      { source: '/blank-2', destination: '/hizmetler/web-tasarim-kurulum', permanent: true },
+      { source: '/blank-3', destination: '/hizmetler/meta-google-reklamlari', permanent: true },
+      { source: '/book-online', destination: '/#sahadan', permanent: true },
+      { source: '/:page(privacy-policy|terms-and-conditions|refund-policy|accessibility-statement)', destination: '/gizlilik-politikasi', permanent: true },
+    ]
+  },
   async headers() {
     return [
       {
