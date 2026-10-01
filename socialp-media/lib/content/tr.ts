@@ -25,6 +25,7 @@ export const tr: Dictionary = {
     close: 'Kapat',
     language: 'Dil',
     skip: 'İçeriğe geç',
+    mainNav: 'Ana menü',
   },
   common: {
     explore: 'İncele',
@@ -40,6 +41,8 @@ export const tr: Dictionary = {
     pauseVideo: 'Videoyu durdur',
     playSlides: 'Otomatik geçişi başlat',
     pauseSlides: 'Otomatik geçişi durdur',
+    carousel: 'slayt gösterisi',
+    slide: 'slayt',
   },
   hero: {
     eyebrow: 'Sosyal medya ajansı — İstanbul, 2021’den beri',

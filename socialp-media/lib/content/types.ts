@@ -44,6 +44,7 @@ export type Dictionary = {
     close: string
     language: string
     skip: string
+    mainNav: string
   }
   common: {
     explore: string
@@ -59,6 +60,8 @@ export type Dictionary = {
     pauseVideo: string
     playSlides: string
     pauseSlides: string
+    carousel: string
+    slide: string
   }
   hero: {
     eyebrow: string

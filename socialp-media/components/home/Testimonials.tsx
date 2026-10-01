@@ -65,7 +65,7 @@ export function Testimonials({ t }: { t: Dictionary }) {
     <section
       ref={sectionRef}
       className="grain relative isolate overflow-hidden bg-signal py-24 text-bone sm:py-36"
-      aria-roledescription="carousel"
+      aria-roledescription={t.common.carousel}
       aria-labelledby="testimonials-title"
       onMouseEnter={() => setHeld(true)}
       onMouseLeave={() => setHeld(false)}
@@ -103,7 +103,7 @@ export function Testimonials({ t }: { t: Dictionary }) {
                 )}
                 aria-hidden={i !== index}
                 role="group"
-                aria-roledescription="slide"
+                aria-roledescription={t.common.slide}
                 aria-label={`${i + 1} / ${items.length}`}
               >
                 <figure>

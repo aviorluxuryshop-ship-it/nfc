@@ -25,6 +25,7 @@ export const en: Dictionary = {
     close: 'Close',
     language: 'Language',
     skip: 'Skip to content',
+    mainNav: 'Main menu',
   },
   common: {
     explore: 'Explore',
@@ -40,6 +41,8 @@ export const en: Dictionary = {
     pauseVideo: 'Pause video',
     playSlides: 'Play slideshow',
     pauseSlides: 'Pause slideshow',
+    carousel: 'carousel',
+    slide: 'slide',
   },
   hero: {
     eyebrow: 'Social media agency — Istanbul, since 2021',

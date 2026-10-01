@@ -27,6 +27,7 @@ type HeaderProps = {
     menu: string
     close: string
     language: string
+    mainNav: string
   }
   contactLines: { label: string; href: string }[]
 }
@@ -111,7 +112,7 @@ export function Header(props: HeaderProps) {
             <LogoInline className="h-[15px] w-auto sm:h-[17px]" />
           </Link>
 
-          <nav aria-label="Ana menü" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label={labels.mainNav} className="hidden items-center gap-1 lg:flex">
             <div className="group relative">
               <Link
                 href={props.servicesHref}
