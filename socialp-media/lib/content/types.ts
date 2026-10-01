@@ -57,6 +57,8 @@ export type Dictionary = {
     prev: string
     playVideo: string
     pauseVideo: string
+    playSlides: string
+    pauseSlides: string
   }
   hero: {
     eyebrow: string

@@ -38,6 +38,8 @@ export const en: Dictionary = {
     prev: 'Previous',
     playVideo: 'Play video',
     pauseVideo: 'Pause video',
+    playSlides: 'Play slideshow',
+    pauseSlides: 'Pause slideshow',
   },
   hero: {
     eyebrow: 'Social media agency — Istanbul, since 2021',

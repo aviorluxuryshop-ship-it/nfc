@@ -38,6 +38,8 @@ export const tr: Dictionary = {
     prev: 'Önceki',
     playVideo: 'Videoyu oynat',
     pauseVideo: 'Videoyu durdur',
+    playSlides: 'Otomatik geçişi başlat',
+    pauseSlides: 'Otomatik geçişi durdur',
   },
   hero: {
     eyebrow: 'Sosyal medya ajansı — İstanbul, 2021’den beri',

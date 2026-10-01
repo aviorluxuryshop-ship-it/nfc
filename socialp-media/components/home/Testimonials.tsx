@@ -11,27 +11,47 @@ const DURATION = 9000
 
 /**
  * The brand's three client quotes, on the campaign red. Auto-advances with a
- * progress bar; pauses on hover/focus. Reduced motion drops the slide-up,
- * keeping a plain crossfade.
+ * progress bar while on screen; pauses on hover/focus, and a pause button
+ * stops it for good (WCAG 2.2.2 — hover and focus don't exist on touch).
+ * Reduced motion drops the slide-up, keeping a plain crossfade.
  */
 export function Testimonials({ t }: { t: Dictionary }) {
   const items = t.testimonials.items
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const [held, setHeld] = useState(false)
+  const [stopped, setStopped] = useState(false)
+  const [onScreen, setOnScreen] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
   const barRef = useRef<HTMLSpanElement>(null)
+  const paused = held || stopped || !onScreen
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   const go = useCallback((dir: 1 | -1) => setIndex((i) => (i + dir + items.length) % items.length), [items.length])
+
+  // Time spent on the current slide, so a pause resumes where it stopped.
+  const elapsed = useRef(0)
+  useEffect(() => {
+    elapsed.current = 0
+    if (barRef.current) barRef.current.style.transform = 'scaleX(0)'
+  }, [index])
 
   useEffect(() => {
     if (paused) return
     const bar = barRef.current
-    let start = performance.now()
+    const start = performance.now() - elapsed.current
     let raf = 0
     const tick = (now: number) => {
-      const p = Math.min((now - start) / DURATION, 1)
+      elapsed.current = now - start
+      const p = Math.min(elapsed.current / DURATION, 1)
       if (bar) bar.style.transform = `scaleX(${p})`
       if (p >= 1) {
-        start = now
         go(1)
         return
       }
@@ -43,13 +63,14 @@ export function Testimonials({ t }: { t: Dictionary }) {
 
   return (
     <section
+      ref={sectionRef}
       className="grain relative isolate overflow-hidden bg-signal py-24 text-bone sm:py-36"
       aria-roledescription="carousel"
       aria-labelledby="testimonials-title"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)}
+      onBlur={() => setHeld(false)}
     >
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-4">
@@ -72,7 +93,7 @@ export function Testimonials({ t }: { t: Dictionary }) {
           <span className="serif-accent -mb-6 block text-[7rem] leading-none text-bone/30 sm:text-[9rem]" aria-hidden="true">
             “
           </span>
-          <div className="grid" aria-live={paused ? 'polite' : 'off'}>
+          <div className="grid" aria-live={stopped || held ? 'polite' : 'off'}>
             {items.map((item, i) => (
               <div
                 key={item.topic}
@@ -106,6 +127,22 @@ export function Testimonials({ t }: { t: Dictionary }) {
               <span ref={barRef} className="absolute inset-0 origin-left scale-x-0 bg-bone" />
             </span>
             <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setStopped((v) => !v)}
+                aria-label={stopped ? t.common.playSlides : t.common.pauseSlides}
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-bone/30 transition-colors hover:bg-bone hover:text-signal"
+              >
+                {stopped ? (
+                  <svg viewBox="0 0 12 12" className="ml-0.5 h-3 w-3" aria-hidden="true">
+                    <path d="M2 1l9 5-9 5z" fill="currentColor" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 12 12" className="h-3 w-3" aria-hidden="true">
+                    <path d="M2.5 1h2.5v10H2.5zM7 1h2.5v10H7z" fill="currentColor" />
+                  </svg>
+                )}
+              </button>
               <button
                 type="button"
                 onClick={() => go(-1)}
