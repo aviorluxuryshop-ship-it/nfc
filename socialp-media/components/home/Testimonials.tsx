@@ -74,7 +74,7 @@ export function Testimonials({ t }: { t: Dictionary }) {
           </span>
           <div className="grid" aria-live={paused ? 'polite' : 'off'}>
             {items.map((item, i) => (
-              <figure
+              <div
                 key={item.topic}
                 className={clsx(
                   '[grid-area:1/1] transition-all duration-[900ms] ease-[var(--ease-out-expo)]',
@@ -85,14 +85,16 @@ export function Testimonials({ t }: { t: Dictionary }) {
                 aria-roledescription="slide"
                 aria-label={`${i + 1} / ${items.length}`}
               >
-                <blockquote>
-                  <p className="text-[clamp(1.6rem,3.1vw,3rem)] font-medium leading-[1.16] tracking-[-0.03em]">{item.quote}</p>
-                </blockquote>
-                <figcaption className="mt-10 flex items-center gap-4 text-bone/75">
-                  <span className="h-px w-10 bg-bone/50" aria-hidden="true" />
-                  <span className="eyebrow">{item.topic}</span>
-                </figcaption>
-              </figure>
+                <figure>
+                  <blockquote>
+                    <p className="text-[clamp(1.6rem,3.1vw,3rem)] font-medium leading-[1.16] tracking-[-0.03em]">{item.quote}</p>
+                  </blockquote>
+                  <figcaption className="mt-10 flex items-center gap-4 text-bone/75">
+                    <span className="h-px w-10 bg-bone/50" aria-hidden="true" />
+                    <span className="eyebrow">{item.topic}</span>
+                  </figcaption>
+                </figure>
+              </div>
             ))}
           </div>
 

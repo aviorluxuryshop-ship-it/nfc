@@ -317,7 +317,7 @@ html.lenis body {
 
 /* Manifesto scroll-scrubbed words: --p is section progress (0–1). */
 .scrub-word {
-  opacity: clamp(0.14, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);
+  opacity: clamp(0.2, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);
   transition: opacity 0.2s linear;
 }
 

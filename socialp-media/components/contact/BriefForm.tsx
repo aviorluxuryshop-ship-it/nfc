@@ -131,7 +131,7 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
           <span>{f.sendEmail}</span>
         </button>
       </div>
-      <p className="mt-5 text-[0.85rem] text-ink/50">
+      <p className="mt-5 text-[0.85rem] text-ink/65">
         {f.note}{' '}
         <Link href={href(t.locale, 'privacy')} className="underline underline-offset-2 hover:text-ink">
           {privacy[t.locale].footerLink}

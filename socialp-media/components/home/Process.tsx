@@ -24,7 +24,7 @@ export function Process({ eyebrow, title, steps, tone = 'light' }: { eyebrow: st
                 style={{ transitionDelay: `${300 + i * 140}ms` }}
                 aria-hidden="true"
               />
-              <span className="serif-accent block text-[3.4rem] leading-none text-signal">{String(i + 1).padStart(2, '0')}</span>
+              <span className={`serif-accent block text-[3.4rem] leading-none ${light ? 'text-signal' : 'text-signal-hot'}`}>{String(i + 1).padStart(2, '0')}</span>
               <h3 className="mt-6 text-[1.4rem] font-medium tracking-[-0.02em]">{step.title}</h3>
               <p className={`mt-3 text-[0.98rem] leading-relaxed ${light ? 'text-ink/65' : 'text-bone/60'}`}>{step.body}</p>
             </li>

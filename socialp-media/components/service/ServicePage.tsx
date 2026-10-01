@@ -42,9 +42,9 @@ export function ServicePage({ locale, id }: { locale: Locale; id: ServiceId }) {
       <section className="bg-paper py-24 text-ink sm:py-32">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <p className="eyebrow text-graphite" data-reveal>
+            <h2 className="eyebrow text-graphite" data-reveal>
               {s.featuresTitle}
-            </p>
+            </h2>
           </div>
           <div className="space-y-8 lg:col-span-8">
             {s.intro.map((p, i) => (
