@@ -330,31 +330,35 @@ html.lenis body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/*
+ * Reduced motion: reduce, don't remove. Elements still fade in, the ring
+ * still turns slowly and the slogan band still drifts — but nothing slides,
+ * scales or wipes across the screen, and smooth scrolling/parallax are off
+ * (handled in the components).
+ */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
   }
-  .rise > span,
-  .fade-in {
+  .js [data-reveal] {
     transform: none;
-    opacity: 1;
   }
-  .js [data-reveal],
-  .js [data-reveal='clip'],
   .js [data-reveal='clip'] > * {
-    opacity: 1;
-    transform: none;
     clip-path: none;
+    transform: none;
+    opacity: 0;
+    transition: opacity 1.2s var(--ease-out-expo);
+    transition-delay: var(--delay, 0ms);
+  }
+  .js [data-reveal='clip'].is-in > * {
+    opacity: 1;
+  }
+  .rise > span {
+    transform: none;
+    opacity: 0;
+    animation-name: fade-in;
   }
   .marquee {
-    animation: none;
-  }
-  .scrub-word {
-    opacity: 1;
+    --marquee-duration: 110s !important;
   }
 }

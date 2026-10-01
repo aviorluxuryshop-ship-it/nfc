@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
-import { media, RING_TEXTURES } from '@/lib/media'
+import { RING_TEXTURES } from '@/lib/media'
 
 // A slowly turning ring of the brand's own behind-the-scenes photos, each one
 // a curved cylinder segment (see ring-scene.ts). Panels facing away dim and
@@ -12,7 +12,7 @@ import { media, RING_TEXTURES } from '@/lib/media'
 //
 // The scene module (and three.js with it) is imported only once the browser
 // is idle after first paint, so the headline — the LCP — never waits on it.
-// No WebGL → a static photo fallback.
+// No WebGL → the photos run as a flat CSS film strip instead.
 
 export function HeroRing() {
   const hostRef = useRef<HTMLDivElement>(null)
@@ -71,12 +71,17 @@ export function HeroRing() {
         className={clsx('absolute inset-0 transition-opacity duration-[1800ms] ease-out', ready ? 'opacity-100' : 'opacity-0')}
       />
       {failed && (
-        <div className="absolute inset-x-0 bottom-[8%] flex justify-center gap-3 opacity-60 sm:gap-5">
-          {[media.cafe, media.streetCampaign, media.showroom].map((img, i) => (
-            <div key={img.src} className={clsx('relative aspect-[3/4] w-[28vw] max-w-[260px] overflow-hidden rounded-xl', i === 1 && '-translate-y-6')}>
-              <Image src={img.src} alt="" fill sizes="28vw" className="object-cover" />
-            </div>
-          ))}
+        // No WebGL: the same photos drift past as a flat film strip.
+        <div className="absolute inset-x-0 bottom-[7%] overflow-hidden opacity-70 [mask-image:linear-gradient(90deg,transparent,black_14%,black_86%,transparent)]">
+          <div className="marquee" style={{ '--marquee-duration': '70s' } as React.CSSProperties}>
+            {[0, 1].map((half) => (
+              <div key={half} className="flex shrink-0 gap-4 pr-4">
+                {RING_TEXTURES.map((src) => (
+                  <Image key={`${half}-${src}`} src={src} alt="" width={600} height={800} sizes="26vh" className="h-[34vh] w-auto rounded-xl object-cover" />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

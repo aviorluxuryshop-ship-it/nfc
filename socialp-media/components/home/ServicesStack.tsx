@@ -19,7 +19,7 @@ export function ServicesStack({ locale, t }: { locale: Locale; t: Dictionary }) 
   useEffect(() => {
     const list = listRef.current
     if (!list) return
-    const mq = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)')
+    const mq = window.matchMedia('(min-width: 1024px)')
     const items = Array.from(list.querySelectorAll<HTMLElement>('[data-card]'))
     let raf = 0
 

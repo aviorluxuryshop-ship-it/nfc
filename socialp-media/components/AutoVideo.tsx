@@ -13,8 +13,8 @@ type Props = {
 }
 
 /**
- * Muted loop that only downloads and plays while on screen. Reduced-motion
- * users get the poster until they press play. Always has a pause control.
+ * Muted loop that only downloads and plays while on screen. Always has a
+ * pause control.
  */
 export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className }: Props) {
   const ref = useRef<HTMLVideoElement>(null)
@@ -24,9 +24,6 @@ export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className
   useEffect(() => {
     const video = ref.current
     if (!video) return
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) userPaused.current = true
-
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !userPaused.current) {

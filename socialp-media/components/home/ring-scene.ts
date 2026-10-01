@@ -108,7 +108,6 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
       loaded += 1
       if (loaded === N && !disposed) {
         onReady()
-        if (reduceMotion) render()
       }
     })
     // Sampled and written as-is (no sRGB decode/encode round trip).
@@ -150,7 +149,6 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
     const halfH = Math.tan((camera.fov * Math.PI) / 360) * dist
     baseY = -halfH * (aspect >= 1 ? 0.44 : 0.36)
     renderer.setSize(w, h, false)
-    if (reduceMotion) render()
   }
 
   const pointer = { x: 0, y: 0, tx: 0, ty: 0 }
@@ -178,6 +176,14 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
     if (!running) return
     const dt = Math.min((now - last) / 1000, 0.05)
     last = now
+
+    if (reduceMotion) {
+      // Reduced motion: keep a slow, steady turn; no scroll spin, colour
+      // split or pointer tilt.
+      angle += dt * 0.035
+      render()
+      return
+    }
 
     // Scrolling spins the ring faster and splits the colour channels a touch.
     const y = window.scrollY
@@ -212,12 +218,8 @@ export function createRingScene(host: HTMLElement, { textures, reduceMotion, onR
   }
   document.addEventListener('visibilitychange', onVisibility)
 
-  if (reduceMotion) {
-    render()
-  } else {
-    window.addEventListener('pointermove', onPointer, { passive: true })
-    raf = requestAnimationFrame(tick)
-  }
+  if (!reduceMotion) window.addEventListener('pointermove', onPointer, { passive: true })
+  raf = requestAnimationFrame(tick)
 
   return () => {
     disposed = true

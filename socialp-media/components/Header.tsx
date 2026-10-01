@@ -35,7 +35,9 @@ export function Header(props: HeaderProps) {
   const { locale, labels, services } = props
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
-  const [hidden, setHidden] = useState(false)
+  // Reading downwards: the bar's backdrop thins out. Any upward scroll (or
+  // reaching the top) brings it back solid. The bar itself never leaves.
+  const [dimmed, setDimmed] = useState(false)
   const [open, setOpen] = useState(false)
   const lastY = useRef(0)
 
@@ -43,9 +45,8 @@ export function Header(props: HeaderProps) {
     const onScroll = () => {
       const y = window.scrollY
       setScrolled(y > 24)
-      // Hide while reading downwards, return on any upward scroll.
-      setHidden(y > 480 && y > lastY.current + 2)
-      if (y < lastY.current - 2 || y <= 480) setHidden(false)
+      if (y <= 480 || y < lastY.current - 2) setDimmed(false)
+      else if (y > lastY.current + 2) setDimmed(true)
       lastY.current = y
     }
     onScroll()
@@ -83,9 +84,12 @@ export function Header(props: HeaderProps) {
     <>
       <header
         className={clsx(
-          'fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color] duration-700 ease-[var(--ease-out-expo)]',
-          hidden && !open ? '-translate-y-full' : 'translate-y-0',
-          scrolled && !open ? 'border-b border-white/[0.07] bg-ink/75 backdrop-blur-xl' : 'border-b border-transparent',
+          'fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-700 ease-[var(--ease-out-expo)]',
+          !scrolled || open
+            ? 'border-transparent'
+            : dimmed
+              ? 'border-white/[0.04] bg-ink/30 backdrop-blur-sm'
+              : 'border-white/[0.08] bg-ink/90 backdrop-blur-xl',
         )}
       >
         <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">

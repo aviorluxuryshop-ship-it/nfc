@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import { LogoStacked } from '@/components/Logo'
 import type { Dictionary } from '@/lib/content'
 import { anchor, contact, href, SERVICE_IDS, type Locale } from '@/lib/site'
 
@@ -88,16 +87,11 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
         </div>
       </div>
 
-      {/* Oversized wordmark: the brand's own logo, cropped by the page edge. */}
-      <div className="container-x mt-20 sm:mt-28" aria-hidden="true">
-        <LogoStacked className="w-full text-bone/[0.07]" title="" />
-      </div>
-
-      <div className="container-x flex flex-col gap-4 border-t border-white/10 py-7 text-[0.82rem] text-smoke sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-x mt-16 flex flex-col gap-4 border-t border-white/10 py-7 sm:mt-24 text-[0.82rem] text-smoke sm:flex-row sm:items-center sm:justify-between">
         <p>
           © {year} Socialp Media. {t.footer.rights}
         </p>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 sm:pr-20">
           <Link href={locale === 'tr' ? href('en', 'home') : href('tr', 'home')} className="link-draw hover:text-bone">
             {locale === 'tr' ? 'English' : 'Türkçe'}
           </Link>

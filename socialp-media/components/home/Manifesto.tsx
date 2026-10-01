@@ -18,10 +18,6 @@ export function Manifesto({ t, aboutHref }: { t: Dictionary; aboutHref: string }
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      el.style.setProperty('--p', '1')
-      return
-    }
     let raf = 0
     const update = () => {
       raf = 0
