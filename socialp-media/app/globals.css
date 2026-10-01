@@ -328,9 +328,11 @@ html[data-gl='sw'] .ring-fallback {
   display: block;
 }
 
-/* Manifesto scroll-scrubbed words: --p is section progress (0–1). */
+/* Manifesto scroll-scrubbed words: --p is section progress (0–1). Words not
+   yet reached rest at half strength — about 3.6:1 on paper, so the sentence
+   stays readable (WCAG large text) wherever the reader stops. */
 .scrub-word {
-  opacity: clamp(0.2, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);
+  opacity: clamp(0.5, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);
   transition: opacity 0.2s linear;
 }
 

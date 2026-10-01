@@ -74,7 +74,7 @@ export function Manifesto({ t, aboutHref }: { t: Dictionary; aboutHref: string }
 
           <dl className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:mt-24 sm:grid-cols-3">
             {t.manifesto.facts.map((f, i) => (
-              <div key={f.label} className="flex flex-col-reverse gap-4 bg-paper p-6 sm:p-8" data-reveal style={{ '--delay': `${i * 90}ms` } as React.CSSProperties}>
+              <div key={f.label} className="flex flex-col-reverse justify-end gap-4 bg-paper p-6 sm:p-8" data-reveal style={{ '--delay': `${i * 90}ms` } as React.CSSProperties}>
                 <dt className="eyebrow text-graphite">{f.label}</dt>
                 <dd className="text-[clamp(2.4rem,4.2vw,4rem)] font-medium leading-none tracking-[-0.045em]">{f.value}</dd>
               </div>
