@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useId, useRef, useState } from 'react'
 
 import type { Dictionary } from '@/lib/content'
 import { privacy } from '@/lib/content/privacy'
@@ -19,6 +19,9 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
   const [picked, setPicked] = useState<string[]>([])
   const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+  const errorId = useId()
 
   const options = [...services, f.other]
   const toggle = (s: string) => setPicked((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]))
@@ -39,6 +42,8 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
   const send = (channel: 'whatsapp' | 'email') => {
     if (!name.trim() || !message.trim()) {
       setError(true)
+      const firstMissing = name.trim() ? messageRef.current : nameRef.current
+      firstMissing?.focus()
       return
     }
     setError(false)
@@ -74,9 +79,11 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
             className={clsx(field, error && !name.trim() && 'border-signal')}
             value={name}
             onChange={(e) => setName(e.target.value)}
+            ref={nameRef}
             autoComplete="name"
             required
             aria-invalid={error && !name.trim()}
+            aria-describedby={error && !name.trim() ? errorId : undefined}
           />
         </label>
         <label className="block">
@@ -115,12 +122,18 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
           placeholder={f.messagePlaceholder}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          ref={messageRef}
           required
           aria-invalid={error && !message.trim()}
+          aria-describedby={error && !message.trim() ? errorId : undefined}
         />
       </label>
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <p id={errorId} role="alert" className="mt-4 min-h-[1.4em] text-[0.92rem] font-medium text-signal">
+        {error && (!name.trim() || !message.trim()) ? f.required : ''}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-3">
         <button type="submit" className="btn btn-dark">
           <span>{f.sendWhatsapp}</span>
           <span aria-hidden="true" className="arrow-nudge">

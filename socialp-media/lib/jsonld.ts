@@ -7,7 +7,7 @@ export function organizationJsonLd(description: string) {
     '@type': 'ProfessionalService',
     name: 'Socialp Media',
     url: SITE_URL,
-    logo: `${SITE_URL}/icon.svg`,
+    logo: `${SITE_URL}/icons/icon-512.png`,
     image: `${SITE_URL}/images/brand/ofis-tabela.webp`,
     description,
     foundingDate: String(FOUNDED),

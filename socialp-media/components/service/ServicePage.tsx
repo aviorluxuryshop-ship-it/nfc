@@ -29,6 +29,16 @@ export function ServicePage({ locale, id }: { locale: Locale; id: ServiceId }) {
           areaServed: ['TR', 'US', 'CA', 'GB', 'AU', 'DE'],
         }}
       />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Socialp Media', item: `${SITE_URL}${href(locale, 'home')}` },
+            { '@type': 'ListItem', position: 2, name: s.title, item: `${SITE_URL}${href(locale, id)}` },
+          ],
+        }}
+      />
       <PageHero
         eyebrow={`${t.servicePage.eyebrow} ${s.number}`}
         title={s.title}

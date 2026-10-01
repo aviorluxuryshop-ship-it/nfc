@@ -7,7 +7,7 @@ export const tr: Dictionary = {
   meta: {
     homeTitle: 'Socialp Media — Sosyal Medya Ajansı · İstanbul',
     homeDescription:
-      'Socialp Media; sosyal medya yönetimi, fotoğraf ve video prodüksiyonu, web tasarım ve Meta & Google reklam yönetimiyle markaların dijitalde büyümesine eşlik eden İstanbul merkezli ajans.',
+      'İstanbul merkezli sosyal medya ajansı Socialp Media: sosyal medya yönetimi, fotoğraf ve video prodüksiyonu, web tasarım, Meta & Google reklamları.',
     aboutTitle: 'Hakkımızda',
     aboutDescription:
       '2021’de kurulan Socialp Media, farklı sektörlerden yüzlerce markayla strateji, içerik ve yönetimi bir araya getiren bir dijital ajans.',
@@ -379,6 +379,7 @@ export const tr: Dictionary = {
       greeting: 'Merhaba Socialp Media,',
       subject: 'Yeni proje',
       other: 'Diğer',
+      required: 'Lütfen adınızı ve mesajınızı yazın.',
     },
   },
   notFound: {

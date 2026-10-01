@@ -7,7 +7,7 @@ export const en: Dictionary = {
   meta: {
     homeTitle: 'Socialp Media — Social Media Agency · Istanbul',
     homeDescription:
-      'Socialp Media is an Istanbul-based agency helping brands grow online through social media management, photo and video production, web design and Meta & Google advertising.',
+      'Socialp Media is an Istanbul-based agency: social media management, photo and video production, web design, and Meta & Google advertising.',
     aboutTitle: 'About',
     aboutDescription:
       'Founded in 2021, Socialp Media brings strategy, content and management together for hundreds of brands across different industries.',
@@ -379,6 +379,7 @@ export const en: Dictionary = {
       greeting: 'Hello Socialp Media,',
       subject: 'New project',
       other: 'Other',
+      required: 'Please add your name and a short message.',
     },
   },
   notFound: {

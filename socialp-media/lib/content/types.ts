@@ -181,6 +181,7 @@ export type Dictionary = {
       greeting: string
       subject: string
       other: string
+      required: string
     }
   }
   notFound: { title: string; body: string; home: string }
