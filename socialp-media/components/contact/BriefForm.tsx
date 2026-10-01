@@ -1,10 +1,12 @@
 'use client'
 
 import clsx from 'clsx'
+import Link from 'next/link'
 import { useState } from 'react'
 
 import type { Dictionary } from '@/lib/content'
-import { contact } from '@/lib/site'
+import { privacy } from '@/lib/content/privacy'
+import { contact, href } from '@/lib/site'
 
 /**
  * A brief that needs no backend: it composes the message and hands it to
@@ -129,7 +131,12 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
           <span>{f.sendEmail}</span>
         </button>
       </div>
-      <p className="mt-5 text-[0.85rem] text-ink/50">{f.note}</p>
+      <p className="mt-5 text-[0.85rem] text-ink/50">
+        {f.note}{' '}
+        <Link href={href(t.locale, 'privacy')} className="underline underline-offset-2 hover:text-ink">
+          {privacy[t.locale].footerLink}
+        </Link>
+      </p>
     </form>
   )
 }

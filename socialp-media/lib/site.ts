@@ -36,7 +36,7 @@ export const FOUNDED = 2021
 
 export type Locale = 'tr' | 'en'
 export type ServiceId = 'social' | 'web' | 'ads'
-export type PageKey = 'home' | 'about' | 'contact' | ServiceId
+export type PageKey = 'home' | 'about' | 'contact' | 'privacy' | ServiceId
 
 export const SERVICE_IDS: ServiceId[] = ['social', 'web', 'ads']
 
@@ -57,6 +57,7 @@ const base: Record<Locale, string> = { tr: '', en: '/en' }
 const servicesDir: Record<Locale, string> = { tr: 'hizmetler', en: 'services' }
 const aboutSlug: Record<Locale, string> = { tr: 'hakkimizda', en: 'about' }
 const contactSlug: Record<Locale, string> = { tr: 'iletisim', en: 'contact' }
+const privacySlug: Record<Locale, string> = { tr: 'gizlilik-politikasi', en: 'privacy-policy' }
 
 export function href(locale: Locale, page: PageKey): string {
   switch (page) {
@@ -66,6 +67,8 @@ export function href(locale: Locale, page: PageKey): string {
       return `${base[locale]}/${aboutSlug[locale]}`
     case 'contact':
       return `${base[locale]}/${contactSlug[locale]}`
+    case 'privacy':
+      return `${base[locale]}/${privacySlug[locale]}`
     default:
       return `${base[locale]}/${servicesDir[locale]}/${serviceSlugs[locale][page]}`
   }
@@ -76,7 +79,7 @@ export function anchor(locale: Locale, id: string): string {
   return `${base[locale] || '/'}#${id}`
 }
 
-export const ALL_PAGES: PageKey[] =['home', 'social', 'web', 'ads', 'about', 'contact']
+export const ALL_PAGES: PageKey[] = ['home', 'social', 'web', 'ads', 'about', 'contact', 'privacy']
 
 /** Maps a pathname to the same page in the other language (for the switcher). */
 export function alternatePath(pathname: string, target: Locale): string {

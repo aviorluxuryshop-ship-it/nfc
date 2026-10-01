@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import type { Dictionary } from '@/lib/content'
+import { privacy } from '@/lib/content/privacy'
 import { anchor, contact, href, SERVICE_IDS, type Locale } from '@/lib/site'
 
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
@@ -91,7 +92,10 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
         <p>
           © {year} Socialp Media. {t.footer.rights}
         </p>
-        <div className="flex items-center gap-6 sm:pr-20">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:pr-20">
+          <Link href={href(locale, 'privacy')} className="link-draw hover:text-bone">
+            {privacy[locale].footerLink}
+          </Link>
           <Link href={locale === 'tr' ? href('en', 'home') : href('tr', 'home')} className="link-draw hover:text-bone">
             {locale === 'tr' ? 'English' : 'Türkçe'}
           </Link>
