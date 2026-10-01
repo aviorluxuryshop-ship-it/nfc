@@ -5,9 +5,10 @@ import type { Dictionary } from '@/lib/content'
 import { href, SERVICE_IDS, type Locale } from '@/lib/site'
 
 // Text and the photo ring never share space: on desktop the copy takes the
-// left columns and the ring gets its own box on the right (bleeding to the
-// page edge); on phones the ring sits in a band under the copy. The services
-// strip has its own row at the bottom.
+// left columns and the ring gets its own box on the right, bleeding to the
+// viewport edge (past the container's max width on very wide screens); on
+// phones the ring sits in a band under the copy. The services strip has its
+// own row at the bottom.
 export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <section className="grain relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink" aria-labelledby="hero-title">
@@ -41,7 +42,7 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
             </p>
           </div>
 
-          <div className="relative -mx-[var(--gutter)] min-h-[300px] flex-1 lg:col-span-5 lg:mx-0 lg:-mr-[var(--gutter)] lg:min-h-[440px] lg:[mask-image:linear-gradient(90deg,black_78%,transparent)]">
+          <div className="relative -mx-[var(--gutter)] min-h-[300px] flex-1 lg:col-span-5 lg:mx-0 lg:-mr-[calc(var(--gutter)_+_max(0px,_(100vw_-_104rem)_/_2))] lg:min-h-[440px] lg:[mask-image:linear-gradient(90deg,black_78%,transparent)]">
             <HeroRing />
           </div>
         </div>
