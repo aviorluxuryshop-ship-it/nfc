@@ -96,3 +96,6 @@ export const platformLogos = {
 
 /** Textures for the WebGL ring in the hero (600×800 crops). */
 export const RING_TEXTURES = Array.from({ length: 14 }, (_, i) => `/ring/${String(i + 1).padStart(2, '0')}.webp`)
+
+/** The same crops at 420×560 for phones, where a front panel is ~120 px wide. */
+export const RING_TEXTURES_SMALL = RING_TEXTURES.map((src) => src.replace('/ring/', '/ring/sm/'))

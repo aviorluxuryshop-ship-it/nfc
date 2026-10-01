@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
-import { RING_TEXTURES } from '@/lib/media'
+import { RING_TEXTURES, RING_TEXTURES_SMALL } from '@/lib/media'
 
 // A slowly turning ring of the brand's own behind-the-scenes photos, each one
 // a curved cylinder segment (see ring-scene.ts). Panels facing away dim and
@@ -43,7 +43,7 @@ export function HeroRing() {
       const { createRingScene } = await import('./ring-scene')
       if (cancelled) return
       teardown = createRingScene(host, {
-        textures: RING_TEXTURES,
+        textures: window.matchMedia('(max-width: 767px)').matches ? RING_TEXTURES_SMALL : RING_TEXTURES,
         reduceMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
         onReady: () => setReady(true),
       })
