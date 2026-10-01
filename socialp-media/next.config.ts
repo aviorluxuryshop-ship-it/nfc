@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
       {
         // Photos, ring textures and the showcase video rarely change: let
         // browsers reuse them for a day, then revalidate in the background.
-        source: '/:dir(images|ring|video|icons)/:path*',
+        source: '/:dir(images|ring|video|icons|og)/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
       },
     ]
