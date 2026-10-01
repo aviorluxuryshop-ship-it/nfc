@@ -368,3 +368,67 @@ html.lenis body {
     --marquee-duration: 110s !important;
   }
 }
+
+/*
+ * Print (the privacy policy above all): no fixed chrome repeating over the
+ * text, dark ink on white whatever the section colour (browsers drop
+ * backgrounds by default), and everything shown in its final, revealed state.
+ */
+@media print {
+  header,
+  footer,
+  aside,
+  canvas,
+  video,
+  a[href='#main'],
+  .marquee-wrap {
+    display: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    color: #111 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .grain::before,
+  .grain::after {
+    display: none !important;
+  }
+  /* list bullets are small dots drawn with a background */
+  li > span[aria-hidden='true'].rounded-full {
+    background: #111 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .js [data-reveal],
+  .js [data-reveal] > *,
+  .rise > span,
+  .fade-in,
+  .scrub-word {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+  section {
+    min-height: 0 !important;
+    padding-block: 1.5rem !important;
+    break-inside: auto;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  li,
+  figure,
+  img {
+    break-inside: avoid;
+  }
+  .sticky,
+  [class*='sticky'] {
+    position: static !important;
+  }
+}
