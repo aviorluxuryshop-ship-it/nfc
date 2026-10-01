@@ -12,6 +12,26 @@ const nextConfig: NextConfig = {
     // unmatched URL has no single layout to render a 404 inside.
     globalNotFound: true,
   },
+  async headers() {
+    return [
+      {
+        // Baseline hardening. Deliberately no X-Frame-Options / frame-ancestors:
+        // the site may be embedded in the brand's Wix page.
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()' },
+        ],
+      },
+      {
+        // Photos, ring textures and the showcase video rarely change: let
+        // browsers reuse them for a day, then revalidate in the background.
+        source: '/:dir(images|ring|video|icons)/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
+      },
+    ]
+  },
 }
 
 export default nextConfig

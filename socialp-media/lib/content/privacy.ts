@@ -26,7 +26,7 @@ export type PrivacyContent = {
 const addr = `${contact.address.street}, ${contact.address.postalCode} ${contact.address.district}/${contact.address.city}`
 
 const tr: PrivacyContent = {
-  eyebrow: 'Yasal',
+  eyebrow: 'KVKK Aydınlatma Metni',
   title: 'Gizlilik Politikası',
   updatedLabel: 'Son güncelleme',
   updated: '1 Ekim 2026',
@@ -136,7 +136,7 @@ const tr: PrivacyContent = {
 }
 
 const en: PrivacyContent = {
-  eyebrow: 'Legal',
+  eyebrow: 'Privacy & data protection',
   title: 'Privacy Policy',
   updatedLabel: 'Last updated',
   updated: '1 October 2026',

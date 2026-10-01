@@ -40,6 +40,7 @@ export function Header(props: HeaderProps) {
   const [dimmed, setDimmed] = useState(false)
   const [open, setOpen] = useState(false)
   const lastY = useRef(0)
+  const toggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const onScroll = () => {
@@ -63,13 +64,26 @@ export function Header(props: HeaderProps) {
 
   useEffect(() => {
     const lenis = window.__lenis
+    const menu = document.getElementById('mobile-menu')
+    // While the menu covers the page, the page behind it is out of reach for
+    // keyboard and screen-reader users too.
+    const behind = [document.getElementById('main'), document.querySelector('footer'), document.querySelector('aside[aria-label="WhatsApp"]')]
+    behind.forEach((el) => el?.toggleAttribute('inert', open))
     if (open) {
       lenis?.stop()
       document.documentElement.style.overflow = 'hidden'
-    } else {
-      lenis?.start()
-      document.documentElement.style.overflow = ''
+      const first = menu?.querySelector<HTMLElement>('a')
+      const t = window.setTimeout(() => first?.focus({ preventScroll: true }), 60)
+      return () => window.clearTimeout(t)
     }
+    lenis?.start()
+    document.documentElement.style.overflow = ''
+    // Closing with focus inside the menu: hand focus back to the toggle.
+    if (menu && document.activeElement && menu.contains(document.activeElement)) toggleRef.current?.focus({ preventScroll: true })
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -165,6 +179,7 @@ export function Header(props: HeaderProps) {
               <span>{labels.cta}</span>
             </Link>
             <button
+              ref={toggleRef}
               type="button"
               onClick={() => setOpen((v) => !v)}
               className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone lg:hidden"
