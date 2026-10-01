@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { HeroRing } from '@/components/home/HeroRing'
 import type { Dictionary } from '@/lib/content'
+import { GL_PROBE_SCRIPT } from '@/lib/gl-probe'
 import { href, SERVICE_IDS, type Locale } from '@/lib/site'
 
 // Text and the photo ring never share space: on desktop the copy takes the
@@ -44,6 +45,7 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
 
           <div className="relative -mx-[var(--gutter)] min-h-[300px] flex-1 lg:col-span-5 lg:mx-0 lg:-mr-[calc(var(--gutter)_+_max(0px,_(100vw_-_104rem)_/_2))] lg:min-h-[440px] lg:[mask-image:linear-gradient(90deg,black_78%,transparent)]">
             <HeroRing />
+            <script dangerouslySetInnerHTML={{ __html: GL_PROBE_SCRIPT }} />
           </div>
         </div>
 

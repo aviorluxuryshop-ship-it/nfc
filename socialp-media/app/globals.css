@@ -319,6 +319,15 @@ html.lenis body {
   }
 }
 
+/* Hero ring fallback strip: shown without JS, or where WebGL has no GPU. */
+.ring-fallback {
+  display: none;
+}
+html:not(.js) .ring-fallback,
+html[data-gl='sw'] .ring-fallback {
+  display: block;
+}
+
 /* Manifesto scroll-scrubbed words: --p is section progress (0–1). */
 .scrub-word {
   opacity: clamp(0.2, calc(var(--p, 1) * var(--n) - var(--i) + 1), 1);
