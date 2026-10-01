@@ -58,10 +58,10 @@ export function Testimonials({ t }: { t: Dictionary }) {
           </p>
           <div className="relative mt-10 hidden aspect-[3/4] w-full max-w-[19rem] overflow-hidden rounded-2xl lg:block" data-reveal="clip">
             <Image
-              src={media.trayPhone.src}
+              src={media.trayReview.src}
               alt=""
-              width={media.trayPhone.width}
-              height={media.trayPhone.height}
+              width={media.trayReview.width}
+              height={media.trayReview.height}
               sizes="304px"
               className="h-full w-full object-cover"
             />

@@ -284,9 +284,9 @@ function AdsExtras({ t }: { t: Dictionary }) {
 function OtherServices({ locale, t, current }: { locale: Locale; t: Dictionary; current: ServiceId }) {
   const others = SERVICE_IDS.filter((id) => id !== current)
   const thumbs: Record<ServiceId, { src: string; width: number; height: number }> = {
-    social: media.socialNeedsUs,
-    web: media.dluxStill,
-    ads: media.trayInstagram,
+    social: media.trayInstagram,
+    web: media.trayPhone,
+    ads: media.trayMeta,
   }
   return (
     <section className="bg-ink pt-24 sm:pt-32" aria-labelledby="other-services">
@@ -299,18 +299,19 @@ function OtherServices({ locale, t, current }: { locale: Locale; t: Dictionary; 
             <Link
               key={id}
               href={href(locale, id)}
-              className="group relative flex min-h-[15rem] flex-col justify-between overflow-hidden rounded-[1.6rem] border border-white/10 bg-ink-2 p-7 sm:min-h-[19rem] sm:p-9"
+              className="group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-[1.6rem] border border-white/10 bg-signal-deep p-7 sm:min-h-[28rem] sm:p-9"
             >
               <Image
                 src={thumbs[id].src}
                 alt=""
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"
-                className="object-cover opacity-0 transition-all duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:opacity-35"
+                className="object-cover object-[50%_42%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-105"
               />
-              <span className="eyebrow relative text-smoke">{t.services[id].number}</span>
+              <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+              <span className="eyebrow relative text-bone/80">{t.services[id].number}</span>
               <span className="relative flex items-end justify-between gap-6">
-                <span className="display-s max-w-[12ch] text-bone">{t.services[id].title}</span>
+                <span className="whitespace-nowrap text-[clamp(1.25rem,2.3vw,2.2rem)] font-medium leading-none tracking-[-0.03em] text-bone">{t.services[id].title}</span>
                 <span aria-hidden="true" className="text-3xl text-bone transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
                   ↗
                 </span>

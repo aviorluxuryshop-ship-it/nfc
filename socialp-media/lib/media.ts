@@ -38,6 +38,8 @@ export const media = {
   trayInstagram: m('/images/services/instagram-tepsi.webp', 1350, 1800),
   trayMeta: m('/images/services/meta-tepsi.webp', 1350, 1800),
   trayPhone: m('/images/services/telefon-tepsi.webp', 1350, 1800),
+  // Same tray series, with a five-star review card on the tray (testimonials).
+  trayReview: m('/images/services/yorum-tepsi.webp', 1350, 1800),
   dluxPoster: m('/video/dlux-professional-web-poster.webp', 1440, 736),
   dluxStill: m('/images/services/dlux-web-poster.webp', 2000, 1022),
 

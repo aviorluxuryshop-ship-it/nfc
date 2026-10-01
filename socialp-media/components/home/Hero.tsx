@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { HeroRing } from '@/components/home/HeroRing'
 import type { Dictionary } from '@/lib/content'
-import { anchor, href, SERVICE_IDS, type Locale } from '@/lib/site'
+import { href, SERVICE_IDS, type Locale } from '@/lib/site'
 
 export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
@@ -37,17 +37,6 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
           <p className="lead fade-in max-w-[36ch] text-bone/75" style={{ '--delay': '650ms' } as React.CSSProperties}>
             {t.hero.body}
           </p>
-          <div className="fade-in flex flex-wrap gap-2.5 sm:gap-3" style={{ '--delay': '800ms' } as React.CSSProperties}>
-            <Link href={href(locale, 'contact')} className="btn btn-light">
-              <span>{t.hero.primary}</span>
-              <span aria-hidden="true" className="arrow-nudge">
-                →
-              </span>
-            </Link>
-            <Link href={anchor(locale, 'sahadan')} className="btn btn-ghost text-bone [--btn-ghost-hover:var(--color-ink)]">
-              <span>{t.hero.secondary}</span>
-            </Link>
-          </div>
         </div>
 
         <div className="mt-auto hidden pt-16 sm:block">
