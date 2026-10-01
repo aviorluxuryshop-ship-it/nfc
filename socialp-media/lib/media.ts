@@ -78,6 +78,8 @@ export const serviceTrays = {
 } as const
 
 export const DLUX_VIDEO = '/video/dlux-professional-web.mp4'
+/** 960 px encode (~1.3 MB vs ~2.8 MB) served to phones. */
+export const DLUX_VIDEO_SMALL = '/video/dlux-professional-web-960.mp4'
 
 export const clientLogos = [
   { name: 'Dlux Professional', src: '/images/logos/dlux-professional.png', width: 380, height: 160 },

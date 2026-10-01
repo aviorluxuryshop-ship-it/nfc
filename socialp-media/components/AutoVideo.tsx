@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 
 type Props = {
   src: string
+  /** Lighter encode for phones (≤767 px). */
+  srcSmall?: string
   poster: string
   label: string
   playLabel: string
@@ -16,10 +18,19 @@ type Props = {
  * Muted loop that only downloads and plays while on screen. Always has a
  * pause control.
  */
-export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className }: Props) {
+export function AutoVideo({ src, srcSmall, poster, label, playLabel, pauseLabel, className }: Props) {
   const ref = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
   const userPaused = useRef(false)
+
+  // Pick the file in script rather than with <source media>, whose support
+  // varies between browsers. The src attribute overrides the <source>
+  // fallback that stays in the markup for no-JS visitors.
+  const chooseSource = (video: HTMLVideoElement) => {
+    if (video.getAttribute('src')) return
+    const small = srcSmall && window.matchMedia('(max-width: 767px)').matches
+    video.src = small ? srcSmall : src
+  }
 
   useEffect(() => {
     const video = ref.current
@@ -27,6 +38,7 @@ export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !userPaused.current) {
+          chooseSource(video)
           if (video.preload === 'none') video.preload = 'auto'
           video.play().catch(() => setPlaying(false))
         } else if (!entry.isIntersecting) {
@@ -37,6 +49,8 @@ export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className
     )
     io.observe(video)
     return () => io.disconnect()
+    // chooseSource only reads props that never change for a mounted video.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggle = () => {
@@ -44,6 +58,7 @@ export function AutoVideo({ src, poster, label, playLabel, pauseLabel, className
     if (!video) return
     if (video.paused) {
       userPaused.current = false
+      chooseSource(video)
       video.play().catch(() => undefined)
     } else {
       userPaused.current = true

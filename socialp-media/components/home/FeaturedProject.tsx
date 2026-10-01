@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AutoVideo } from '@/components/AutoVideo'
 import { BrowserFrame } from '@/components/BrowserFrame'
 import type { Dictionary } from '@/lib/content'
-import { DLUX_VIDEO, media } from '@/lib/media'
+import { DLUX_VIDEO, DLUX_VIDEO_SMALL, media } from '@/lib/media'
 
 /** The one live website we have footage of: Dlux Professional's e-commerce site. */
 export function FeaturedProject({ t, linkHref, tone = 'light' }: { t: Dictionary; linkHref?: string; tone?: 'light' | 'dark' }) {
@@ -30,6 +30,7 @@ export function FeaturedProject({ t, linkHref, tone = 'light' }: { t: Dictionary
           <BrowserFrame url={t.featured.url} tone={light ? 'light' : 'dark'}>
             <AutoVideo
               src={DLUX_VIDEO}
+              srcSmall={DLUX_VIDEO_SMALL}
               poster={media.dluxPoster.src}
               label={`${t.featured.title} — ${t.services.web.title}`}
               playLabel={t.common.playVideo}
