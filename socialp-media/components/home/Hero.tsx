@@ -24,7 +24,7 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
 
             <h1
               id="hero-title"
-              className="mt-7 text-[clamp(3rem,8.2vw,9.5rem)] font-medium leading-[0.88] tracking-[-0.045em] text-bone sm:mt-9"
+              className="mt-7 text-[clamp(3rem,8.2vw,9.5rem)] font-medium leading-[0.98] tracking-[-0.045em] text-bone sm:mt-9"
             >
               <span className="rise">
                 <span style={{ '--delay': '150ms' } as React.CSSProperties}>{t.hero.titleA}</span>

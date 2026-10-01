@@ -18,7 +18,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-[1.05fr_0.8fr_1.1fr_1.25fr] lg:col-span-8">
+          <div className="grid grid-cols-2 gap-10 lg:col-span-8 xl:grid-cols-[1.05fr_0.8fr_1.1fr_1.25fr]">
             <div>
               <h2 className="eyebrow mb-5 text-smoke">{t.footer.servicesTitle}</h2>
               <ul className="space-y-3 text-[0.95rem] text-bone/80">
@@ -56,7 +56,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
                 </li>
               </ul>
             </div>
-            <div className="col-span-2 sm:col-span-1">
+            <div className="col-span-2 sm:col-span-1 [overflow-wrap:anywhere]">
               <h2 className="eyebrow mb-5 text-smoke">{t.footer.turkeyTitle}</h2>
               <address className="space-y-3 text-[0.95rem] not-italic text-bone/80">
                 <a href={contact.tr.phoneHref} className="link-draw block w-fit hover:text-bone">
@@ -72,7 +72,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
                 </a>
               </address>
             </div>
-            <div className="col-span-2 sm:col-span-1">
+            <div className="col-span-2 sm:col-span-1 [overflow-wrap:anywhere]">
               <h2 className="eyebrow mb-5 text-smoke">{t.footer.intlTitle}</h2>
               <address className="space-y-3 text-[0.95rem] not-italic text-bone/80">
                 <a href={contact.intl.phoneHref} className="link-draw block w-fit hover:text-bone">

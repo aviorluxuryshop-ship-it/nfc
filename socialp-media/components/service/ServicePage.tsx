@@ -283,9 +283,9 @@ function OtherServices({ locale, t, current }: { locale: Locale; t: Dictionary; 
                 />
               </div>
               <div className="flex items-center justify-between gap-6 p-6 sm:p-8">
-                <span className="flex min-w-0 items-baseline gap-4">
+                <span className="flex items-baseline gap-4">
                   <span className="eyebrow text-smoke">{t.services[id].number}</span>
-                  <span className="truncate text-[clamp(1.2rem,2vw,1.9rem)] font-medium leading-none tracking-[-0.03em] text-bone">
+                  <span className="text-[clamp(1.2rem,2vw,1.9rem)] font-medium leading-tight tracking-[-0.03em] text-bone [text-wrap:balance]">
                     {t.services[id].title}
                   </span>
                 </span>

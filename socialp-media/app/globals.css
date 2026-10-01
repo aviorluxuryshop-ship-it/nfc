@@ -98,23 +98,25 @@ html.lenis body {
     font-weight: 450;
   }
 
+  /* Line-heights leave room for Turkish marks (ç, ğ, ş, ö, ü, İ) between
+     stacked lines — tighter values made cedillas and breves touch. */
   .display-xl {
     font-size: clamp(3.1rem, 10.2vw, 11rem);
-    line-height: 0.88;
+    line-height: 0.98;
     letter-spacing: -0.045em;
     font-weight: 500;
   }
 
   .display-l {
     font-size: clamp(2.5rem, 6.6vw, 7rem);
-    line-height: 0.92;
+    line-height: 1;
     letter-spacing: -0.04em;
     font-weight: 500;
   }
 
   .display-m {
     font-size: clamp(2.1rem, 4.4vw, 4.5rem);
-    line-height: 0.98;
+    line-height: 1.04;
     letter-spacing: -0.035em;
     font-weight: 500;
   }
@@ -272,8 +274,8 @@ html.lenis body {
 .rise {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
 .rise > span {
   display: block;

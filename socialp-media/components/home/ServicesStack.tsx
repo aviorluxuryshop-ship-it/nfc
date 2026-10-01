@@ -83,7 +83,7 @@ export function ServicesStack({ locale, t }: { locale: Locale; t: Dictionary }) 
             >
               <article
                 data-card
-                className="grid origin-top overflow-hidden rounded-[2rem] border border-white/10 bg-ink-2 will-change-transform lg:h-[min(76vh,720px)] lg:grid-cols-2"
+                className="grid origin-top overflow-hidden rounded-[2rem] border border-white/10 bg-ink-2 will-change-transform lg:min-h-[min(76vh,720px)] lg:grid-cols-2"
               >
                 <ServiceCardBody id={id} locale={locale} t={t} />
                 <ServiceCardMedia id={id} t={t} />
@@ -100,10 +100,10 @@ function ServiceCardBody({ id, locale, t }: { id: ServiceId; locale: Locale; t: 
   const s = t.services[id]
   return (
     <div className="flex flex-col p-7 sm:p-10 lg:p-12">
-      <span className="eyebrow text-smoke">
+      <span className="eyebrow mb-10 text-smoke">
         {s.number} / 03
       </span>
-      <h3 className="display-m mt-10 max-w-[12ch] text-bone lg:mt-auto">{s.title}</h3>
+      <h3 className="display-m max-w-[12ch] text-bone lg:mt-auto">{s.title}</h3>
       <p className="serif-accent mt-4 text-[clamp(1.25rem,1.7vw,1.6rem)] leading-snug text-bone/70">{s.tagline}</p>
       <p className="mt-6 max-w-[46ch] text-[1.02rem] leading-relaxed text-bone/65">{s.lead}</p>
       <ul className="mt-7 flex flex-wrap gap-2">
