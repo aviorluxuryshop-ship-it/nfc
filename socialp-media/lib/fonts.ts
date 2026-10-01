@@ -13,7 +13,8 @@ const archivo = Archivo({
 const instrument = Instrument_Serif({
   subsets: ['latin', 'latin-ext'],
   weight: '400',
-  style: ['normal', 'italic'],
+  // Only the italic is used (.serif-accent); the upright cut isn't loaded.
+  style: 'italic',
   variable: '--font-instrument',
   display: 'swap',
 })
