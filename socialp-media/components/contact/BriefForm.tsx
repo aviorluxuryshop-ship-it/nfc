@@ -58,7 +58,7 @@ export function BriefForm({ t, services }: { t: Dictionary; services: string[] }
   }
 
   const field =
-    'w-full rounded-xl border border-ink/15 bg-bone px-4 py-3.5 text-[1rem] text-ink placeholder:text-ink/35 transition-colors focus:border-ink focus:outline-none'
+    'w-full rounded-xl border border-ink/15 bg-bone px-4 py-3.5 text-[1rem] text-ink placeholder:text-ink/50 transition-[border-color,box-shadow] focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/20'
 
   return (
     <form
