@@ -34,7 +34,7 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary }) {
         </h1>
 
         <div className="mt-8 flex flex-col gap-8 sm:mt-10 md:flex-row md:items-end md:justify-between">
-          <p className="lead fade-in max-w-[36ch] text-bone/75" style={{ '--delay': '650ms' } as React.CSSProperties}>
+          <p className="lead fade-in max-w-[36ch] text-bone/75 md:max-w-[64ch]" style={{ '--delay': '650ms' } as React.CSSProperties}>
             {t.hero.body}
           </p>
         </div>

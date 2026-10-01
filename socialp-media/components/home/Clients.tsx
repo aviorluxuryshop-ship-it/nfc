@@ -57,9 +57,6 @@ export function ClientsSection({ t }: { t: Dictionary }) {
               {t.clients.title}
             </h2>
           </div>
-          <p className="lead max-w-[38ch] text-bone/65 lg:col-span-5 lg:justify-self-end" data-reveal style={{ '--delay': '160ms' } as React.CSSProperties}>
-            {t.clients.body}
-          </p>
         </div>
         <Clients t={t} />
       </div>
