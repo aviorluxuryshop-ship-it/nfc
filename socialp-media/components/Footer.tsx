@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { LanguageLink } from '@/components/LanguageLink'
 import type { Dictionary } from '@/lib/content'
 import { privacy } from '@/lib/content/privacy'
 import { anchor, contact, href, SERVICE_IDS, type Locale } from '@/lib/site'
@@ -88,20 +89,20 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
         </div>
       </div>
 
-      <div className="container-x mt-16 flex flex-col gap-4 border-t border-white/10 py-7 sm:mt-24 text-[0.82rem] text-smoke sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © {year} Socialp Media. {t.footer.rights}
-        </p>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:pr-20">
-          <Link href={href(locale, 'privacy')} className="link-draw hover:text-bone">
-            {privacy[locale].footerLink}
-          </Link>
-          <Link href={locale === 'tr' ? href('en', 'home') : href('tr', 'home')} className="link-draw hover:text-bone">
-            {locale === 'tr' ? 'English' : 'Türkçe'}
-          </Link>
-          <a href="#top" className="link-draw hover:text-bone">
-            {t.footer.backToTop} ↑
-          </a>
+      <div className="container-x mt-16 sm:mt-24">
+        <div className="flex flex-col gap-4 border-t border-white/10 py-7 text-[0.82rem] text-smoke sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} Socialp Media. {t.footer.rights}
+          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:pr-20">
+            <Link href={href(locale, 'privacy')} className="link-draw hover:text-bone">
+              {privacy[locale].footerLink}
+            </Link>
+            <LanguageLink locale={locale} className="link-draw hover:text-bone" />
+            <a href="#top" className="link-draw hover:text-bone">
+              {t.footer.backToTop} ↑
+            </a>
+          </div>
         </div>
       </div>
     </footer>
