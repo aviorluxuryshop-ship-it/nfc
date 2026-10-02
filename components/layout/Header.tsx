@@ -6,6 +6,7 @@ import { ChevronRight, Globe, Menu, ShoppingBag } from 'lucide-react'
 import { useState } from 'react'
 
 import { LogoLink } from '@/components/brand/Logo'
+import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
 import { useCart } from '@/components/cart/CartProvider'
 import { ScentEmblem } from '@/components/product/ScentArt'
 import { Dialog } from '@/components/ui/Dialog'
@@ -73,16 +74,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center justify-end gap-2">
-          <a
-            href={switchHref}
-            hrefLang={otherLocale}
-            lang={otherLocale}
-            aria-label={t.nav.switchAria}
-            className="hidden h-11 items-center gap-1.5 rounded-full px-3 text-[0.9375rem] font-semibold text-ink-soft transition hover:bg-ink/5 hover:text-ink sm:inline-flex"
-          >
-            <Globe className="h-[1.1rem] w-[1.1rem]" aria-hidden="true" />
-            {t.nav.switchShort}
-          </a>
+          <LanguageSwitch className="hidden h-11 items-center gap-2 rounded-full border border-line-strong bg-white px-4 text-[0.9375rem] font-semibold transition hover:border-ink sm:inline-flex" />
           <button
             type="button"
             onClick={openCart}

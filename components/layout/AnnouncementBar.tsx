@@ -1,3 +1,4 @@
+import { LanguageSwitch } from '@/components/layout/LanguageSwitch'
 import { site } from '@/data/site'
 import { formatPrice } from '@/lib/format'
 import type { Locale } from '@/lib/i18n/config'
@@ -24,6 +25,14 @@ export function AnnouncementBar({ locale }: { locale: Locale }) {
   return (
     <div className="marquee-wrap relative overflow-hidden bg-ink text-white">
       <p className="sr-only">{items.slice(0, 2).join(' · ')}</p>
+      {/* On phones the header has no room, so the language switch sits here,
+          at the very top of the screen. Larger screens have it in the header. */}
+      <div className="absolute inset-y-0 right-0 z-10 flex items-center bg-gradient-to-l from-ink from-70% to-transparent pl-8 pr-3 sm:hidden">
+        <LanguageSwitch
+          short
+          className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-3 text-sm font-semibold text-white"
+        />
+      </div>
       <div className="marquee flex h-10 items-center text-sm font-medium" aria-hidden="true">
         {[0, 1].map((half) => (
           <div key={half} className="flex shrink-0 items-center">
