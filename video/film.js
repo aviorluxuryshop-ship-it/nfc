@@ -750,7 +750,8 @@
       })
       const sp = P(t, 19.45, 19.95, E.out4)
       put(stats, W / 2, (V ? H * 0.7 : H * 0.73) + (1 - sp) * 50 * k, { a: sp })
-      const cp = P(t, 19.6, 20.6, E.out3)
+      // numbers change once per film frame, so motion blur never mixes two digits
+      const cp = P(Math.round(t * 30) / 30, 19.6, 20.6, E.out3)
       nums.forEach((n) => {
         const v = Math.round(+n.dataset.n * cp)
         n.textContent = `${v}${n.dataset.suffix}`
@@ -875,7 +876,12 @@
 
     scene(27.45, DUR + 0.01, L, (t) => {
       const ip = P(t, 27.55, 28.25, E.io3)
-      if (ip < 1) clipCircle(L, V ? W / 2 : W * 0.68, H * 0.53, ip * FAR * 0.75)
+      // a curved wipe from off-screen (left, or top when vertical): no dot, no smudge on the box
+      if (ip < 1) {
+        const [ox, oy] = V ? [W / 2, -0.3 * H] : [-0.25 * W, H / 2]
+        const r0 = V ? 0.3 * H : 0.25 * W
+        clipCircle(L, ox, oy, mix(r0, Math.hypot(W - ox, H - oy) + 20, ip))
+      }
       else clipNone(L)
       put(cam, W / 2, H / 2, { s: 1.05 - P(t, 27.6, 32, E.out2) * 0.05 })
       put(g1, W * 0.2, H * 0.22 + Math.sin(t) * 30 * k, {})
