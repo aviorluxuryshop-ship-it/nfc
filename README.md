@@ -64,5 +64,8 @@ Site, verilmeyen hiçbir bilgiyi uydurmaz; eksik olanlar `[köşeli parantez]` i
   bloklar (`components/ui/ScrollReveal.tsx`; bir öğeye `data-reveal=""` ya da çocukları sırayla
   gelsin diye `data-reveal="stagger"` eklemek yeterli). Hepsi CSS/SVG; "hareketi azalt"
   ayarı açık olan kullanıcılarda durur.
+- Tanıtım filmi: ana sayfadaki "Tanıtım filmi" bölümü (`components/home/FilmPlayer.tsx`) `public/video/` altındaki
+  dosyaları oynatır; telefonda dikey (9:16), büyük ekranda yatay (16:9) kesit açılır ve film yalnızca oynat'a basılınca
+  iner. Filmin kaynağı, müziği ve yeniden üretme adımları `video/README.md` içinde.
 - Çerez izni KVKK rehberine uygun: "Kabul Et" ve "Reddet" eşit ağırlıkta, kategoriler ayrı ayrı seçilebilir.
   Analitik/pazarlama etiketleri eklenirse yalnızca `useConsent()` izin verdiğinde yüklenmelidir.
