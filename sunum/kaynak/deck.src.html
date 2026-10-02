@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Neden Socialp Media?</title>
+<style>
+/* Socialp Media marka fontları — web sitesinden: Archivo (değişken) + Instrument Serif Italic */
+@font-face{font-family:Archivo;font-style:normal;font-weight:100 900;font-stretch:62% 125%;src:url(fonts/4ae66b896b591e96-s.p.02aqyp7acl16b.woff2) format("woff2");unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Archivo;font-style:normal;font-weight:100 900;font-stretch:62% 125%;src:url(fonts/21ca8f3f56c22ca2-s.p.14a9xpaqsbppk.woff2) format("woff2");unicode-range:U+0000-00FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;src:url(fonts/fc0a7394b875fa43-s.p.3zvkfbs08rnj_.woff2) format("woff2");unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;src:url(fonts/7ebf22b5a21034f8-s.p.3strvg7o-g5v2.woff2) format("woff2");unicode-range:U+0000-00FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --ink:#0b0b0c; --ink-2:#131315; --ink-3:#1c1c1f;
+  --paper:#f2f0eb; --paper-2:#e6e3dc; --bone:#fbfaf7;
+  --smoke:#9b9993; --graphite:#5f5d58;
+  --signal:#970f18; --signal-deep:#7a0b13; --hot:#e5383b;
+  --gx:120px;
+}
+@page{size:1920px 1080px;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ink)}
+body{font-family:Archivo,Arial,sans-serif;word-spacing:.05em;-webkit-font-smoothing:antialiased;font-kerning:normal;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+img{display:block}
+
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;break-after:page;page-break-after:always}
+.slide:last-child{break-after:auto;page-break-after:auto}
+.dark{background:var(--ink);color:var(--bone)}
+.light{background:var(--paper);color:var(--ink)}
+.red{background:var(--signal);color:var(--bone)}
+
+/* Tipografi */
+.serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.display{font-weight:500;letter-spacing:-.045em;line-height:.94;word-spacing:.04em}
+.eyebrow{font-stretch:125%;font-size:19px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;line-height:1.3;display:flex;align-items:center}
+.eyebrow .dot{width:10px;height:10px;border-radius:50%;background:var(--hot);margin-right:18px;flex:none}
+.idx{font-stretch:125%;font-size:19px;letter-spacing:.24em;font-weight:500}
+.muted-d{color:rgba(251,250,247,.56)}
+.muted-l{color:var(--graphite)}
+.lead{font-size:30px;line-height:1.45;letter-spacing:-.012em}
+.sub{font-size:46px;line-height:1.1}
+
+/* Çerçeve */
+.frame-top{position:absolute;top:60px;left:var(--gx);right:var(--gx);display:flex;justify-content:space-between;align-items:center;z-index:5}
+.frame-bot{position:absolute;bottom:52px;left:var(--gx);right:var(--gx);display:flex;justify-content:space-between;align-items:center;z-index:5}
+.frame-bot .eyebrow,.frame-top .eyebrow{font-size:16px}
+.logo-h{height:26px;width:auto;color:inherit}
+.pg{font-stretch:125%;font-size:16px;letter-spacing:.24em;font-weight:500}
+
+.pill{display:inline-flex;align-items:center;height:56px;padding:0 26px;border-radius:999px;font-size:22px;letter-spacing:-.01em;white-space:nowrap}
+.pill-d{border:1px solid rgba(251,250,247,.18);color:var(--bone)}
+.pill-l{border:1px solid rgba(11,11,12,.16);color:var(--ink)}
+.pill-solid{background:var(--bone);color:var(--ink);font-weight:500}
+.rule-d{height:1px;background:rgba(251,250,247,.14)}
+.rule-l{height:1px;background:rgba(11,11,12,.14)}
+.photo{border-radius:24px;overflow:hidden;position:relative;background:var(--ink-3)}
+.photo img{width:100%;height:100%;object-fit:cover}
+</style>
+</head>
+<body>
+{{LOGO_DEFS}}
+
+<!-- ============ 01 · KAPAK ============ -->
+<section class="slide dark" id="s1">
+  <div class="frame-top">
+    <svg class="logo-h" style="height:30px" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Sosyal medya ajansı — İstanbul</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:236px;width:1060px">
+    <div class="eyebrow"><span class="dot"></span>Teklif dosyası eki</div>
+    <h1 class="display" style="font-size:236px;font-weight:600;margin-top:44px;letter-spacing:-.05em">NEDEN</h1>
+    <div class="serif" style="font-size:176px;line-height:.92;margin-top:-6px;color:var(--bone)">Socialp Media?</div>
+    <p class="lead muted-d" style="margin-top:64px;max-width:820px;font-size:34px;line-height:1.35">
+      Paylaşım yapan bir ekip değil; dijital büyümenizi yöneten
+      <span class="serif" style="color:var(--bone);font-size:42px">çözüm ortağınız.</span>
+    </p>
+  </div>
+
+  <div class="photo" style="position:absolute;left:1236px;top:372px;width:250px;height:400px;opacity:.9">
+    <img src="img/showroom-rig.jpg" alt="" style="object-position:50% 50%">
+  </div>
+  <div class="photo" style="position:absolute;left:1510px;top:236px;width:330px;height:600px">
+    <img src="img/tepsi-instagram.jpg" alt="" style="object-position:50% 40%">
+  </div>
+  <div class="photo" style="position:absolute;left:1864px;top:320px;width:330px;height:470px;opacity:.9">
+    <img src="img/konsept-video-cekimi.jpg" alt="">
+  </div>
+
+  <div class="frame-bot" style="border-top:1px solid rgba(251,250,247,.12);padding-top:28px;bottom:48px">
+    <span class="eyebrow muted-d">Strateji · Prodüksiyon · Reklam yönetimi</span>
+    <span class="eyebrow muted-d" lang="en">socialpmedia.com</span>
+    <span class="eyebrow muted-d">İstanbul, 2021’den beri</span>
+  </div>
+</section>
+
+<!-- ============ 02 · YAKLAŞIM ============ -->
+<section class="slide light" id="s2">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-l">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:210px;width:380px">
+    <div class="eyebrow muted-l"><span class="dot"></span>Yaklaşımımız</div>
+    <div class="photo" style="margin-top:44px;width:380px;height:600px"><img src="img/ofis.jpg" alt="Socialp Media ofis tabelası" style="object-position:50% 45%"></div>
+  </div>
+
+  <div style="position:absolute;left:620px;right:var(--gx);top:214px">
+    <p class="display" style="font-size:80px;line-height:1.04;letter-spacing:-.04em">
+      <span style="color:#a3a09a">İçerik üretmek, işin yalnızca bir parçası.</span>
+      Biz markanızın dijital büyümesini
+      <span class="serif" style="color:var(--signal);font-size:92px;letter-spacing:-.01em">stratejiden sonuca</span>
+      kadar yönetiyoruz.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:72px;border:1px solid rgba(11,11,12,.14);border-radius:24px;overflow:hidden">
+      <div style="padding:34px 36px;border-right:1px solid rgba(11,11,12,.14)">
+        <div class="display" style="font-size:76px">2021</div>
+        <div class="eyebrow muted-l" style="font-size:16px;margin-top:18px">Kuruluş yılı</div>
+      </div>
+      <div style="padding:34px 36px;border-right:1px solid rgba(11,11,12,.14)">
+        <div class="display" style="font-size:76px">100+</div>
+        <div class="eyebrow muted-l" style="font-size:16px;margin-top:18px">İş birliği yapılan marka</div>
+      </div>
+      <div style="padding:34px 36px">
+        <div class="display" style="font-size:76px">5 ülke</div>
+        <div class="eyebrow muted-l" style="font-size:16px;margin-top:18px">Uluslararası iletişim hattı</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-l" lang="en">socialpmedia.com</span><span class="pg muted-l">02</span></div>
+</section>
+
+<!-- ============ 03 · YEDİ FARK ============ -->
+<section class="slide dark" id="s3">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:200px;width:620px">
+    <div class="eyebrow muted-d"><span class="dot"></span>Bu dosyada</div>
+    <h2 class="display" style="font-size:118px;margin-top:44px">Yedi fark,</h2>
+    <div class="serif" style="font-size:110px;line-height:.98;margin-top:6px">tek bir<br>ortaklık.</div>
+    <p class="lead muted-d" style="margin-top:48px;max-width:520px">Bizimle çalışmayı farklı kılan, kısaca bunlar.</p>
+  </div>
+
+  <div style="position:absolute;left:860px;right:var(--gx);top:196px">
+    <style>
+      #s3 .row{display:grid;grid-template-columns:96px 1fr auto;align-items:baseline;padding:22px 0;border-top:1px solid rgba(251,250,247,.12)}
+      #s3 .row:last-child{border-bottom:1px solid rgba(251,250,247,.12)}
+      #s3 .n{font-size:44px;color:var(--hot)}
+      #s3 .t{font-size:36px;letter-spacing:-.025em;font-weight:500}
+      #s3 .k{font-size:22px;color:rgba(251,250,247,.5);letter-spacing:-.005em}
+    </style>
+    <div class="row"><span class="serif n">01</span><span class="t">Profesyonel Reklam Yönetimi</span><span class="k">Doğru kitle, doğru strateji</span></div>
+    <div class="row"><span class="serif n">02</span><span class="t">Şeffaf Raporlama</span><span class="k">Her ay ölçülebilir sonuçlar</span></div>
+    <div class="row"><span class="serif n">03</span><span class="t">İşletmenize Özel Çözümler</span><span class="k">Hazır paket değil, size özel</span></div>
+    <div class="row"><span class="serif n">04</span><span class="t">Profesyonel Çekim &amp; İçerik Üretimi</span><span class="k">Ekip ve ekipman bizden</span></div>
+    <div class="row"><span class="serif n">05</span><span class="t">Esnek İş Birliği</span><span class="k">Uzun vadeli taahhüt yok</span></div>
+    <div class="row"><span class="serif n">06</span><span class="t">Sürekli Danışmanlık &amp; Stratejik Destek</span><span class="k">Her adımda yanınızda</span></div>
+    <div class="row"><span class="serif n">07</span><span class="t">Tek Noktadan Dijital Çözüm</span><span class="k">Tüm süreçler tek çatıda</span></div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-d" lang="en">socialpmedia.com</span><span class="pg muted-d">03</span></div>
+</section>
+
+<!-- ============ 04 · 01 REKLAM YÖNETİMİ ============ -->
+<section class="slide dark" id="s4">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:140px;bottom:124px;border-radius:32px;overflow:hidden;background:var(--ink-2);border:1px solid rgba(251,250,247,.08);display:grid;grid-template-columns:1fr 1fr">
+    <div style="padding:64px 72px;display:flex;flex-direction:column">
+      <span class="idx muted-d">01 / 07</span>
+      <h2 class="display" style="font-size:84px;margin-top:52px">Profesyonel<br>Reklam Yönetimi</h2>
+      <p class="serif sub" style="margin-top:26px;color:rgba(251,250,247,.86)">Doğru hedef kitleye, doğru stratejiyle ulaşın.</p>
+      <p class="lead muted-d" style="margin-top:26px;font-size:27px;max-width:640px">Meta ve Google reklamlarınızı yalnızca yayınlamıyor; uçtan uca yönetiyoruz.</p>
+      <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(251,250,247,.12);border-radius:20px;overflow:hidden">
+        <style>#s4 .c{padding:20px 24px;font-size:25px;letter-spacing:-.015em;display:flex;align-items:center;gap:16px}#s4 .c i{font-style:normal;font-stretch:125%;font-size:15px;letter-spacing:.2em;color:var(--hot)}</style>
+        <div class="c" style="border-right:1px solid rgba(251,250,247,.12);border-bottom:1px solid rgba(251,250,247,.12)"><i>01</i>Hedefleme</div>
+        <div class="c" style="border-bottom:1px solid rgba(251,250,247,.12)"><i>02</i>Bütçe yönetimi</div>
+        <div class="c" style="border-right:1px solid rgba(251,250,247,.12)"><i>03</i>Optimizasyon</div>
+        <div class="c"><i>04</i>Performans takibi</div>
+      </div>
+    </div>
+    <div style="position:relative;overflow:hidden">
+      <img src="img/tepsi-meta.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%">
+      <!-- Hedefleme metaforu: Meta logosunun etrafında nişangâh -->
+      <svg viewBox="0 0 840 816" style="position:absolute;inset:0;width:100%;height:100%" fill="none">
+        <g stroke="#fbfaf7" stroke-opacity=".55">
+          <circle cx="408" cy="392" r="186" stroke-width="1.5"/>
+          <circle cx="408" cy="392" r="262" stroke-width="1" stroke-opacity=".3" stroke-dasharray="4 10"/>
+          <circle cx="408" cy="392" r="340" stroke-width="1" stroke-opacity=".16"/>
+          <path d="M408 186v40M408 558v40M202 392h40M574 392h40" stroke-width="2" stroke-opacity=".8"/>
+        </g>
+        <circle cx="539.5" cy="260.5" r="7" fill="#fbfaf7"/>
+      </svg>
+      <div style="position:absolute;left:566px;top:216px;padding:10px 18px;border-radius:999px;background:rgba(11,11,12,.72);font-size:18px;letter-spacing:.02em;color:var(--bone);white-space:nowrap">Hedef kitle</div>
+      <div style="position:absolute;left:40px;top:40px;display:flex;gap:12px">
+        <span class="pill" style="background:rgba(11,11,12,.72);color:var(--bone);height:50px;font-size:20px">Meta Ads</span>
+        <span class="pill" style="background:rgba(11,11,12,.72);color:var(--bone);height:50px;font-size:20px">Google Ads</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-d" lang="en">socialpmedia.com</span><span class="pg muted-d">04</span></div>
+</section>
+
+<!-- ============ 05 · 02 ŞEFFAF RAPORLAMA ============ -->
+<section class="slide light" id="s5">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-l">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:196px;width:600px">
+    <span class="idx muted-l">02 / 07</span>
+    <h2 class="display" style="font-size:112px;margin-top:48px">Şeffaf<br>Raporlama</h2>
+    <p class="serif sub" style="margin-top:28px;color:var(--signal)">Ne yaptığımızı ve sonuçlarını her zaman bilin.</p>
+    <p class="lead muted-l" style="margin-top:28px;font-size:28px">Her ay sonunda reklam, sosyal medya ve dijital çalışmalarınızın sonuçlarını raporluyoruz.</p>
+    <div style="margin-top:44px">
+      <style>#s5 .kw{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid rgba(11,11,12,.14);font-size:26px;letter-spacing:-.015em}#s5 .kw:last-child{border-bottom:1px solid rgba(11,11,12,.14)}#s5 .kw i{font-style:normal;font-stretch:125%;font-size:15px;letter-spacing:.22em;color:var(--graphite)}</style>
+      <div class="kw">Aylık rapor<i>HER AY</i></div>
+      <div class="kw">Ölçülebilir süreç<i>VERİYLE</i></div>
+      <div class="kw">Tam şeffaflık<i>HER ZAMAN</i></div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div style="position:absolute;left:830px;right:var(--gx);top:160px;bottom:132px;background:var(--bone);border:1px solid rgba(11,11,12,.08);border-radius:28px;box-shadow:0 50px 90px -50px rgba(11,11,12,.35);padding:40px 44px;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;align-items:center;gap:20px">
+        <span style="width:44px;height:44px;border-radius:12px;background:var(--ink);display:grid;place-items:center">
+          <span style="width:12px;height:12px;border-radius:50%;background:var(--hot)"></span>
+        </span>
+        <div>
+          <div style="font-size:26px;font-weight:500;letter-spacing:-.02em">Aylık Performans Raporu</div>
+          <div style="font-size:17px;color:var(--graphite);margin-top:4px">Reklam · Sosyal medya · Web</div>
+        </div>
+      </div>
+      <span class="pill pill-l" style="height:44px;font-size:18px;padding:0 20px">Dönem: Eylül</span>
+    </div>
+
+    <style>
+      #s5 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+      #s5 .kpi{border:1px solid rgba(11,11,12,.1);border-radius:18px;padding:20px 22px;background:#fff}
+      #s5 .kpi .l{font-stretch:125%;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite)}
+      #s5 .kpi .v{font-size:46px;font-weight:500;letter-spacing:-.04em;margin-top:12px;line-height:1}
+      #s5 .kpi .d{font-size:19px;color:var(--signal);margin-top:10px;font-weight:500}
+    </style>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Erişim</div><div class="v">248 B</div><div class="d">↑ %18</div></div>
+      <div class="kpi"><div class="l">Etkileşim</div><div class="v">%6,4</div><div class="d">↑ 1,2 puan</div></div>
+      <div class="kpi"><div class="l">Tıklama</div><div class="v">12,8 B</div><div class="d">↑ %24</div></div>
+      <div class="kpi"><div class="l">Dönüşüm</div><div class="v">384</div><div class="d">↑ %31</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:18px;margin-top:18px;flex:1">
+      <div style="border:1px solid rgba(11,11,12,.1);border-radius:18px;padding:22px 24px;background:#fff;display:flex;flex-direction:column">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <span style="font-size:20px;font-weight:500;letter-spacing:-.01em">Aylık erişim</span>
+          <span style="font-size:15px;color:var(--graphite)">Son 6 ay · bin kişi</span>
+        </div>
+        <svg viewBox="0 0 520 380" preserveAspectRatio="xMidYMid meet" style="width:100%;flex:1;min-height:0;margin-top:14px" font-family="Archivo">
+          <g stroke="#0b0b0c" stroke-opacity=".08" stroke-width="1">
+            <line x1="0" y1="85" x2="520" y2="85"/><line x1="0" y1="185" x2="520" y2="185"/><line x1="0" y1="260" x2="520" y2="260"/>
+          </g>
+          <line x1="0" y1="335" x2="520" y2="335" stroke="#0b0b0c" stroke-opacity=".25"/>
+          <!-- değerler (bin kişi): 112, 138, 131, 169, 210, 248 -->
+          <g fill="#d8d4cb">
+            <path d="M24 335V203.5A4 4 0 0 1 28 199.5H72A4 4 0 0 1 76 203.5V335Z"/>
+            <path d="M110 335V172.1A4 4 0 0 1 114 168.1H158A4 4 0 0 1 162 172.1V335Z"/>
+            <path d="M196 335V180.5A4 4 0 0 1 200 176.5H244A4 4 0 0 1 248 180.5V335Z"/>
+            <path d="M282 335V134.6A4 4 0 0 1 286 130.6H330A4 4 0 0 1 334 134.6V335Z"/>
+            <path d="M368 335V85.0A4 4 0 0 1 372 81.0H416A4 4 0 0 1 420 85.0V335Z"/>
+          </g>
+          <path d="M454 335V39.0A4 4 0 0 1 458 35.0H502A4 4 0 0 1 506 39.0V335Z" fill="#970f18"/>
+          <text x="480" y="25.0" text-anchor="middle" font-size="18" font-weight="600" fill="#0b0b0c">248</text>
+          <g font-size="16" fill="#5f5d58" text-anchor="middle">
+            <text x="50" y="362">Nis</text><text x="136" y="362">May</text><text x="222" y="362">Haz</text><text x="308" y="362">Tem</text><text x="394" y="362">Ağu</text><text x="480" y="362" fill="#0b0b0c" font-weight="600">Eyl</text>
+          </g>
+        </svg>
+      </div>
+      <div style="border:1px solid rgba(11,11,12,.1);border-radius:18px;padding:22px 24px;background:#fff;display:flex;flex-direction:column">
+        <div style="font-size:20px;font-weight:500;letter-spacing:-.01em">Bütçe dağılımı</div>
+        <style>#s5 .br{margin-top:22px}#s5 .br .h{display:flex;justify-content:space-between;font-size:18px}#s5 .br .h b{font-weight:600}#s5 .br .t{height:10px;border-radius:5px;background:#ece9e2;margin-top:10px;overflow:hidden}#s5 .br .t span{display:block;height:100%;border-radius:5px;background:var(--ink)}</style>
+        <div class="br"><div class="h"><span>Meta reklamları</span><b>%52</b></div><div class="t"><span style="width:52%"></span></div></div>
+        <div class="br"><div class="h"><span>Google reklamları</span><b>%33</b></div><div class="t"><span style="width:33%"></span></div></div>
+        <div class="br"><div class="h"><span>İçerik destekleme</span><b>%15</b></div><div class="t"><span style="width:15%"></span></div></div>
+        <div style="margin-top:auto;border-radius:14px;background:var(--paper);padding:16px 18px">
+          <div style="font-stretch:125%;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal)">Sonraki ay önerisi</div>
+          <div style="font-size:18px;line-height:1.35;margin-top:8px">Bütçeyi dönüşüm getiren kampanyalara kaydırın.</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:16px;color:var(--graphite);margin-top:16px">Temsili rapor görünümüdür; değerler örnek amaçlıdır.</div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-l" lang="en">socialpmedia.com</span><span class="pg muted-l">05</span></div>
+</section>
+
+<!-- ============ 06 · 03 ÖZEL ÇÖZÜMLER ============ -->
+<section class="slide dark" id="s6" style="background:var(--ink-2)">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:196px;width:640px">
+    <span class="idx muted-d">03 / 07</span>
+    <h2 class="display" style="font-size:96px;margin-top:48px">İşletmenize<br>Özel Çözümler</h2>
+    <p class="serif sub" style="margin-top:28px;color:rgba(251,250,247,.88)">Hazır paketlere değil, işletmenize odaklanıyoruz.</p>
+    <p class="lead muted-d" style="margin-top:28px;font-size:28px">Her işletmenin hedefi, bütçesi ve ihtiyacı farklıdır. Çalışma modelinizi bu üçüne göre, size özel kuruyoruz.</p>
+    <div style="margin-top:48px;display:flex;align-items:baseline;gap:18px;font-size:34px;letter-spacing:-.025em;font-weight:500;white-space:nowrap">
+      <span>Hedef</span><span style="color:var(--hot)">+</span><span>Bütçe</span><span style="color:var(--hot)">+</span><span>İhtiyaç</span><span style="color:var(--hot)">=</span><span class="serif" style="font-size:42px">size özel model</span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:880px;right:var(--gx);top:196px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="eyebrow muted-d" style="font-size:16px">Örnek çalışma modeli</span>
+      <span style="display:flex;gap:28px;font-size:18px;color:rgba(251,250,247,.6)">
+        <span style="display:flex;align-items:center;gap:10px"><span style="width:16px;height:16px;border-radius:5px;background:var(--signal)"></span>Sizin için seçilen</span>
+        <span style="display:flex;align-items:center;gap:10px"><span style="width:16px;height:16px;border-radius:5px;border:1px solid rgba(251,250,247,.35)"></span>İhtiyaç olursa eklenir</span>
+      </span>
+    </div>
+    <style>
+      #s6 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+      #s6 .m{height:168px;border-radius:20px;border:1px solid rgba(251,250,247,.12);padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;color:rgba(251,250,247,.5)}
+      #s6 .m i{font-style:normal;font-stretch:125%;font-size:14px;letter-spacing:.22em}
+      #s6 .m b{font-weight:500;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+      #s6 .m.on{background:var(--signal);border-color:var(--signal);color:var(--bone)}
+      #s6 .m.on i{color:rgba(251,250,247,.7)}
+    </style>
+    <div class="grid">
+      <div class="m on"><i>01</i><b>Sosyal medya<br>yönetimi</b></div>
+      <div class="m"><i>02</i><b>Web tasarım<br>&amp; kurulum</b></div>
+      <div class="m on"><i>03</i><b>Meta<br>reklamları</b></div>
+      <div class="m"><i>04</i><b>Google<br>reklamları</b></div>
+      <div class="m"><i>05</i><b>SEO<br>çalışmaları</b></div>
+      <div class="m on"><i>06</i><b>Fotoğraf<br>çekimi</b></div>
+      <div class="m on"><i>07</i><b>Video<br>prodüksiyon</b></div>
+      <div class="m"><i>08</i><b>Kurumsal<br>kimlik</b></div>
+      <div class="m"><i>09</i><b>Kreatif<br>tasarım</b></div>
+      <div class="m on"><i>10</i><b>İçerik<br>planlama</b></div>
+      <div class="m"><i>11</i><b>Topluluk<br>yönetimi</b></div>
+      <div class="m on"><i>12</i><b>Danışmanlık</b></div>
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-d" lang="en">socialpmedia.com</span><span class="pg muted-d">06</span></div>
+</section>
+
+<!-- ============ 07 · 04 ÇEKİM & İÇERİK ============ -->
+<section class="slide dark" id="s7">
+  <style>
+    #s7 .col{position:absolute;width:318px;display:flex;flex-direction:column;gap:18px}
+    #s7 .ph{position:relative;border-radius:22px;overflow:hidden;background:var(--ink-3)}
+    #s7 .ph img{width:100%;height:100%;object-fit:cover}
+    #s7 .ph span{position:absolute;left:16px;bottom:16px;padding:8px 14px;border-radius:999px;background:rgba(11,11,12,.72);font-size:16px;color:var(--bone)}
+  </style>
+  <div class="col" style="left:850px;top:-90px">
+    <div class="ph" style="height:520px"><img src="img/showroom-cekimi.jpg" alt=""><span>Showroom çekimi</span></div>
+    <div class="ph" style="height:520px"><img src="img/guzellik-merkezi-cekimi.jpg" alt=""><span>Güzellik merkezi çekimi</span></div>
+    <div class="ph" style="height:400px"><img src="img/roportaj-studyo.jpg" alt="" style="object-position:50% 35%"></div>
+  </div>
+  <div class="col" style="left:1186px;top:40px">
+    <div class="ph" style="height:470px"><img src="img/konsept-video-cekimi.jpg" alt=""><span>Konsept video çekimi</span></div>
+    <div class="ph" style="height:560px"><img src="img/restoran-icerik-cekimi.jpg" alt="" style="object-position:50% 60%"><span>Restoran içerik çekimi</span></div>
+  </div>
+  <div class="col" style="left:1522px;top:-140px">
+    <div class="ph" style="height:560px"><img src="img/roportaj-cekimi.jpg" alt=""><span>Röportaj çekimi</span></div>
+    <div class="ph" style="height:520px"><img src="img/mekan-cekimi.jpg" alt=""><span>Mekân çekimi</span></div>
+    <div class="ph" style="height:400px"><img src="img/sahne-cekimi.jpg" alt=""></div>
+  </div>
+  <div style="position:absolute;left:800px;top:0;bottom:0;width:90px;background:linear-gradient(90deg,var(--ink),rgba(11,11,12,0))"></div>
+
+  <div class="frame-top" style="right:auto;width:600px">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:196px;width:640px">
+    <span class="idx muted-d">04 / 07</span>
+    <h2 class="display" style="font-size:80px;margin-top:48px;white-space:nowrap">Profesyonel Çekim<br>&amp; İçerik Üretimi</h2>
+    <p class="serif sub" style="margin-top:28px;color:rgba(251,250,247,.88)">Markanızı profesyonel ekip ve ekipmanlarla yansıtıyoruz.</p>
+    <p class="lead muted-d" style="margin-top:28px;font-size:28px">Çekimden montaja kadar tüm üretim süreci tek ekipte.</p>
+    <div style="margin-top:120px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(251,250,247,.16)">
+      <style>#s7 .st{padding-top:18px}#s7 .st i{font-style:normal;font-stretch:125%;font-size:14px;letter-spacing:.22em;color:var(--hot)}#s7 .st b{display:block;font-weight:500;font-size:28px;letter-spacing:-.02em;margin-top:10px}</style>
+      <div class="st"><i>01</i><b>Fotoğraf</b></div>
+      <div class="st"><i>02</i><b>Video</b></div>
+      <div class="st"><i>03</i><b>Kurgu</b></div>
+      <div class="st"><i>04</i><b>Montaj</b></div>
+    </div>
+  </div>
+
+  <div class="frame-bot" style="right:auto;width:600px"><span class="eyebrow muted-d" lang="en">socialpmedia.com</span><span class="pg muted-d">07</span></div>
+</section>
+
+<!-- ============ 08 · 05 ESNEK İŞ BİRLİĞİ ============ -->
+<section class="slide red" id="s8">
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 80% 10%,rgba(229,56,59,.35),rgba(151,15,24,0) 60%),radial-gradient(90% 80% at 0% 100%,rgba(122,11,19,.9),rgba(122,11,19,0) 70%)"></div>
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow" style="color:rgba(251,250,247,.7)">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:196px">
+    <span class="idx" style="color:rgba(251,250,247,.7)">05 / 07 — ESNEK İŞ BİRLİĞİ</span>
+    <h2 class="display" style="font-size:150px;margin-top:64px;line-height:.98">Sözleşmeyle değil,</h2>
+    <div style="display:flex;align-items:baseline;gap:36px;margin-top:4px">
+      <span class="serif" style="font-size:176px;line-height:1">kaliteyle</span>
+      <span class="display" style="font-size:150px">yanınızdayız.</span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);bottom:128px;border-top:1px solid rgba(251,250,247,.28);padding-top:40px;display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start">
+    <p class="lead" style="font-size:32px;color:rgba(251,250,247,.9)">İşletmenizi uzun süreli sözleşmelere bağlı bırakmıyoruz. Sizi yanımızda tutan tek şey, işimizin kalitesi.</p>
+    <div style="display:flex;flex-direction:column;gap:14px;font-size:34px;letter-spacing:-.02em">
+      <span style="text-decoration:line-through;text-decoration-thickness:2px;color:rgba(251,250,247,.5)">Uzun vadeli taahhüt</span>
+      <span style="text-decoration:line-through;text-decoration-thickness:2px;color:rgba(251,250,247,.5)">Zorlayıcı bağlayıcılık</span>
+      <span style="font-weight:500">Esnek ve şeffaf iş birliği</span>
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow" style="color:rgba(251,250,247,.7)" lang="en">socialpmedia.com</span><span class="pg" style="color:rgba(251,250,247,.7)">08</span></div>
+</section>
+
+<!-- ============ 09 · 06 DANIŞMANLIK ============ -->
+<section class="slide light" id="s9">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-l">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:196px;width:960px">
+    <span class="idx muted-l">06 / 07</span>
+    <h2 class="display" style="font-size:104px;margin-top:48px">Sürekli Danışmanlık<br>&amp; Stratejik Destek</h2>
+  </div>
+  <div style="position:absolute;left:1180px;right:var(--gx);top:300px">
+    <p class="serif" style="font-size:54px;line-height:1.08;color:var(--signal)">Sadece içerik üretmiyor, markanıza yol gösteriyoruz.</p>
+    <p class="lead muted-l" style="margin-top:28px;font-size:28px">Süreç boyunca ihtiyaçlarınızı değerlendiriyor, gerek duyduğunuz her noktada danışmanlık sağlıyoruz.</p>
+  </div>
+
+  <!-- Süreç boyunca destek çizgisi -->
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:668px">
+    <div style="display:flex;justify-content:space-between;align-items:center" class="eyebrow muted-l">
+      <span style="font-size:15px">Başlangıç</span><span style="font-size:15px">Süreç boyunca →</span>
+    </div>
+    <div style="position:relative;height:28px;margin-top:14px">
+      <div style="position:absolute;left:0;right:0;top:13px;height:2px;background:linear-gradient(90deg,var(--signal),rgba(151,15,24,.15))"></div>
+      <style>#s9 .nd{position:absolute;top:4px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--signal)}#s9 .nd::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--signal)}</style>
+      <span class="nd" style="left:0"></span><span class="nd" style="left:25%"></span><span class="nd" style="left:50%"></span><span class="nd" style="left:75%"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);margin-top:28px">
+      <style>#s9 .a b{display:block;font-weight:500;font-size:38px;letter-spacing:-.025em}#s9 .a span{display:block;font-size:25px;color:var(--graphite);margin-top:12px;line-height:1.35;padding-right:48px}</style>
+      <div class="a"><b>Sosyal medya</b><span>İçerik yönü, iletişim dili ve planlama</span></div>
+      <div class="a"><b>Reklam</b><span>Bütçe, hedef ve kampanya kurgusu</span></div>
+      <div class="a"><b>Dijital pazarlama</b><span>Doğru kanal, yeni büyüme fırsatları</span></div>
+      <div class="a"><b>Marka iletişimi</b><span>Tutarlı dil ve güçlü konumlandırma</span></div>
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-l" lang="en">socialpmedia.com</span><span class="pg muted-l">09</span></div>
+</section>
+
+<!-- ============ 10 · 07 TEK NOKTA ============ -->
+<section class="slide dark" id="s10">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);top:196px;width:700px">
+    <span class="idx muted-d">07 / 07</span>
+    <h2 class="display" style="font-size:96px;margin-top:48px">Tek Noktadan<br>Dijital Çözüm</h2>
+    <p class="serif sub" style="margin-top:28px;color:rgba(251,250,247,.88)">Farklı ihtiyaçlar için farklı ajanslarla çalışmak zorunda kalmayın.</p>
+    <div style="margin-top:52px">
+      <div style="display:grid;grid-template-columns:220px 1fr;padding:20px 0;border-top:1px solid rgba(251,250,247,.12);font-size:25px;color:rgba(251,250,247,.42)">
+        <span class="eyebrow" style="font-size:15px">Ayrı ajanslar</span><span style="text-decoration:line-through;text-decoration-thickness:1.5px">Dağınık iletişim, kopuk süreçler</span>
+      </div>
+      <div style="display:grid;grid-template-columns:220px 1fr;padding:20px 0;border-top:1px solid rgba(251,250,247,.12);border-bottom:1px solid rgba(251,250,247,.12);font-size:25px">
+        <span class="eyebrow" lang="en" style="font-size:15px;color:var(--hot)">Socialp Media</span><span>Tek ekip, tek strateji, tek muhatap</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:1000px;top:130px;width:820px;height:820px">
+    <svg viewBox="0 0 820 820" style="position:absolute;inset:0;width:100%;height:100%" fill="none">
+      <circle cx="410" cy="410" r="392" stroke="#fbfaf7" stroke-opacity=".08" stroke-dasharray="3 9"/>
+      <circle cx="410" cy="410" r="300" stroke="#fbfaf7" stroke-opacity=".16"/>
+      <g stroke="#fbfaf7" stroke-opacity=".14">
+        <line x1="410" y1="410" x2="410" y2="110"/><line x1="410" y1="410" x2="670" y2="260"/><line x1="410" y1="410" x2="670" y2="560"/>
+        <line x1="410" y1="410" x2="410" y2="710"/><line x1="410" y1="410" x2="150" y2="560"/><line x1="410" y1="410" x2="150" y2="260"/>
+      </g>
+      <circle cx="410" cy="410" r="210" fill="#970f18" fill-opacity=".14"/>
+      <circle cx="410" cy="410" r="150" fill="#970f18"/>
+    </svg>
+    <svg viewBox="0 0 2964 1192" style="position:absolute;left:300px;top:366px;width:220px;height:88px;color:var(--bone)" role="img" aria-label="Socialp Media"><use href="#sp-logo" width="2964" height="1192"/></svg>
+    <style>#s10 .nd{position:absolute;transform:translate(-50%,-50%);padding:0 24px;height:58px;display:flex;align-items:center;gap:12px;border-radius:999px;background:var(--ink-2);border:1px solid rgba(251,250,247,.16);font-size:23px;letter-spacing:-.015em;white-space:nowrap}#s10 .nd::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--hot)}</style>
+    <div class="nd" style="left:410px;top:110px">Sosyal Medya</div>
+    <div class="nd" style="left:670px;top:260px">Meta Reklamları</div>
+    <div class="nd" style="left:670px;top:560px">Google Reklamları</div>
+    <div class="nd" style="left:410px;top:710px">İçerik Üretimi</div>
+    <div class="nd" style="left:150px;top:560px">SEO</div>
+    <div class="nd" style="left:150px;top:260px">Web Tasarım</div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-d" lang="en">socialpmedia.com</span><span class="pg muted-d">10</span></div>
+</section>
+
+<!-- ============ 11 · ÇALIŞMA YAKLAŞIMI ============ -->
+<section class="slide light" id="s11">
+  <div class="frame-top">
+    <svg class="logo-h" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-l">Neden&nbsp;<span lang="en">Socialp Media</span>?</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:196px">
+    <div class="eyebrow muted-l"><span class="dot"></span><span lang="en">Socialp Media</span>&nbsp;ile çalışma yaklaşımı</div>
+    <h2 class="display" style="font-size:112px;margin-top:44px">Stratejiden gelişime,</h2>
+    <div class="serif" style="font-size:120px;line-height:1;margin-top:2px;color:var(--signal)">kesintisiz bir döngü.</div>
+  </div>
+
+  <svg viewBox="0 0 400 400" style="position:absolute;right:var(--gx);top:150px;width:380px;height:380px" fill="none" aria-hidden="true">
+      <circle cx="200" cy="200" r="150" stroke="#0b0b0c" stroke-opacity=".18" stroke-width="1.5"/>
+      <path d="M154.7 45.5 L166.7 54.5 L154.7 63.5" stroke="#970f18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="200.0" cy="50.0" r="9" fill="#970f18"/><text x="200.0" y="20.0" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="30" fill="#970f18">01</text><circle cx="342.7" cy="153.6" r="9" fill="#970f18"/><text x="380.7" y="151.3" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="30" fill="#970f18">02</text><circle cx="288.2" cy="321.4" r="9" fill="#970f18"/><text x="311.7" y="363.7" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="30" fill="#970f18">03</text><circle cx="111.8" cy="321.4" r="9" fill="#970f18"/><text x="88.3" y="363.7" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="30" fill="#970f18">04</text><circle cx="57.3" cy="153.6" r="9" fill="#970f18"/><text x="19.3" y="151.3" text-anchor="middle" font-family="Instrument Serif" font-style="italic" font-size="30" fill="#970f18">05</text>
+    </svg>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:612px">
+    <style>
+      #s11 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:36px}
+      #s11 .s{border-top:1px solid rgba(11,11,12,.2);padding-top:22px;position:relative}
+      #s11 .s::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;border-radius:50%;background:var(--signal)}
+      #s11 .s .n{font-size:66px;line-height:1;color:var(--signal)}
+      #s11 .s b{display:block;font-weight:500;font-size:38px;letter-spacing:-.03em;margin-top:18px}
+      #s11 .s span{display:block;font-size:22px;line-height:1.4;color:var(--graphite);margin-top:12px}
+    </style>
+    <div class="steps">
+      <div class="s"><div class="serif n">01</div><b>Strateji</b><span>Markanızı ve hedef kitlenizi analiz ediyor, yol haritasını çiziyoruz.</span></div>
+      <div class="s"><div class="serif n">02</div><b>Üretim</b><span>Fotoğraf, video ve tasarımları markanıza özel üretiyoruz.</span></div>
+      <div class="s"><div class="serif n">03</div><b>Yönetim</b><span>Hesaplarınızı ve reklamlarınızı planlı şekilde yönetiyoruz.</span></div>
+      <div class="s"><div class="serif n">04</div><b>Analiz</b><span>Sonuçları ölçüyor, her ay şeffaf biçimde raporluyoruz.</span></div>
+      <div class="s"><div class="serif n">05</div><b>Gelişim</b><span>Verilerle optimize ediyor, bir sonraki adımı birlikte belirliyoruz.</span></div>
+    </div>
+    <div style="margin-top:44px;display:flex;justify-content:flex-end;align-items:center;gap:14px;font-size:22px;color:var(--graphite)">
+      <span style="color:var(--signal);font-size:26px">↻</span>Her gelişim adımı, yeni bir stratejinin başlangıcıdır.
+    </div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-l" lang="en">socialpmedia.com</span><span class="pg muted-l">11</span></div>
+</section>
+
+<!-- ============ 12 · KAPANIŞ ============ -->
+<section class="slide dark" id="s12">
+  <div style="position:absolute;inset:0;background:radial-gradient(70% 70% at 100% 0%,rgba(151,15,24,.28),rgba(151,15,24,0) 70%)"></div>
+  <div class="frame-top">
+    <svg class="logo-h" style="height:30px" viewBox="0 0 5550 490" role="img" aria-label="Socialp Media"><g clip-path="url(#sp-row-top)"><use href="#sp-logo" width="2964" height="1192"/></g><g transform="translate(2938 -706)"><g clip-path="url(#sp-row-bottom)"><use href="#sp-logo" width="2964" height="1192"/></g></g></svg>
+    <span class="eyebrow muted-d">Dijital çözüm ortağınız</span>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:190px">
+    <div class="eyebrow muted-d"><span class="dot"></span>Markanız için üretiyoruz</div>
+    <h2 class="display" style="font-size:132px;margin-top:48px;line-height:.98">Büyümenizi tesadüfe değil,</h2>
+    <div style="display:flex;align-items:baseline;gap:32px;margin-top:6px">
+      <span class="serif" style="font-size:156px;line-height:1">stratejiye</span>
+      <span class="display" style="font-size:132px">bırakın.</span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);top:600px;border-top:1px solid rgba(251,250,247,.12);padding-top:40px;display:flex;justify-content:space-between;align-items:center;gap:40px">
+    <p class="lead muted-d" style="font-size:30px;max-width:620px">Hedeflerinizi anlatın; markanıza özel yol haritasını birlikte çizelim.</p>
+    <div style="display:flex;gap:14px">
+      <span class="pill pill-solid" style="height:64px;font-size:23px;padding:0 30px">Projenizi konuşalım&nbsp;&nbsp;→</span>
+      <span class="pill pill-d" style="height:64px;font-size:23px;padding:0 30px">hello@socialpmedia.com</span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:var(--gx);right:var(--gx);bottom:110px;display:grid;grid-template-columns:1fr 1fr 1.15fr 1.15fr;gap:40px">
+    <style>#s12 .f .eyebrow{font-size:14px;color:rgba(251,250,247,.5)}#s12 .f p{font-size:23px;line-height:1.5;margin-top:16px;letter-spacing:-.01em}#s12 .f p span{color:rgba(251,250,247,.55)}</style>
+    <div class="f"><div class="eyebrow">Bilgi almak için</div><p>+90 (540) 034 69 69<br>hello@socialpmedia.com</p></div>
+    <div class="f"><div class="eyebrow">Web &amp; sosyal medya</div><p>socialpmedia.com<br>@socialp.media</p></div>
+    <div class="f"><div class="eyebrow">Ofis</div><p>Zuhuratbaba, İncirli Cd. No:69<br><span>34147 Bakırköy / İstanbul</span></p></div>
+    <div class="f"><div class="eyebrow">Uluslararası</div><p>+1 437 231 1432<br>business@socialpmedia.com</p></div>
+  </div>
+
+  <div class="frame-bot"><span class="eyebrow muted-d" style="font-size:14px">© 2026 <span lang="en">&nbsp;Socialp Media</span></span><span class="eyebrow muted-d" style="font-size:14px">Farklı fikirler, özgün içerikler.</span></div>
+</section>
+
+</body>
+</html>

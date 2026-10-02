@@ -9,3 +9,5 @@ tsconfig.tsbuildinfo
 *.pem
 npm-debug.log*
 yarn-error.log*
+sunum/kaynak/deck.html
+sunum/kaynak/onizleme/
