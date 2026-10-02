@@ -1,8 +1,8 @@
 {
-  "name": "velmo-store",
+  "name": "dijital-kartim",
   "version": "1.0.0",
   "private": true,
-  "description": "VELMO deterjan yaprağı — online mağaza",
+  "description": "Dijital Kartım — işletmeler için NFC kart kataloğu",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
