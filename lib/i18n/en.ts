@@ -139,6 +139,14 @@ export const en: Dictionary = {
     ctaTitle: 'Make laundry day easier.',
     ctaLead: 'Pick your scent, add it to your cart, and your 30-wash box comes to your door.',
     ctaButton: 'Pick Your Scent',
+    film: {
+      eyebrow: 'The film',
+      title: 'VELMO in 30 seconds',
+      lead: 'One sheet, one wash: see how VELMO works and meet its three scents in our short film.',
+      play: 'Watch the film',
+      length: '0:32',
+      label: 'VELMO promo film',
+    },
   },
 
   usage: {

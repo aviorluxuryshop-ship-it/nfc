@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>VELMO — film</title>
+<style>
+@font-face{font-family:Fraunces;font-weight:100 900;font-display:block;src:url(assets/fonts/fraunces-latin.woff2) format('woff2');unicode-range:U+0-FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Fraunces;font-weight:100 900;font-display:block;src:url(assets/fonts/fraunces-latin-ext.woff2) format('woff2');unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Figtree;font-weight:300 900;font-display:block;src:url(assets/fonts/figtree-latin.woff2) format('woff2');unicode-range:U+0-FF,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Figtree;font-weight:300 900;font-display:block;src:url(assets/fonts/figtree-latin-ext.woff2) format('woff2');unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{--font-sans:Figtree;--font-display:Fraunces}
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;overflow:hidden}
+#stage{position:relative;overflow:hidden;background:#FCFBF8;font-family:Figtree,sans-serif;color:#16214A;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.layer{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden}
+.cam{position:absolute;left:0;top:0;width:100%;height:100%}
+.abs{position:absolute;left:0;top:0;will-change:transform}
+.serif{font-family:Fraunces,serif;font-weight:500;letter-spacing:-.015em;line-height:1}
+.m{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.12em .08em .2em;margin:-.12em -.08em -.2em}
+.mi{display:inline-block;transform-origin:0 100%;will-change:transform}
+.nowrap{white-space:nowrap}
+.glow{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+.sheet{position:absolute;left:0;top:0;border-radius:6px;overflow:hidden;
+  background:radial-gradient(circle,#E3DCCD 0 1.1px,transparent 1.6px) 0 0/19px 23px,linear-gradient(140deg,#FFFFFF 0%,#FBF9F4 55%,#EFE9DE 100%);
+  box-shadow:0 30px 60px -18px rgba(22,33,74,.32),0 6px 14px rgba(22,33,74,.10),inset 0 0 0 1px rgba(214,206,190,.9)}
+.sheet .sheen{position:absolute;left:-60%;top:-20%;width:70%;height:140%;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.95) 50%,rgba(255,255,255,0) 100%);mix-blend-mode:screen}
+.sheet.line{box-shadow:0 18px 40px -16px rgba(22,33,74,.35);border:3px solid #16214A;background:#FFFFFF}
+.pill{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;white-space:nowrap}
+.bubble{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+.bubble i{position:absolute;inset:0;border-radius:50%}
+.bubble .rim{background:conic-gradient(from 30deg,#F28BA8,#F8DB76,#9FD08E,#7FB2E5,#8466C6,#F28BA8);-webkit-mask:radial-gradient(circle,transparent 0 58%,rgba(0,0,0,.35) 64%,#000 69.5%,#000 70.5%,transparent 71.2%);opacity:.85}
+.bubble{box-shadow:inset 0 0 0 1px rgba(110,79,168,.10)}
+.bubble .body{background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0) 0 55%,rgba(255,255,255,.55) 70%,rgba(255,255,255,0) 71%),radial-gradient(circle at 34% 30%,rgba(255,255,255,.95) 0 6%,rgba(255,255,255,0) 13%),radial-gradient(circle at 66% 72%,rgba(255,255,255,.5) 0 3%,rgba(255,255,255,0) 7%)}
+#grain{position:absolute;inset:-64px;pointer-events:none;mix-blend-mode:overlay;opacity:.16}
+#vignette{position:absolute;inset:0;pointer-events:none}
+svg{overflow:visible}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script src="assets/brand.js"></script>
+<script src="film.js"></script>
+</body>
+</html>

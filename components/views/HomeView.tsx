@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, Check, X } from 'lucide-react'
 
+import { FilmPlayer } from '@/components/home/FilmPlayer'
 import { HeroShowcase } from '@/components/home/HeroShowcase'
 import { WaveBackdrop } from '@/components/home/WaveBackdrop'
 import { RibbonRule } from '@/components/layout/Footer'
@@ -87,6 +88,20 @@ export function HomeView({ locale }: { locale: Locale }) {
       <section aria-label={h.highlightsLabel} className="border-y border-line bg-white">
         <div className="container py-8">
           <Highlights locale={locale} />
+        </div>
+      </section>
+
+      {/* Promo film */}
+      <section aria-labelledby="film-baslik" className="relative overflow-hidden bg-[linear-gradient(180deg,#FCFBF8_0%,#F1ECF8_100%)] py-20 lg:py-28">
+        <div className="container grid items-center gap-10 lg:grid-cols-[0.75fr_1.6fr] lg:gap-14">
+          <Reveal>
+            <SectionHeading id="film-baslik" eyebrow={h.film.eyebrow} eyebrowClass="text-lavanta" title={h.film.title}>
+              {h.film.lead}
+            </SectionHeading>
+          </Reveal>
+          <Reveal delay={90}>
+            <FilmPlayer />
+          </Reveal>
         </div>
       </section>
 

@@ -142,6 +142,14 @@ export const tr = {
     ctaTitle: 'Çamaşır gününü kolaylaştırın.',
     ctaLead: 'Kokunuzu seçin, sepete ekleyin; 30 yıkamalık kutunuz kapınıza gelsin.',
     ctaButton: 'Kokunu Seç',
+    film: {
+      eyebrow: 'Tanıtım filmi',
+      title: '30 saniyede VELMO',
+      lead: 'Bir yaprak, bir yıkama: VELMO’nun nasıl kullanıldığını ve üç kokusunu kısa filmimizde izleyin.',
+      play: 'Filmi izle',
+      length: '0:32',
+      label: 'VELMO tanıtım filmi',
+    },
   },
 
   usage: {
