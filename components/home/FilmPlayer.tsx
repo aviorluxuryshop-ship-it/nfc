@@ -23,7 +23,11 @@ export function FilmPlayer() {
   const start = () => {
     const v = ref.current
     if (!v) return
-    if (!v.getAttribute('src')) v.src = `${base}-${window.matchMedia(WIDE).matches ? '16x9' : '9x16'}.mp4`
+    if (!v.getAttribute('src')) {
+      // H.264 everywhere it plays; VP9 WebM for browsers built without it
+      const ext = v.canPlayType('video/mp4; codecs="avc1.640028, mp4a.40.2"') ? 'mp4' : 'webm'
+      v.src = `${base}-${window.matchMedia(WIDE).matches ? '16x9' : '9x16'}.${ext}`
+    }
     setStarted(true)
     // play() inside the click so phones allow sound
     void v.play()
