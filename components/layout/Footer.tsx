@@ -39,7 +39,7 @@ export function Footer({ locale }: { locale: Locale }) {
     <footer className="mt-auto bg-[#F4F0F9]">
       <RibbonRule />
       <div className="container py-14 lg:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+        <div data-reveal="stagger" className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
           <div>
             <Logo className="pt-2 text-[2rem]" />
             <p className="mt-4 max-w-xs text-ink-soft">{f.tagline}</p>

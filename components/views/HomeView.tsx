@@ -146,16 +146,16 @@ export function HomeView({ locale }: { locale: Locale }) {
           <Reveal>
             <SectionHeading id="kullanim-baslik" eyebrow={h.howEyebrow} eyebrowClass="text-bahar" title={h.howTitle} />
           </Reveal>
-          <Reveal className="mt-12">
+          <div className="mt-12">
             <UsageSteps locale={locale} idPrefix="home-usage" />
-          </Reveal>
-          <Reveal className="mt-12 grid items-center gap-6 rounded-3xl bg-bahar-soft p-6 sm:p-8 lg:grid-cols-[0.8fr_2fr]">
-            <div>
+          </div>
+          <div className="mt-12 grid items-center gap-6 rounded-3xl bg-bahar-soft p-6 sm:p-8 lg:grid-cols-[0.8fr_2fr]">
+            <Reveal>
               <h3 className="font-display text-2xl font-medium text-bahar-deep">{h.dosageTitle}</h3>
               <p className="mt-2 text-ink-soft">{h.dosageLead}</p>
-            </div>
+            </Reveal>
             <DosageGuide locale={locale} />
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -165,13 +165,13 @@ export function HomeView({ locale }: { locale: Locale }) {
           <Reveal>
             <SectionHeading id="neden-baslik" eyebrow={h.whyEyebrow} eyebrowClass="text-narenciye" title={h.whyTitle} />
           </Reveal>
-          <Reveal className="mt-12 overflow-hidden rounded-3xl border border-line bg-white">
+          <div className="mt-12 overflow-hidden rounded-3xl border border-line bg-white">
             <div className="hidden grid-cols-[0.6fr_1fr_1fr] border-b border-line bg-paper-cream text-sm font-bold uppercase tracking-[0.1em] md:grid">
               <div className="px-6 py-4 text-ink-mute">{h.whyHead.topic}</div>
               <div className="px-6 py-4 text-ink-mute">{h.whyHead.liquid}</div>
               <div className="bg-leaf-soft px-6 py-4 text-leaf">{h.whyHead.sheet}</div>
             </div>
-            <ul className="divide-y divide-line">
+            <ul data-reveal="stagger" className="divide-y divide-line">
               {h.whyRows.map((row) => (
                 <li key={row.topic} className="grid gap-3 px-6 py-5 md:grid-cols-[0.6fr_1fr_1fr] md:gap-0 md:px-0 md:py-0">
                   <p className="font-semibold md:px-6 md:py-5">{row.topic}</p>
@@ -192,10 +192,10 @@ export function HomeView({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ul>
-          </Reveal>
-          <Reveal className="mt-10">
+          </div>
+          <div className="mt-10">
             <Highlights locale={locale} variant="grid" />
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -215,9 +215,7 @@ export function HomeView({ locale }: { locale: Locale }) {
               </Link>
             </div>
           </Reveal>
-          <Reveal>
-            <FaqList items={faqs[locale].filter((f) => f.group === 'urun').slice(0, 5)} />
-          </Reveal>
+          <FaqList items={faqs[locale].filter((f) => f.group === 'urun').slice(0, 5)} />
         </div>
       </section>
 

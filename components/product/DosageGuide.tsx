@@ -10,7 +10,7 @@ const tints = ['bg-bahar-soft', 'bg-lavanta-soft']
 export function DosageGuide({ locale, compact = false }: { locale: Locale; compact?: boolean }) {
   const { t } = getI18n(locale)
   return (
-    <div className={`grid gap-3 ${compact ? '' : 'sm:grid-cols-2'}`}>
+    <div data-reveal="stagger" className={`grid gap-3 ${compact ? '' : 'sm:grid-cols-2'}`}>
       {productText[locale].dosage.map((d, i) => (
         <div key={d.load} className="flex items-center gap-5 rounded-2xl border border-line bg-white p-5">
           <div className={`flex h-20 w-14 shrink-0 items-center justify-center rounded-xl ${tints[i % 2]}`}>

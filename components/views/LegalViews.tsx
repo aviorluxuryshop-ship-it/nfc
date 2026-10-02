@@ -17,7 +17,7 @@ export function LegalIndexView({ locale }: { locale: Locale }) {
     <div className="container pb-20 pt-6 lg:pb-28">
       <Breadcrumbs label={t.common.breadcrumb} items={[{ label: t.common.home, href: paths.home }, { label: t.meta.legal }]} />
       <h1 className="mt-8 font-display text-[clamp(2.5rem,5vw,3.75rem)] font-medium leading-[1.04]">{t.legal.title}</h1>
-      <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <ul data-reveal="stagger" className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {legalSlugs.map((slug) => (
           <li key={slug}>
             <Link
@@ -50,7 +50,7 @@ export function LegalDocView({ slug, locale }: { slug: LegalSlug; locale: Locale
       />
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
-        <nav aria-label={t.legal.navLabel} className="order-2 lg:order-1">
+        <nav data-reveal="" aria-label={t.legal.navLabel} className="order-2 lg:order-1">
           <p className="eyebrow text-lavanta">{t.legal.title}</p>
           <ul className="mt-3 space-y-0.5 lg:sticky lg:top-28">
             {legalSlugs.map((s) => (
@@ -96,7 +96,7 @@ export function LegalDocView({ slug, locale }: { slug: LegalSlug; locale: Locale
           )}
 
           {doc?.summary && (
-            <div className="mt-8 rounded-3xl bg-lavanta-soft/70 p-6">
+            <div data-reveal="" className="mt-8 rounded-3xl bg-lavanta-soft/70 p-6">
               <h2 className="text-sm font-bold uppercase tracking-[0.12em] text-lavanta-deep">{t.legal.inShort}</h2>
               <ul className="mt-3 space-y-2">
                 {doc.summary.map((s) => (
@@ -109,7 +109,7 @@ export function LegalDocView({ slug, locale }: { slug: LegalSlug; locale: Locale
             </div>
           )}
 
-          <div className="mt-10">
+          <div data-reveal="" className="mt-10">
             {doc ? (
               <LegalBody doc={doc} />
             ) : (

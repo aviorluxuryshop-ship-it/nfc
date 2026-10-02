@@ -466,3 +466,41 @@ html:has(dialog[open]) {
     transform: translateY(-2.5%);
   }
 }
+
+/*
+ * Scroll reveal (components/ui/ScrollReveal.tsx). Blocks rise 18px and fade
+ * in; `stagger` containers reveal their children one after another. Only
+ * active once the script has run, and never for reduced-motion users.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-reveal-ready] [data-reveal='']:not([data-revealed]),
+  html[data-reveal-ready] [data-reveal='stagger']:not([data-revealed]) > * {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  html[data-reveal-ready] [data-reveal=''],
+  html[data-reveal-ready] [data-reveal='stagger'] > * {
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal='stagger'] > :nth-child(2) {
+    --reveal-delay: 90ms;
+  }
+  [data-reveal='stagger'] > :nth-child(3) {
+    --reveal-delay: 180ms;
+  }
+  [data-reveal='stagger'] > :nth-child(4) {
+    --reveal-delay: 270ms;
+  }
+  [data-reveal='stagger'] > :nth-child(5) {
+    --reveal-delay: 340ms;
+  }
+  [data-reveal='stagger'] > :nth-child(6) {
+    --reveal-delay: 400ms;
+  }
+  [data-reveal='stagger'] > :nth-child(n + 7) {
+    --reveal-delay: 450ms;
+  }
+}

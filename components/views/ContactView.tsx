@@ -48,12 +48,12 @@ export function ContactView({ locale }: { locale: Locale }) {
   return (
     <div className="container pb-20 pt-6 lg:pb-28">
       <Breadcrumbs label={t.common.breadcrumb} items={[{ label: t.common.home, href: paths.home }, { label: t.meta.contact }]} />
-      <header className="mt-8 max-w-2xl">
+      <header data-reveal="" className="mt-8 max-w-2xl">
         <h1 className="font-display text-[clamp(2.5rem,5vw,3.75rem)] font-medium leading-[1.04] tracking-[-0.01em]">{c.title}</h1>
         <p className="mt-4 text-lg text-ink-soft">{c.lead}</p>
       </header>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+      <div data-reveal="stagger" className="mt-10 grid gap-4 sm:grid-cols-2">
         <ContactCard icon={Phone} title={c.phone} value={company.phone} href={`tel:${tel}`} tint="bg-lavanta-soft text-lavanta" />
         <ContactCard icon={MessageCircle} title={c.whatsapp} value={company.whatsapp} href={`https://wa.me/${wa}`} tint="bg-bahar-soft text-bahar" />
         <ContactCard icon={Mail} title={c.email} value={company.email} href={`mailto:${company.email}`} tint="bg-narenciye-soft text-narenciye" />

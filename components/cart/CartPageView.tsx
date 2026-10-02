@@ -45,7 +45,7 @@ export function CartPageView() {
             </Link>
           </div>
 
-          <aside className="rounded-3xl border border-line bg-white p-6 lg:sticky lg:top-28" aria-labelledby="ozet">
+          <aside data-reveal="" className="rounded-3xl border border-line bg-white p-6 lg:sticky lg:top-28" aria-labelledby="ozet">
             <h2 id="ozet" className="text-lg font-semibold">
               {t.cart.summary}
             </h2>

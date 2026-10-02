@@ -60,7 +60,9 @@ Site, verilmeyen hiçbir bilgiyi uydurmaz; eksik olanlar `[köşeli parantez]` i
 - `components/product/PackShot.tsx` — ambalajdan çizilmiş SVG kutu; `ScentArt.tsx` koku çizimleri
 - Animasyonlar: üst şerit kayan yazı, ana sayfada kendi kendine yer değiştiren kutular
   (`components/home/HeroShowcase.tsx`), sırayla yanan özellik ikonları (`Highlights.tsx`),
-  GIF gibi dönen kullanım adımları (`UsageSteps.tsx`). Hepsi CSS/SVG; "hareketi azalt"
+  GIF gibi dönen kullanım adımları (`UsageSteps.tsx`), tüm sayfalarda kaydırınca hafifçe beliren
+  bloklar (`components/ui/ScrollReveal.tsx`; bir öğeye `data-reveal=""` ya da çocukları sırayla
+  gelsin diye `data-reveal="stagger"` eklemek yeterli). Hepsi CSS/SVG; "hareketi azalt"
   ayarı açık olan kullanıcılarda durur.
 - Çerez izni KVKK rehberine uygun: "Kabul Et" ve "Reddet" eşit ağırlıkta, kategoriler ayrı ayrı seçilebilir.
   Analitik/pazarlama etiketleri eklenirse yalnızca `useConsent()` izin verdiğinde yüklenmelidir.

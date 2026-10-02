@@ -53,7 +53,7 @@ export function OrderConfirmation() {
   const [dn1, dnDays, dn2] = c.dispatchNote(transfer, site.commerce.dispatchDays)
 
   return (
-    <div className="container max-w-3xl pb-20 pt-12 lg:pb-28">
+    <div data-reveal="stagger" className="container max-w-3xl pb-20 pt-12 lg:pb-28">
       <div className="text-center">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-leaf text-white">
           <Check className="h-8 w-8" strokeWidth={3} aria-hidden="true" />

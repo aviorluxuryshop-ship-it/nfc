@@ -23,7 +23,7 @@ export function Highlights({ locale, variant = 'strip' }: { locale: Locale; vari
 
   if (variant === 'grid') {
     return (
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <ul data-reveal="stagger" className="grid gap-3 sm:grid-cols-2">
         {items.map((h) => {
           const Icon = ICONS[h.key]
           const c = COLORS[h.key]
@@ -44,7 +44,7 @@ export function Highlights({ locale, variant = 'strip' }: { locale: Locale; vari
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-x-6 gap-y-6 lg:grid-cols-4">
+    <ul data-reveal="stagger" className="grid grid-cols-2 gap-x-6 gap-y-6 lg:grid-cols-4">
       {items.map((h, i) => {
         const Icon = ICONS[h.key]
         const c = COLORS[h.key]

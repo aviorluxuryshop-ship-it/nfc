@@ -213,7 +213,7 @@ export function CheckoutView() {
       )}
 
       <form ref={formRef} onSubmit={onSubmit} noValidate className="mt-8 grid items-start gap-8 lg:grid-cols-[1.45fr_1fr] lg:gap-10">
-        <div className="space-y-5">
+        <div data-reveal="stagger" className="space-y-5">
           {attempted && errorCount > 0 && (
             <p role="alert" className="flex gap-3 rounded-2xl bg-alert-soft px-4 py-3 font-medium text-alert">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />

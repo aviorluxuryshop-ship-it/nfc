@@ -22,7 +22,7 @@ export function FaqView({ locale }: { locale: Locale }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Breadcrumbs label={t.common.breadcrumb} items={[{ label: t.common.home, href: paths.home }, { label: t.meta.faq }]} />
       <div className="mt-8 grid gap-12 lg:grid-cols-[0.8fr_1.6fr] lg:gap-20">
-        <header>
+        <header data-reveal="">
           <h1 className="font-display text-[clamp(2.5rem,5vw,3.75rem)] font-medium leading-[1.04] tracking-[-0.01em]">{t.faqPage.title}</h1>
           <p className="mt-4 text-lg text-ink-soft">{t.faqPage.lead}</p>
           <Link href={paths.contact} className="btn-secondary btn-sm mt-6">

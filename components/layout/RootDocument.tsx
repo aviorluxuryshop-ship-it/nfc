@@ -6,6 +6,7 @@ import { ConsentProvider } from '@/components/cookies/ConsentProvider'
 import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { fontVariables } from '@/lib/fonts'
 import { htmlLang, type Locale } from '@/lib/i18n/config'
 import { I18nProvider } from '@/lib/i18n/client'
@@ -38,6 +39,7 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
               </main>
               <Footer locale={locale} />
               <CartDrawer />
+              <ScrollReveal />
             </CartProvider>
           </ConsentProvider>
         </I18nProvider>

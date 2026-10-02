@@ -133,7 +133,7 @@ function StepArt({ step, accent, id }: { step: 0 | 1 | 2; accent: string; id: st
 export function UsageSteps({ locale, idPrefix = 'usage' }: { locale: Locale; idPrefix?: string }) {
   const { t } = getI18n(locale)
   return (
-    <ol className="grid gap-4 md:grid-cols-3">
+    <ol data-reveal="stagger" className="grid gap-4 md:grid-cols-3">
       {t.usage.steps.map((s, i) => {
         const c = STEP_COLORS[i]
         return (
