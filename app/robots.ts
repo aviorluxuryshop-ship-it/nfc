@@ -1,10 +1,10 @@
 import type { MetadataRoute } from 'next'
 
-import { siteConfig } from '@/data/site'
+import { site } from '@/data/site'
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: '*', allow: '/' },
-    sitemap: `${siteConfig.url}/sitemap.xml`,
+    rules: { userAgent: '*', allow: '/', disallow: ['/sepet', '/odeme', '/siparis-alindi'] },
+    sitemap: `${site.url}/sitemap.xml`,
   }
 }
