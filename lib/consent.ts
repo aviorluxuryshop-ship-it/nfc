@@ -11,28 +11,8 @@ export type Consent = Record<ConsentCategory, boolean> & {
 /** Bump when the cookie categories change so everyone is asked again. */
 const VERSION = 1
 
-export const consentCategories: { key: 'necessary' | ConsentCategory; title: string; text: string }[] = [
-  {
-    key: 'necessary',
-    title: 'Zorunlu çerezler',
-    text: 'Sepetinizin hatırlanması, ödeme adımları ve güvenlik gibi sitenin çalışması için gereklidir. Kapatılamaz.',
-  },
-  {
-    key: 'functional',
-    title: 'İşlevsel çerezler',
-    text: 'Tercihlerinizi hatırlayarak size daha rahat bir alışveriş deneyimi sunar.',
-  },
-  {
-    key: 'analytics',
-    title: 'Analitik çerezler',
-    text: 'Sitenin nasıl kullanıldığını anonim olarak ölçmemize ve siteyi geliştirmemize yardımcı olur.',
-  },
-  {
-    key: 'marketing',
-    title: 'Pazarlama çerezleri',
-    text: 'İlgilenebileceğiniz kampanyaları size başka sitelerde de gösterebilmemizi sağlar.',
-  },
-]
+/** Order shown in the preferences panel; words live in the dictionary. */
+export const consentCategories = ['necessary', 'functional', 'analytics', 'marketing'] as const
 
 export function makeConsent(choice: Record<ConsentCategory, boolean>): Consent {
   return { necessary: true, ...choice, updatedAt: new Date().toISOString(), version: VERSION }

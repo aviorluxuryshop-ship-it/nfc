@@ -1,7 +1,8 @@
-import { products, productLine } from '@/data/products'
+import { productText } from '@/data/products'
 import { formatDate, formatPrice } from '@/lib/format'
 
 import type { CartTotals } from './cart'
+import type { Dictionary, Locale } from './i18n'
 import type { OrderContext } from './legal/types'
 
 export type PaymentMethod = 'card' | 'transfer'
@@ -53,9 +54,8 @@ export const initialValues: CheckoutValues = {
   marketing: false,
 }
 
-export const paymentLabels: Record<PaymentMethod, string> = {
-  card: 'Kredi / Banka Kartı',
-  transfer: 'Havale / EFT',
+export function paymentLabel(method: PaymentMethod, t: Dictionary) {
+  return method === 'card' ? t.checkout.payment.card : t.checkout.payment.transfer
 }
 
 export type Errors = Partial<Record<keyof CheckoutValues, string>>
@@ -86,43 +86,45 @@ export function isValidTckn(value: string) {
   return n[9] === d10 && n[10] === d11
 }
 
-export function validate(v: CheckoutValues): Errors {
+export function validate(v: CheckoutValues, t: Dictionary): Errors {
   const e: Errors = {}
-  const req = (key: keyof CheckoutValues, label: string, min = 2) => {
+  const m = t.checkout.errors
+  const L = t.checkout.labels
+  const req = (key: keyof CheckoutValues & keyof typeof L, min = 2) => {
     const val = String(v[key]).trim()
-    if (!val) e[key] = `${label} boş bırakılamaz.`
-    else if (val.length < min) e[key] = `${label} çok kısa görünüyor.`
+    if (!val) e[key] = m.required(L[key])
+    else if (val.length < min) e[key] = m.tooShort(L[key])
   }
 
-  req('firstName', 'Adınız')
-  req('lastName', 'Soyadınız')
-  if (!v.email.trim()) e.email = 'E-posta adresiniz boş bırakılamaz.'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) e.email = 'E-posta adresini kontrol edin (örnek: ad@ornek.com).'
-  if (!v.phone.trim()) e.phone = 'Telefon numaranız boş bırakılamaz.'
-  else if (!normalisePhone(v.phone)) e.phone = 'Cep telefonu numarasını 05XX XXX XX XX şeklinde yazın.'
+  req('firstName')
+  req('lastName')
+  if (!v.email.trim()) e.email = m.required(L.email)
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) e.email = m.email
+  if (!v.phone.trim()) e.phone = m.required(L.phone)
+  else if (!normalisePhone(v.phone)) e.phone = m.phone
 
-  if (!v.city) e.city = 'İl seçin.'
-  req('district', 'İlçe')
-  req('address', 'Adres', 10)
-  if (v.postalCode && !/^\d{5}$/.test(digits(v.postalCode))) e.postalCode = 'Posta kodu 5 haneli olmalı.'
+  if (!v.city) e.city = m.city
+  req('district')
+  req('address', 10)
+  if (v.postalCode && !/^\d{5}$/.test(digits(v.postalCode))) e.postalCode = m.postalCode
 
   if (v.invoiceType === 'kurumsal') {
-    req('companyName', 'Firma unvanı')
-    req('taxOffice', 'Vergi dairesi')
-    const t = digits(v.taxNo)
-    if (!t) e.taxNo = 'Vergi numarası boş bırakılamaz.'
-    else if (t.length !== 10 && t.length !== 11) e.taxNo = 'Vergi numarası 10, T.C. kimlik numarası 11 haneli olmalı.'
+    req('companyName')
+    req('taxOffice')
+    const tn = digits(v.taxNo)
+    if (!tn) e.taxNo = m.required(L.taxNo)
+    else if (tn.length !== 10 && tn.length !== 11) e.taxNo = m.taxNo
   } else if (v.tckn && !isValidTckn(v.tckn)) {
-    e.tckn = 'T.C. kimlik numarasını kontrol edin ya da boş bırakın.'
+    e.tckn = m.tckn
   }
 
   if (!v.billingSame) {
-    if (!v.billingCity) e.billingCity = 'Fatura ili seçin.'
-    req('billingDistrict', 'Fatura ilçesi')
-    req('billingAddress', 'Fatura adresi', 10)
+    if (!v.billingCity) e.billingCity = m.billingCity
+    req('billingDistrict')
+    req('billingAddress', 10)
   }
 
-  if (!v.agreements) e.agreements = 'Devam etmek için sözleşmeleri onaylamanız gerekiyor.'
+  if (!v.agreements) e.agreements = m.agreements
   return e
 }
 
@@ -131,6 +133,7 @@ export function validate(v: CheckoutValues): Errors {
 export type PlacedOrder = {
   number: string
   createdAt: string
+  locale: Locale
   items: { slug: string; scent: string; qty: number; unitPrice: number; lineTotal: number }[]
   subtotal: number
   shipping: number
@@ -146,32 +149,33 @@ function deliveryLine(v: CheckoutValues) {
   return [v.address.trim(), v.postalCode.trim(), `${v.district.trim()} / ${v.city}`].filter(Boolean).join(', ')
 }
 
-function invoiceLine(v: CheckoutValues) {
+function invoiceLine(v: CheckoutValues, t: Dictionary) {
+  const w = t.checkout.invoiceLine
   const address = v.billingSame ? deliveryLine(v) : `${v.billingAddress.trim()}, ${v.billingDistrict.trim()} / ${v.billingCity}`
   return v.invoiceType === 'kurumsal'
-    ? `Kurumsal — ${v.companyName.trim()}, ${v.taxOffice.trim()} V.D. ${digits(v.taxNo)} — ${address}`
-    : `Bireysel — ${v.firstName.trim()} ${v.lastName.trim()} — ${address}`
+    ? `${w.corporate} — ${v.companyName.trim()}, ${v.taxOffice.trim()} ${w.taxOfficeSuffix} ${digits(v.taxNo)} — ${address}`
+    : `${w.individual} — ${v.firstName.trim()} ${v.lastName.trim()} — ${address}`
 }
 
 /** The live form + cart, shaped for the legal documents. */
-export function toOrderContext(v: CheckoutValues, cart: CartTotals): OrderContext {
+export function toOrderContext(v: CheckoutValues, cart: CartTotals, locale: Locale, t: Dictionary): OrderContext {
   const name = `${v.firstName} ${v.lastName}`.trim()
   const phone = normalisePhone(v.phone)
   return {
     buyer: { name, email: v.email.trim(), phone: phone ? formatPhone(phone) : v.phone.trim() },
     deliveryAddress: v.address.trim() && v.city ? deliveryLine(v) : '',
-    invoice: v.address.trim() || !v.billingSame ? invoiceLine(v) : '',
+    invoice: v.address.trim() || !v.billingSame ? invoiceLine(v, t) : '',
     items: cart.items.map((i) => ({
-      name: `${productLine.fullName} — ${i.product.scent}`,
+      name: `${productText[locale].fullName} — ${i.product.text[locale].scent}`,
       qty: i.qty,
       unitPrice: formatPrice(i.product.price),
       total: formatPrice(i.lineTotal),
     })),
     subtotal: formatPrice(cart.subtotal),
-    shipping: cart.shipping === 0 ? 'Ücretsiz' : formatPrice(cart.shipping),
+    shipping: cart.shipping === 0 ? t.cart.free : formatPrice(cart.shipping),
     total: formatPrice(cart.total),
-    paymentMethod: paymentLabels[v.payment],
-    date: formatDate(new Date()),
+    paymentMethod: paymentLabel(v.payment, t),
+    date: formatDate(new Date(), locale),
   }
 }
 
@@ -193,14 +197,15 @@ export const LAST_ORDER_KEY = 'velmo-last-order'
  * card payments, start a session with the payment institution (iyzico,
  * PayTR, …) and return its hosted payment page URL to redirect to.
  */
-export async function placeOrder(v: CheckoutValues, cart: CartTotals): Promise<PlacedOrder> {
+export async function placeOrder(v: CheckoutValues, cart: CartTotals, locale: Locale, t: Dictionary): Promise<PlacedOrder> {
   const phone = normalisePhone(v.phone)!
   const order: PlacedOrder = {
     number: orderNumber(),
     createdAt: new Date().toISOString(),
+    locale,
     items: cart.items.map((i) => ({
       slug: i.slug,
-      scent: products.find((p) => p.slug === i.slug)!.scent,
+      scent: i.product.text[locale].scent,
       qty: i.qty,
       unitPrice: i.product.price,
       lineTotal: i.lineTotal,
@@ -211,7 +216,7 @@ export async function placeOrder(v: CheckoutValues, cart: CartTotals): Promise<P
     payment: v.payment,
     customer: { name: `${v.firstName.trim()} ${v.lastName.trim()}`, email: v.email.trim(), phone: formatPhone(phone) },
     deliveryAddress: deliveryLine(v),
-    invoice: invoiceLine(v),
+    invoice: invoiceLine(v, t),
     marketingOptIn: v.marketing,
   }
   try {

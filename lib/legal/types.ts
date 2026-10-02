@@ -1,3 +1,5 @@
+import type { LegalSlug } from '@/data/legal'
+
 export type Block =
   | { type: 'h2'; text: string }
   | { type: 'h3'; text: string }
@@ -29,3 +31,7 @@ export type OrderContext = {
   paymentMethod: string
   date: string
 }
+
+export type DocSlug = Exclude<LegalSlug, 'cerez-tercihleri'>
+
+export type DocSet = Record<DocSlug, (ctx?: OrderContext) => LegalDoc>

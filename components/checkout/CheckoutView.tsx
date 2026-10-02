@@ -11,13 +11,13 @@ import { LegalBody } from '@/components/legal/LegalBody'
 import { PackShot } from '@/components/product/PackShot'
 import { Dialog } from '@/components/ui/Dialog'
 import { company } from '@/data/company'
-import { legalHref } from '@/data/legal'
-import { productLine } from '@/data/products'
+import { productFacts, productText } from '@/data/products'
 import { provinces } from '@/data/provinces'
 import { site } from '@/data/site'
 import { clearCart } from '@/lib/cart'
 import { initialValues, placeOrder, toOrderContext, validate, type CheckoutValues, type Errors } from '@/lib/checkout'
 import { formatPrice } from '@/lib/format'
+import { useI18n } from '@/lib/i18n/client'
 import { getLegalDoc } from '@/lib/legal/documents'
 import { scentTheme } from '@/lib/scents'
 
@@ -52,10 +52,11 @@ function Field({
   className?: string
   children: React.ReactNode
 }) {
+  const { t } = useI18n()
   return (
     <div className={className}>
       <label htmlFor={id} className="field-label">
-        {label} {optional && <span className="font-normal text-ink-mute">(isteğe bağlı)</span>}
+        {label} {optional && <span className="font-normal text-ink-mute">({t.common.optional})</span>}
       </label>
       {children}
       {error ? (
@@ -113,6 +114,9 @@ function ChoiceCard({
 export function CheckoutView() {
   const cart = useCart()
   const router = useRouter()
+  const { locale, t, paths } = useI18n()
+  const c = t.checkout
+  const F = c.fields
   const [values, setValues] = useState<CheckoutValues>(initialValues)
   const [errors, setErrors] = useState<Errors>({})
   const [attempted, setAttempted] = useState(false)
@@ -124,7 +128,7 @@ export function CheckoutView() {
     const next = { ...values, [key]: value }
     setValues(next)
     // After the first submit, errors update live so they disappear as soon as they're fixed.
-    if (attempted) setErrors(validate(next))
+    if (attempted) setErrors(validate(next, t))
   }
 
   const text = (key: keyof CheckoutValues) => ({
@@ -140,7 +144,7 @@ export function CheckoutView() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setAttempted(true)
-    const found = validate(values)
+    const found = validate(values, t)
     setErrors(found)
     const first = Object.keys(found)[0]
     if (first) {
@@ -150,8 +154,8 @@ export function CheckoutView() {
       return
     }
     setSubmitting(true)
-    await placeOrder(values, cart)
-    router.push('/siparis-alindi')
+    await placeOrder(values, cart, locale, t)
+    router.push(paths.orderReceived)
     clearCart()
   }
 
@@ -159,7 +163,7 @@ export function CheckoutView() {
     return (
       <div className="container py-24 text-center" role="status">
         <span className="mx-auto block h-10 w-10 animate-spin rounded-full border-4 border-line border-t-ink" aria-hidden="true" />
-        <p className="mt-5 text-lg font-semibold">Siparişiniz alınıyor…</p>
+        <p className="mt-5 text-lg font-semibold">{c.submitting}</p>
       </div>
     )
   }
@@ -167,44 +171,43 @@ export function CheckoutView() {
   if (cart.count === 0) {
     return (
       <div className="container py-20 text-center">
-        <h1 className="font-display text-4xl font-medium">Sepetiniz boş</h1>
-        <p className="mt-3 text-ink-soft">Ödeme adımına geçmek için önce sepetinize ürün ekleyin.</p>
-        <Link href="/urunler" className="btn-primary mt-8 px-8">
-          Ürünleri Gör
+        <h1 className="font-display text-4xl font-medium">{c.emptyTitle}</h1>
+        <p className="mt-3 text-ink-soft">{c.emptyLead}</p>
+        <Link href={paths.products} className="btn-primary mt-8 px-8">
+          {t.common.seeProducts}
         </Link>
       </div>
     )
   }
 
-  const ctx = toOrderContext(values, cart)
+  const ctx = toOrderContext(values, cart, locale, t)
   const errorCount = Object.keys(errors).length
 
   return (
     <div className="container pb-20 pt-8 lg:pb-28">
-      <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold" aria-label="Sipariş adımları">
+      <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold" aria-label={c.steps.label}>
         <li className="flex items-center gap-2 text-leaf">
           <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
-          <Link href="/sepet" className="hover:underline">
-            Sepet
+          <Link href={paths.cart} className="hover:underline">
+            {c.steps.cart}
           </Link>
         </li>
         <li aria-hidden="true" className="h-px w-6 bg-line-strong" />
-        <li aria-current="step" className="rounded-full bg-ink px-3 py-1 text-white">
-          Bilgiler ve Ödeme
+        <li aria-current="step" className="rounded-full bg-lavanta px-3 py-1 text-white">
+          {c.steps.details}
         </li>
         <li aria-hidden="true" className="h-px w-6 bg-line-strong" />
-        <li className="text-ink-mute">Onay</li>
+        <li className="text-ink-mute">{c.steps.done}</li>
       </ol>
 
-      <h1 className="mt-6 font-display text-[clamp(2.25rem,4.5vw,3.25rem)] font-medium leading-tight">Siparişi tamamla</h1>
-      <p className="mt-2 text-ink-soft">Birkaç bilgi yeterli. Zorunlu olmayan alanlar “isteğe bağlı” olarak belirtilmiştir.</p>
+      <h1 className="mt-6 font-display text-[clamp(2.25rem,4.5vw,3.25rem)] font-medium leading-tight">{c.title}</h1>
+      <p className="mt-2 text-ink-soft">{c.lead}</p>
 
       {site.demoMode && (
         <p className="mt-6 flex gap-3 rounded-2xl border border-notice/25 bg-notice-soft px-4 py-3 text-[0.9375rem] text-notice">
           <Info className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
           <span>
-            <strong className="font-semibold">Önizleme modu:</strong> Ödeme altyapısı henüz bağlanmadı. Bu sayfada sipariş akışını deneyebilirsiniz;
-            gerçek bir ödeme alınmaz ve sipariş oluşturulmaz.
+            <strong className="font-semibold">{c.demoStrong}</strong> {c.demo}
           </span>
         </p>
       )}
@@ -214,32 +217,32 @@ export function CheckoutView() {
           {attempted && errorCount > 0 && (
             <p role="alert" className="flex gap-3 rounded-2xl bg-alert-soft px-4 py-3 font-medium text-alert">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-              Lütfen kırmızıyla işaretli {errorCount === 1 ? 'alanı' : `${errorCount} alanı`} kontrol edin.
+              {c.errorSummary(errorCount)}
             </p>
           )}
 
-          <Section n={1} title="İletişim bilgileri">
+          <Section n={1} title={c.sections.contact}>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field id="firstName" label="Adınız" error={errors.firstName}>
+              <Field id="firstName" label={F.firstName} error={errors.firstName}>
                 <input {...text('firstName')} autoComplete="given-name" />
               </Field>
-              <Field id="lastName" label="Soyadınız" error={errors.lastName}>
+              <Field id="lastName" label={F.lastName} error={errors.lastName}>
                 <input {...text('lastName')} autoComplete="family-name" />
               </Field>
-              <Field id="email" label="E-posta adresiniz" error={errors.email} hint="Sipariş onayı bu adrese gönderilir.">
-                <input {...text('email')} type="email" autoComplete="email" inputMode="email" placeholder="ad@ornek.com" />
+              <Field id="email" label={F.email} error={errors.email} hint={F.emailHint}>
+                <input {...text('email')} type="email" autoComplete="email" inputMode="email" placeholder={F.emailPlaceholder} />
               </Field>
-              <Field id="phone" label="Cep telefonunuz" error={errors.phone} hint="Kargo görevlisi gerekirse sizi arar.">
-                <input {...text('phone')} type="tel" autoComplete="tel" inputMode="tel" placeholder="05XX XXX XX XX" />
+              <Field id="phone" label={F.phone} error={errors.phone} hint={F.phoneHint}>
+                <input {...text('phone')} type="tel" autoComplete="tel" inputMode="tel" placeholder={F.phonePlaceholder} />
               </Field>
             </div>
           </Section>
 
-          <Section n={2} title="Teslimat adresi">
+          <Section n={2} title={c.sections.delivery}>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field id="city" label="İl" error={errors.city}>
+              <Field id="city" label={F.city} error={errors.city}>
                 <select {...text('city')} autoComplete="address-level1">
-                  <option value="">İl seçin</option>
+                  <option value="">{F.cityPlaceholder}</option>
                   {provinces.map((p) => (
                     <option key={p} value={p}>
                       {p}
@@ -247,37 +250,37 @@ export function CheckoutView() {
                   ))}
                 </select>
               </Field>
-              <Field id="district" label="İlçe" error={errors.district}>
+              <Field id="district" label={F.district} error={errors.district}>
                 <input {...text('district')} autoComplete="address-level2" />
               </Field>
-              <Field id="address" label="Açık adres" error={errors.address} hint="Mahalle, cadde/sokak, bina ve daire numarası." className="sm:col-span-2">
+              <Field id="address" label={F.address} error={errors.address} hint={F.addressHint} className="sm:col-span-2">
                 <textarea {...text('address')} rows={3} autoComplete="street-address" />
               </Field>
-              <Field id="postalCode" label="Posta kodu" optional error={errors.postalCode}>
+              <Field id="postalCode" label={F.postalCode} optional error={errors.postalCode}>
                 <input {...text('postalCode')} autoComplete="postal-code" inputMode="numeric" maxLength={5} />
               </Field>
             </div>
           </Section>
 
-          <Section n={3} title="Fatura bilgileri">
+          <Section n={3} title={c.sections.invoice}>
             <fieldset>
-              <legend className="sr-only">Fatura türü</legend>
+              <legend className="sr-only">{F.invoiceType}</legend>
               <div className="grid gap-3 sm:grid-cols-2">
                 <ChoiceCard
                   name="invoiceType"
                   checked={values.invoiceType === 'bireysel'}
                   onChange={() => set('invoiceType', 'bireysel')}
                   icon={<User className="h-4 w-4" aria-hidden="true" />}
-                  title="Bireysel"
-                  text="Kendi adınıza fatura"
+                  title={F.individual}
+                  text={F.individualText}
                 />
                 <ChoiceCard
                   name="invoiceType"
                   checked={values.invoiceType === 'kurumsal'}
                   onChange={() => set('invoiceType', 'kurumsal')}
                   icon={<Building2 className="h-4 w-4" aria-hidden="true" />}
-                  title="Kurumsal"
-                  text="Şirket adına fatura"
+                  title={F.corporate}
+                  text={F.corporateText}
                 />
               </div>
             </fieldset>
@@ -285,18 +288,18 @@ export function CheckoutView() {
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {values.invoiceType === 'kurumsal' ? (
                 <>
-                  <Field id="companyName" label="Firma unvanı" error={errors.companyName} className="sm:col-span-2">
+                  <Field id="companyName" label={F.companyName} error={errors.companyName} className="sm:col-span-2">
                     <input {...text('companyName')} autoComplete="organization" />
                   </Field>
-                  <Field id="taxOffice" label="Vergi dairesi" error={errors.taxOffice}>
+                  <Field id="taxOffice" label={F.taxOffice} error={errors.taxOffice}>
                     <input {...text('taxOffice')} />
                   </Field>
-                  <Field id="taxNo" label="Vergi numarası" error={errors.taxNo}>
+                  <Field id="taxNo" label={F.taxNo} error={errors.taxNo}>
                     <input {...text('taxNo')} inputMode="numeric" maxLength={11} />
                   </Field>
                 </>
               ) : (
-                <Field id="tckn" label="T.C. kimlik numarası" optional error={errors.tckn} hint="e-Arşiv fatura için. Boş bırakabilirsiniz." className="sm:col-span-2">
+                <Field id="tckn" label={F.tckn} optional error={errors.tckn} hint={F.tcknHint} className="sm:col-span-2">
                   <input {...text('tckn')} inputMode="numeric" maxLength={11} />
                 </Field>
               )}
@@ -309,14 +312,14 @@ export function CheckoutView() {
                 onChange={(e) => set('billingSame', e.target.checked)}
                 className="mt-0.5 h-5 w-5 shrink-0 rounded border-line-strong accent-ink"
               />
-              <span>Fatura adresim teslimat adresiyle aynı</span>
+              <span>{F.billingSame}</span>
             </label>
 
             {!values.billingSame && (
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <Field id="billingCity" label="Fatura ili" error={errors.billingCity}>
+                <Field id="billingCity" label={F.billingCity} error={errors.billingCity}>
                   <select {...text('billingCity')}>
-                    <option value="">İl seçin</option>
+                    <option value="">{F.cityPlaceholder}</option>
                     {provinces.map((p) => (
                       <option key={p} value={p}>
                         {p}
@@ -324,19 +327,19 @@ export function CheckoutView() {
                     ))}
                   </select>
                 </Field>
-                <Field id="billingDistrict" label="Fatura ilçesi" error={errors.billingDistrict}>
+                <Field id="billingDistrict" label={F.billingDistrict} error={errors.billingDistrict}>
                   <input {...text('billingDistrict')} />
                 </Field>
-                <Field id="billingAddress" label="Fatura adresi" error={errors.billingAddress} className="sm:col-span-2">
+                <Field id="billingAddress" label={F.billingAddress} error={errors.billingAddress} className="sm:col-span-2">
                   <textarea {...text('billingAddress')} rows={3} />
                 </Field>
               </div>
             )}
           </Section>
 
-          <Section n={4} title="Ödeme yöntemi">
+          <Section n={4} title={c.sections.payment}>
             <fieldset>
-              <legend className="sr-only">Ödeme yöntemi</legend>
+              <legend className="sr-only">{c.payment.label}</legend>
               <div className="grid gap-3">
                 {site.commerce.paymentMethods.card && (
                   <ChoiceCard
@@ -344,8 +347,8 @@ export function CheckoutView() {
                     checked={values.payment === 'card'}
                     onChange={() => set('payment', 'card')}
                     icon={<CreditCard className="h-4 w-4" aria-hidden="true" />}
-                    title="Kredi / Banka Kartı"
-                    text={`Siparişi onayladıktan sonra kart bilgilerinizi ${company.paymentProvider} güvenli ödeme sayfasında gireceksiniz. Kart bilgileriniz bizde saklanmaz.`}
+                    title={c.payment.card}
+                    text={c.payment.cardText(company.paymentProvider)}
                   />
                 )}
                 {site.commerce.paymentMethods.bankTransfer && (
@@ -354,15 +357,15 @@ export function CheckoutView() {
                     checked={values.payment === 'transfer'}
                     onChange={() => set('payment', 'transfer')}
                     icon={<Landmark className="h-4 w-4" aria-hidden="true" />}
-                    title="Havale / EFT"
-                    text="Siparişten sonra banka hesap bilgilerimizi göstereceğiz. Ödemeniz ulaştığında siparişiniz hazırlanır."
+                    title={c.payment.transfer}
+                    text={c.payment.transferText}
                   />
                 )}
               </div>
             </fieldset>
           </Section>
 
-          <Section n={5} title="Onay">
+          <Section n={5} title={c.sections.confirm}>
             <div className="space-y-4">
               <div>
                 <label className="flex cursor-pointer items-start gap-3">
@@ -376,14 +379,15 @@ export function CheckoutView() {
                     className="mt-0.5 h-5 w-5 shrink-0 rounded border-line-strong accent-ink"
                   />
                   <span>
+                    {c.agreements.before}
                     <button type="button" onClick={() => setDoc('on-bilgilendirme-formu')} className="link font-semibold">
-                      Ön Bilgilendirme Formu
+                      {c.agreements.pif}
                     </button>
-                    ’nu ve{' '}
+                    {c.agreements.mid}
                     <button type="button" onClick={() => setDoc('mesafeli-satis-sozlesmesi')} className="link font-semibold">
-                      Mesafeli Satış Sözleşmesi
+                      {c.agreements.dsa}
                     </button>
-                    ’ni okudum, onaylıyorum.
+                    {c.agreements.after}
                   </span>
                 </label>
                 {errors.agreements && (
@@ -401,16 +405,16 @@ export function CheckoutView() {
                   className="mt-0.5 h-5 w-5 shrink-0 rounded border-line-strong accent-ink"
                 />
                 <span className="text-ink-soft">
-                  Kampanya ve yeniliklerden e-posta ve SMS ile haberdar olmak istiyorum. <span className="text-ink-mute">(isteğe bağlı)</span>
+                  {c.marketing} <span className="text-ink-mute">({t.common.optional})</span>
                 </span>
               </label>
 
               <p className="text-sm text-ink-mute">
-                Kişisel verileriniz{' '}
-                <Link href={legalHref('kvkk-aydinlatma-metni')} target="_blank" className="link font-medium">
-                  KVKK Aydınlatma Metni
-                </Link>{' '}
-                kapsamında işlenir.
+                {c.kvkk.pre}
+                <Link href={paths.legalDoc('kvkk-aydinlatma-metni')} target="_blank" className="link font-medium">
+                  {c.kvkk.link}
+                </Link>
+                {c.kvkk.post}
               </p>
             </div>
           </Section>
@@ -420,10 +424,10 @@ export function CheckoutView() {
           <div className="rounded-3xl border border-line bg-white p-5 sm:p-6">
             <div className="flex items-center justify-between">
               <h2 id="siparis-ozeti" className="text-lg font-semibold">
-                Sipariş özeti
+                {c.summary}
               </h2>
-              <Link href="/sepet" className="link text-sm">
-                Sepeti düzenle
+              <Link href={paths.cart} className="link text-sm">
+                {c.editCart}
               </Link>
             </div>
             <ul className="mt-4 divide-y divide-line">
@@ -436,9 +440,9 @@ export function CheckoutView() {
                     </span>
                   </span>
                   <span className="min-w-0 flex-1 text-[0.9375rem]">
-                    <span className="block font-semibold">{i.product.scent}</span>
+                    <span className="block font-semibold">{i.product.text[locale].scent}</span>
                     <span className="block text-sm text-ink-mute">
-                      {productLine.name} · {productLine.sheets} yaprak
+                      {productText[locale].name} · {t.common.sheets(productFacts.sheets)}
                     </span>
                   </span>
                   <span className="text-[0.9375rem] font-semibold tabular-nums">{formatPrice(i.lineTotal)}</span>
@@ -450,12 +454,12 @@ export function CheckoutView() {
             </div>
             <button type="submit" disabled={submitting} className="btn-primary mt-6 w-full text-[1.0625rem]">
               <Lock className="h-4 w-4" aria-hidden="true" />
-              {submitting ? 'Siparişiniz alınıyor…' : `Siparişi Onayla ve Öde · ${formatPrice(cart.total)}`}
+              {submitting ? c.submitting : c.submit(formatPrice(cart.total))}
             </button>
-            <p className="mt-3 text-center text-sm text-ink-mute">Siparişi onayladığınızda ödeme yükümlülüğü altına girersiniz.</p>
+            <p className="mt-3 text-center text-sm text-ink-mute">{c.obligation}</p>
           </div>
           <p className="flex items-center justify-center gap-2 text-sm text-ink-mute">
-            <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Bilgileriniz şifreli bağlantıyla iletilir.
+            <Lock className="h-3.5 w-3.5" aria-hidden="true" /> {c.encrypted}
           </p>
         </aside>
       </form>
@@ -465,16 +469,16 @@ export function CheckoutView() {
         onClose={() => setDoc(null)}
         size="lg"
         labelledBy="legal-doc-title"
-        title={doc ? getLegalDoc(doc).title : ''}
+        title={doc ? getLegalDoc(doc, locale).title : ''}
         footer={
           <button type="button" className="btn-primary w-full" onClick={() => setDoc(null)}>
-            Okudum, Kapat
+            {c.docClose}
           </button>
         }
       >
         {doc && (
           <div className="px-5 py-6 sm:px-8">
-            <LegalBody doc={getLegalDoc(doc, ctx)} />
+            <LegalBody doc={getLegalDoc(doc, locale, ctx)} />
           </div>
         )}
       </Dialog>

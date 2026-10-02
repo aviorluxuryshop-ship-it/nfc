@@ -10,17 +10,28 @@ npm run build      # üretim derlemesi
 npm run lint && npm run typecheck
 ```
 
-## Sayfalar
+## Sayfalar (Türkçe / İngilizce)
 
-| Yol | İçerik |
-| --- | --- |
-| `/` | Ana sayfa: ürün tanıtımı, 3 koku, kutunun içeriği, kullanım, sıvı deterjanla karşılaştırma, SSS |
-| `/urunler`, `/urunler/[koku]` | Ürün listesi ve ürün detayı (Lavanta, Bahar, Narenciye) |
-| `/sepet` | Sepet (ayrıca her sayfada açılan sepet paneli) |
-| `/odeme` | Ödeme: iletişim, teslimat, fatura (bireysel/kurumsal), ödeme yöntemi, sözleşme onayı |
-| `/siparis-alindi` | Sipariş onayı (Havale/EFT seçildiyse IBAN bilgisi) |
-| `/nasil-kullanilir`, `/sss`, `/iletisim` | Yardım sayfaları ve şirket bilgileri |
-| `/yasal/...` | KVKK Aydınlatma Metni, Gizlilik, Çerez Politikası, Çerez Tercihleri, Mesafeli Satış Sözleşmesi, Ön Bilgilendirme Formu, İptal ve İade, Teslimat ve Kargo, Kullanım Koşulları |
+Türkçe sitenin kökünde, İngilizce `/en` altında; her dilin kendi root layout'u var
+(`app/(tr)`, `app/(en)`), böylece `<html lang>` doğru. Dil düğmesi (TR/EN) kullanıcıyı
+aynı sayfanın diğer dildeki adresine götürür. Eşleşmeyen adresler `app/global-not-found.tsx`'e düşer.
+
+| Türkçe | İngilizce | İçerik |
+| --- | --- | --- |
+| `/` | `/en` | Ana sayfa: dönen kutu vitrini, kokular, kutunun içeriği, kullanım, karşılaştırma, SSS |
+| `/urunler`, `/urunler/lavanta` | `/en/products`, `/en/products/lavender` | Ürün listesi ve ürün detayı (Lavanta/Lavender, Bahar/Spring, Narenciye/Citrus) |
+| `/sepet` | `/en/cart` | Sepet (ayrıca her sayfada açılan sepet paneli) |
+| `/odeme` | `/en/checkout` | Ödeme: iletişim, teslimat, fatura, ödeme yöntemi, sözleşme onayı |
+| `/siparis-alindi` | `/en/order-received` | Sipariş onayı |
+| `/nasil-kullanilir`, `/sss`, `/iletisim` | `/en/how-to-use`, `/en/faq`, `/en/contact` | Yardım sayfaları |
+| `/yasal/...` | `/en/legal/...` | KVKK, Gizlilik, Çerez Politikası/Tercihleri, Mesafeli Satış, Ön Bilgilendirme, İptal-İade, Teslimat, Kullanım Koşulları |
+
+## Metinler nerede?
+
+- Arayüz metinleri: `lib/i18n/tr.ts` ve `lib/i18n/en.ts` (aynı yapı; eksik çeviri tip hatası verir)
+- Ürün, SSS ve yasal sayfa başlıkları: `data/products.ts`, `data/faq.ts`, `data/legal.ts` (her dil için ayrı)
+- Yasal metinler: `lib/legal/tr.ts` (bağlayıcı) ve `lib/legal/en.ts` (bilgi amaçlı çeviri)
+- Adresler (URL'ler): `lib/i18n/config.ts`
 
 ## Yayına almadan önce doldurulması gerekenler
 
@@ -34,7 +45,7 @@ Site, verilmeyen hiçbir bilgiyi uydurmaz; eksik olanlar `[köşeli parantez]` i
    şu an ambalajdan birebir çizilmiş vektör kutu görselleri kullanılıyor.
 3. **`data/site.ts`** — kargo ücreti (₺59,90), ücretsiz kargo sınırı (₺500) ve kargoya veriliş süresi
    (1–3 iş günü) **örnektir**. Alan adı: `NEXT_PUBLIC_SITE_URL` ortam değişkeni (varsayılan ambalajdaki www.velmo.com).
-4. **`lib/legal/documents.ts`** — yasal metinler şablondur; içlerindeki `[...]` alanlarını (iade kodu,
+4. **`lib/legal/tr.ts` ve `lib/legal/en.ts`** — yasal metinler şablondur; içlerindeki `[...]` alanlarını (iade kodu,
    kargo şubesi bekleme süresi, yurt dışı aktarım, analitik araçları vb.) doldurun ve
    **bir hukuk danışmanına kontrol ettirin**.
 5. **Ödeme altyapısı** — sitede henüz sunucu tarafı yok; sipariş tarayıcıda tutulur ve ödeme alınmaz.
@@ -47,5 +58,9 @@ Site, verilmeyen hiçbir bilgiyi uydurmaz; eksik olanlar `[köşeli parantez]` i
 - `data/` — ürünler, site ayarları, şirket bilgileri, SSS, il listesi
 - `lib/` — sepet ve çerez izni (localStorage), ödeme doğrulama (telefon, T.C. kimlik no, vergi no), yasal metinler
 - `components/product/PackShot.tsx` — ambalajdan çizilmiş SVG kutu; `ScentArt.tsx` koku çizimleri
+- Animasyonlar: üst şerit kayan yazı, ana sayfada kendi kendine yer değiştiren kutular
+  (`components/home/HeroShowcase.tsx`), sırayla yanan özellik ikonları (`Highlights.tsx`),
+  GIF gibi dönen kullanım adımları (`UsageSteps.tsx`). Hepsi CSS/SVG; "hareketi azalt"
+  ayarı açık olan kullanıcılarda durur.
 - Çerez izni KVKK rehberine uygun: "Kabul Et" ve "Reddet" eşit ağırlıkta, kategoriler ayrı ayrı seçilebilir.
   Analitik/pazarlama etiketleri eklenirse yalnızca `useConsent()` izin verdiğinde yüklenmelidir.

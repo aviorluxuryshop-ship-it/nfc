@@ -3,6 +3,7 @@
 import { useId } from 'react'
 
 import { products, type ScentSlug } from '@/data/products'
+import { useI18n } from '@/lib/i18n/client'
 import { scentTheme } from '@/lib/scents'
 
 import { BoxScentArt } from './ScentArt'
@@ -41,8 +42,9 @@ export function PackShot({
   title?: string
 }) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '')
+  const { locale, t } = useI18n()
   const product = products.find((p) => p.slug === scent)!
-  const label = title ?? `VELMO deterjan yaprağı kutusu, ${product.scent} kokulu`
+  const label = title ?? t.product.boxAlt(product.text[locale].scent)
 
   const viewBox = view === 'angle' ? '0 40 560 500' : `${FX - 24} ${FY - 24} ${W + 48} ${H + 64}`
 

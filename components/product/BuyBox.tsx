@@ -5,8 +5,9 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 import { QuantityStepper } from '@/components/ui/QuantityStepper'
-import { products, productLine, pricePerKg, pricePerWash, type Product } from '@/data/products'
+import { products, pricePerKg, pricePerWash, type Product } from '@/data/products'
 import { formatPrice } from '@/lib/format'
+import { useI18n } from '@/lib/i18n/client'
 import { scentTheme } from '@/lib/scents'
 
 import { AddToCartButton } from './AddToCartButton'
@@ -19,6 +20,8 @@ import { ScentEmblem } from './ScentArt'
  */
 export function BuyBox({ product }: { product: Product }) {
   const [qty, setQty] = useState(1)
+  const { locale, t, paths } = useI18n()
+  const scent = product.text[locale].scent
   const buttonRef = useRef<HTMLDivElement>(null)
   const [showBar, setShowBar] = useState(false)
 
@@ -37,7 +40,7 @@ export function BuyBox({ product }: { product: Product }) {
     <div>
       <fieldset>
         <legend className="text-[0.9375rem] font-semibold">
-          Koku: <span className={scentTheme[product.slug].deepText}>{product.scent}</span>
+          {t.product.scentLabel}: <span className={scentTheme[product.slug].deepText}>{scent}</span>
         </legend>
         <ul className="mt-3 grid grid-cols-3 gap-2.5">
           {products.map((p) => {
@@ -45,7 +48,7 @@ export function BuyBox({ product }: { product: Product }) {
             return (
               <li key={p.slug}>
                 <Link
-                  href={`/urunler/${p.slug}`}
+                  href={paths.product(p.slug)}
                   scroll={false}
                   replace
                   aria-current={selected ? 'true' : undefined}
@@ -61,7 +64,7 @@ export function BuyBox({ product }: { product: Product }) {
                   <span className={`flex h-14 w-14 items-center justify-center rounded-full ${scentTheme[p.slug].panel}`}>
                     <ScentEmblem scent={p.slug} className="h-11 w-11" />
                   </span>
-                  <span className="text-[0.9375rem] font-semibold">{p.scent}</span>
+                  <span className="text-[0.9375rem] font-semibold">{p.text[locale].scent}</span>
                 </Link>
               </li>
             )
@@ -75,25 +78,27 @@ export function BuyBox({ product }: { product: Product }) {
             <span className="text-[2.25rem] font-bold leading-none tabular-nums">{formatPrice(product.price)}</span>
             {product.compareAtPrice && <s className="text-lg text-ink-mute">{formatPrice(product.compareAtPrice)}</s>}
           </p>
-          <p className="mt-2 text-sm text-ink-mute">KDV dahil · 1 kutu = {productLine.sheets} yaprak</p>
+          <p className="mt-2 text-sm text-ink-mute">
+            {t.common.vatIncluded} · {t.product.boxEquals}
+          </p>
         </div>
         <p className="text-sm text-ink-soft">
-          Yıkama başına <strong className="font-semibold text-ink">{formatPrice(pricePerWash(product))}</strong>
-          <span className="block text-ink-mute">Birim fiyat: {formatPrice(pricePerKg(product))} / kg</span>
+          {t.common.perWash} <strong className="font-semibold text-ink">{formatPrice(pricePerWash(product))}</strong>
+          <span className="block text-ink-mute">{t.common.unitPrice(formatPrice(pricePerKg(product)))}</span>
         </p>
       </div>
 
       <div ref={buttonRef} className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <span className="text-[0.9375rem] font-semibold sm:sr-only">Adet</span>
-          <QuantityStepper value={qty} onChange={setQty} label="Kutu adedi" />
+          <span className="text-[0.9375rem] font-semibold sm:sr-only">{t.common.quantity}</span>
+          <QuantityStepper value={qty} onChange={setQty} label={t.common.boxQuantity} />
         </div>
         <AddToCartButton
           slug={product.slug}
           qty={qty}
           disabled={!product.inStock}
           className="flex-1"
-          label={qty > 1 ? `Sepete Ekle · ${formatPrice(product.price * qty)}` : 'Sepete Ekle'}
+          label={qty > 1 ? t.common.addToCartWithTotal(formatPrice(product.price * qty)) : t.common.addToCart}
         />
       </div>
 
@@ -108,7 +113,7 @@ export function BuyBox({ product }: { product: Product }) {
         <div className="flex items-center gap-3">
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm text-ink-soft">
-              {product.scent} · {qty} kutu
+              {scent} · {t.common.boxes(qty)}
             </p>
             <p className="font-bold tabular-nums">{formatPrice(product.price * qty)}</p>
           </div>

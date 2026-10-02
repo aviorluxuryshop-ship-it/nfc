@@ -1,19 +1,28 @@
 import type { MetadataRoute } from 'next'
 
-import { legalHref, legalPages } from '@/data/legal'
+import { legalSlugs } from '@/data/legal'
 import { products } from '@/data/products'
 import { site } from '@/data/site'
+import { pathsFor, switchPath } from '@/lib/i18n/config'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const tr = pathsFor('tr')
   const paths = [
-    '/',
-    '/urunler',
-    ...products.map((p) => `/urunler/${p.slug}`),
-    '/nasil-kullanilir',
-    '/sss',
-    '/iletisim',
-    '/yasal',
-    ...legalPages.map((p) => legalHref(p.slug)),
+    tr.home,
+    tr.products,
+    ...products.map((p) => tr.product(p.slug)),
+    tr.howTo,
+    tr.faq,
+    tr.contact,
+    tr.legal,
+    ...legalSlugs.map((s) => tr.legalDoc(s)),
   ]
-  return paths.map((path) => ({ url: `${site.url}${path}` }))
+  // One entry per page, listing both language versions as alternates.
+  return paths.flatMap((path) => {
+    const languages = { tr: `${site.url}${path}`, en: `${site.url}${switchPath(path, 'en')}` }
+    return [
+      { url: languages.tr, alternates: { languages } },
+      { url: languages.en, alternates: { languages } },
+    ]
+  })
 }

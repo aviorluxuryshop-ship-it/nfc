@@ -1,7 +1,17 @@
 /** One sheet at true proportions (11 × 28 cm), with the halfway fold. */
-export function SheetDiagram({ className = '', showHalf = true }: { className?: string; showHalf?: boolean }) {
+export function SheetDiagram({
+  className = '',
+  showHalf = true,
+  label,
+  halfLabel,
+}: {
+  className?: string
+  showHalf?: boolean
+  label: string
+  halfLabel: string
+}) {
   return (
-    <svg viewBox="0 0 220 380" className={className} role="img" aria-label="Bir yaprak 11 cm eninde, 28 cm boyundadır. Ortadan ikiye bölünebilir.">
+    <svg viewBox="0 0 220 380" className={className} role="img" aria-label={label}>
       <defs>
         <linearGradient id="sheet-face" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#FFFFFF" />
@@ -19,7 +29,7 @@ export function SheetDiagram({ className = '', showHalf = true }: { className?: 
         <>
           <line x1={62} y1={170} x2={172} y2={170} stroke="#16214A" strokeOpacity={0.45} strokeDasharray="5 5" strokeWidth={1.4} />
           <text x={117} y={164} textAnchor="middle" fontSize={11} fontWeight={600} fill="#454E70" style={{ fontFamily: 'var(--font-sans)' }}>
-            ½ yaprak
+            {halfLabel}
           </text>
         </>
       )}

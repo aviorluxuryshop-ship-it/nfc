@@ -1,7 +1,7 @@
 /**
  * Store-wide settings. Everything a shop owner is likely to change lives
  * here or in `company.ts` / `products.ts` — nothing commercial is hard-coded
- * in the components.
+ * in the components. Interface copy lives in lib/i18n.
  *
  * ⚠ The numbers under `commerce` are EXAMPLE values so the cart and
  * checkout can be tried end to end. Replace them with the real figures
@@ -9,12 +9,8 @@
  */
 export const site = {
   name: 'VELMO',
-  title: 'VELMO Deterjan Yaprağı',
-  description:
-    'VELMO çamaşır deterjanı yaprağı: renkli çamaşırlar için, ölçmeden kullanılan, hızlı çözünen deterjan. 1 kutu = 30 yaprak = 30 yıkama. Lavanta, Bahar ve Narenciye kokuları.',
   // Packaging says www.velmo.com — confirm the real domain and change it here.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.velmo.com',
-  locale: 'tr_TR',
 
   /**
    * While true, the checkout says plainly that no payment is taken and
@@ -39,12 +35,3 @@ export const site = {
     },
   },
 } as const
-
-export type NavItem = { label: string; href: string }
-
-export const mainNav: NavItem[] = [
-  { label: 'Ürünler', href: '/urunler' },
-  { label: 'Nasıl Kullanılır?', href: '/nasil-kullanilir' },
-  { label: 'Sıkça Sorulanlar', href: '/sss' },
-  { label: 'İletişim', href: '/iletisim' },
-]

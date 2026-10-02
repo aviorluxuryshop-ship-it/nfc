@@ -3,6 +3,8 @@
 import { X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
+import { useI18n } from '@/lib/i18n/client'
+
 /**
  * Native <dialog> underneath: focus is trapped, Esc closes, and it sits in
  * the top layer — no portal or focus-trap library needed. `variant`
@@ -29,6 +31,7 @@ export function Dialog({
   labelledBy?: string
 }) {
   const ref = useRef<HTMLDialogElement>(null)
+  const { t } = useI18n()
 
   useEffect(() => {
     const el = ref.current
@@ -69,7 +72,7 @@ export function Dialog({
             onClick={onClose}
             className="-mr-2 inline-flex h-11 items-center gap-1.5 rounded-full px-3 text-[0.9375rem] font-semibold text-ink-soft transition hover:bg-ink/5 hover:text-ink"
           >
-            Kapat <X className="h-5 w-5" aria-hidden="true" />
+            {t.common.close} <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{children}</div>

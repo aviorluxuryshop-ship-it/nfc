@@ -6,6 +6,11 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  experimental: {
+    // Two root layouts (TR at /, EN at /en) each own their <html lang>, so an
+    // unmatched URL has no single layout to render a 404 inside.
+    globalNotFound: true,
+  },
 }
 
 export default nextConfig

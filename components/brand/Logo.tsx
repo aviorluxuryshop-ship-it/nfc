@@ -16,9 +16,9 @@ export function Logo({ className = '', tone = 'ink' }: { className?: string; ton
   )
 }
 
-export function LogoLink({ className = '' }: { className?: string }) {
+export function LogoLink({ href, label, className = '' }: { href: string; label: string; className?: string }) {
   return (
-    <Link href="/" aria-label="VELMO ana sayfa" className={`inline-flex pt-2 ${className}`}>
+    <Link href={href} aria-label={label} className={`inline-flex pt-2 ${className}`}>
       <Logo className="text-[1.75rem]" />
     </Link>
   )
