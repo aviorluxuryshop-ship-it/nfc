@@ -115,7 +115,8 @@ export type Dictionary = {
     eyebrow: string
     items: { quote: string; topic: string }[]
   }
-  marquee: string[]
+  /** Phrases between the star separators; the slogan is one phrase in two parts. */
+  marquee: string[][]
   cta: {
     eyebrow: string
     title: string

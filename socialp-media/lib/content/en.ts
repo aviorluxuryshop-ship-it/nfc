@@ -270,7 +270,7 @@ export const en: Dictionary = {
       },
     ],
   },
-  marquee: ['Different ideas', 'Original content', 'Your digital solution partner'],
+  marquee: [['Different ideas,', 'original content'], ['Your digital solution partner']],
   cta: {
     eyebrow: 'We make it for your brand',
     title: 'Make a strong appearance online.',
@@ -371,7 +371,7 @@ export const en: Dictionary = {
     openMap: 'Open in Maps',
     social: 'Social',
     form: {
-      title: 'Leave a short brief',
+      title: 'Write to us',
       body: 'Fill in the form and your message opens ready to send in WhatsApp or your email app.',
       name: 'Your name',
       company: 'Brand / company',

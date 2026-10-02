@@ -5,7 +5,7 @@ import type { Locale } from '@/lib/site'
 // Privacy policy / KVKK information notice. Written against what this site
 // actually does (checked in code): no cookies, no analytics or tracking
 // scripts, fonts and media served from the site's own domain, the contact
-// brief is not stored — it opens WhatsApp or the visitor's mail app.
+// form is not stored — it opens WhatsApp or the visitor's mail app.
 // If any of that changes (analytics, a form backend, a newsletter), update
 // the relevant section here.
 
@@ -50,7 +50,7 @@ const tr: PrivacyContent = {
           'İletişim verileri: Bize e-posta, telefon veya WhatsApp üzerinden ulaştığınızda paylaştığınız ad-soyad, şirket adı, telefon numarası, e-posta adresi ve mesaj içeriği.',
           'Teknik kayıtlar: Siteyi barındıran altyapı sağlayıcısının güvenlik ve işletim amacıyla otomatik olarak tuttuğu IP adresi, tarayıcı bilgisi, ziyaret edilen sayfa ve zaman bilgisi.',
         ],
-        'İletişim sayfasındaki kısa brif formu hiçbir veriyi bu sitede saklamaz veya sunucuya göndermez. Formu doldurduğunuzda mesajınız, kendi cihazınızdaki WhatsApp ya da e-posta uygulamasında hazır olarak açılır; gönderip göndermemek size kalır.',
+        'İletişim sayfasındaki form hiçbir veriyi bu sitede saklamaz veya sunucuya göndermez. Formu doldurduğunuzda mesajınız, kendi cihazınızdaki WhatsApp ya da e-posta uygulamasında hazır olarak açılır; gönderip göndermemek size kalır.',
       ],
     },
     {
@@ -160,7 +160,7 @@ const en: PrivacyContent = {
           'Contact data: the name, company, phone number, email address and message you share when you reach us by email, phone or WhatsApp.',
           'Technical logs: IP address, browser details, requested page and time, recorded automatically by our hosting provider for security and operation.',
         ],
-        'The short brief form on the contact page does not store anything on this site or send it to a server. Filling it in simply opens your own WhatsApp or email app with the message ready; whether to send it is up to you.',
+        'The form on the contact page does not store anything on this site or send it to a server. Filling it in simply opens your own WhatsApp or email app with the message ready; whether to send it is up to you.',
       ],
     },
     {

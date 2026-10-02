@@ -270,7 +270,7 @@ export const tr: Dictionary = {
       },
     ],
   },
-  marquee: ['Farklı fikirler', 'Özgün içerikler', 'Dijital çözüm ortağınız'],
+  marquee: [['Farklı fikirler,', 'özgün içerikler'], ['Dijital çözüm ortağınız']],
   cta: {
     eyebrow: 'Markanız için üretiyoruz',
     title: 'Dijitalde güçlü görünün.',
@@ -371,7 +371,7 @@ export const tr: Dictionary = {
     openMap: 'Haritada aç',
     social: 'Sosyal medya',
     form: {
-      title: 'Kısa bir brif bırakın',
+      title: 'Bize yazın',
       body: 'Formu doldurun; mesajınız WhatsApp ya da e-posta uygulamanızda hazır olarak açılsın.',
       name: 'Adınız',
       company: 'Markanız / şirketiniz',
