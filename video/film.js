@@ -165,6 +165,9 @@
       w.style.transform = `translate3d(0,${y.toFixed(2)}%,0) rotate(${((1 - p) * tilt).toFixed(2)}deg)`
     })
   }
+  /** Long lines (English runs longer) shrink to fit `max` px once fonts are in. */
+  const fits = []
+  const fit = (n, max) => (fits.push([n, max]), n)
   const svgIcon = (name, color, size, sw = 2) =>
     BRAND.icons[name].replace('<svg', `<svg width="${size}" height="${size}" style="color:${color};display:block" `).replace(/stroke-width="2"/, `stroke-width="${sw}"`)
   const brandSvg = (key, style) => BRAND[key].replace('<svg', `<svg style="display:block;${style}"`)
@@ -281,7 +284,7 @@
     const leafR = logo.querySelector('.lr')
     const leafL = logo.querySelector('.ll')
     const sparks = [...logo.querySelectorAll('.spark line')]
-    const tag = el(`<div class="abs serif nowrap" style="font-size:${(V ? 62 : 60) * k}px;font-weight:400;color:${C.inkSoft}">${words(c.tagline)}</div>`, cam)
+    const tag = fit(el(`<div class="abs serif nowrap" style="font-size:${(V ? 62 : 60) * k}px;font-weight:400;color:${C.inkSoft}">${words(c.tagline)}</div>`, cam), W * (V ? 0.84 : 0.8))
     const eyebrow = el(
       `<div class="abs nowrap" style="font:700 ${(V ? 25 : 22) * k}px Figtree;letter-spacing:.22em;text-transform:uppercase;color:${C.lav}">${c.eyebrow}</div>`,
       cam,
@@ -340,6 +343,7 @@
         </div>`,
         cam,
       )
+      fit(row.querySelector('.tx'), W - x0 - W * 0.07 - fs * 0.95 - 34 * k)
       return { row, ic: row.querySelector('.ic'), tx: row.querySelector('.tx'), st: row.querySelector('.st') }
     })
     const end = el(`<div class="abs serif nowrap" style="font-size:${(V ? 104 : 112) * k}px;font-weight:600">${words(c.hassleEnd, '', `background:linear-gradient(95deg,#B9A6F2,${C.coral} 55%,#F7AE62);-webkit-background-clip:text;background-clip:text;color:transparent`)}</div>`, cam)
@@ -553,7 +557,7 @@
 
     // steps panel
     const panelX = V ? 90 * k : W * 0.56
-    const title = el(`<div class="abs serif nowrap" style="font-size:${(V ? 74 : 70) * k}px">${words(c.stepsTitle)}</div>`, cam)
+    const title = fit(el(`<div class="abs serif nowrap" style="font-size:${(V ? 74 : 70) * k}px">${words(c.stepsTitle)}</div>`, cam), V ? W * 0.86 : W - panelX - W * 0.05)
     const rows = c.steps.map((txt, i) =>
       el(
         `<div class="abs" style="display:flex;align-items:center;gap:${30 * k}px;width:${(V ? 900 : 720) * k}px">
@@ -566,6 +570,7 @@
         cam,
       ),
     )
+    rows.forEach((r) => fit(r.querySelector('.tt'), ((V ? 900 : 720) - 116) * k))
     S4.layer = L
     const portX = mcx
     const portY = mcy - mh / 2 + 268 * ms
@@ -769,11 +774,11 @@
       const ems = SPOTS.map(([x, y, size, r, d, b]) => ({ n: el(`<div class="abs" style="width:${size * k}px;height:${size * k}px;filter:${b ? `blur(${b * k}px)` : 'none'}">${brandSvg(`emblem_${s.slug}`, 'width:100%;height:100%')}</div>`, p), x, y, r, d }))
       const bw = (V ? 900 : 780) * k
       const shadow = el(`<div class="abs" style="width:${bw * 0.8}px;height:${bw * 0.09}px;border-radius:50%;background:radial-gradient(ellipse, rgba(22,33,74,.28) 0%, rgba(22,33,74,0) 70%)"></div>`, p)
-      const box = el(`<div class="abs" style="width:${bw}px">${brandSvg(`angle_${s.slug}`, 'width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(22,33,74,.18))')}</div>`, p)
+      const box = el(`<div class="abs pack" style="width:${bw}px">${brandSvg(`angle_${s.slug}`, 'width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(22,33,74,.18))')}</div>`, p)
       const [name, noteTxt] = c.scents[i]
       const count = el(`<div class="abs nowrap" style="font:700 ${(V ? 28 : 24) * k}px Figtree;letter-spacing:.22em;text-transform:uppercase;color:${s.main}">${c.scentsTitle} · 0${i + 1}/03</div>`, p)
-      const title = el(`<div class="abs serif nowrap" style="font-size:${(V ? 180 : 190) * k}px;color:${s.deep}">${words(name)}</div>`, p)
-      const note = el(`<div class="abs nowrap" style="font:500 ${(V ? 44 : 42) * k}px Figtree;color:${C.inkSoft}">${noteTxt}</div>`, p)
+      const title = fit(el(`<div class="abs serif nowrap" style="font-size:${(V ? 180 : 190) * k}px;color:${s.deep}">${words(name)}</div>`, p), V ? W * 0.86 : W * 0.42)
+      const note = fit(el(`<div class="abs nowrap" style="font:500 ${(V ? 44 : 42) * k}px Figtree;color:${C.inkSoft}">${noteTxt}</div>`, p), V ? W * 0.86 : W * 0.42)
       const dots = el(`<div class="abs" style="display:flex;gap:${14 * k}px">${SCENTS.map((d, j) => `<span style="width:${(j === i ? 46 : 14) * k}px;height:${14 * k}px;border-radius:9px;background:${j === i ? s.main : 'rgba(22,33,74,.18)'}"></span>`).join('')}</div>`, p)
       return { p, halo, ems, shadow, box, count, title, note, dots, bw }
     })
@@ -807,10 +812,10 @@
         const tx = V ? W / 2 : W * 0.075
         const opt = V ? {} : { ax: 0 }
         put(pn.count, tx, V ? H * 0.12 : H * 0.3, { ...opt, a: P(t, s0 - 0.05, s0 + 0.3) })
-        put(pn.title, tx, V ? H * 0.21 : H * 0.45, opt)
+        put(pn.title, tx, V ? H * 0.205 : H * 0.44, opt)
         rise(pn.title, t, s0 - 0.08, { dur: 0.75, stagger: 0.1 })
-        put(pn.note, tx, V ? H * 0.29 : H * 0.58, { ...opt, a: P(t, s0 + 0.15, s0 + 0.55), pre: `translateY(${(1 - P(t, s0 + 0.15, s0 + 0.6)) * 18 * k}px)` })
-        put(pn.dots, tx, V ? H * 0.345 : H * 0.69, { ...opt, a: P(t, s0 + 0.25, s0 + 0.6) })
+        put(pn.note, tx, V ? H * 0.302 : H * 0.6, { ...opt, a: P(t, s0 + 0.15, s0 + 0.55), pre: `translateY(${(1 - P(t, s0 + 0.15, s0 + 0.6)) * 18 * k}px)` })
+        put(pn.dots, tx, V ? H * 0.352 : H * 0.7, { ...opt, a: P(t, s0 + 0.25, s0 + 0.6) })
       })
     })
   }
@@ -836,11 +841,11 @@
     )
     const ribPaths = [...rib.children]
     const bigW = (V ? 620 : 600) * k
-    const smallW = bigW * 0.7
+    const smallW = bigW * 0.66
     const boxes = [
-      { n: el(`<div class="abs" style="width:${smallW}px">${brandSvg('angle_bahar', 'width:100%;height:auto;filter:drop-shadow(0 24px 30px rgba(22,33,74,.16))')}</div>`, cam), dx: V ? -0.3 : -0.35, dy: -0.07, w: smallW, d: 0.1 },
-      { n: el(`<div class="abs" style="width:${smallW}px">${brandSvg('angle_narenciye', 'width:100%;height:auto;filter:drop-shadow(0 24px 30px rgba(22,33,74,.16))')}</div>`, cam), dx: V ? 0.3 : 0.35, dy: -0.07, w: smallW, d: 0.22 },
-      { n: el(`<div class="abs" style="width:${bigW}px">${brandSvg('angle_lavanta', 'width:100%;height:auto;filter:drop-shadow(0 34px 40px rgba(22,33,74,.22))')}</div>`, cam), dx: 0, dy: 0.05, w: bigW, d: 0 },
+      { n: el(`<div class="abs pack" style="width:${smallW}px">${brandSvg('angle_bahar', 'width:100%;height:auto;filter:drop-shadow(0 24px 30px rgba(22,33,74,.16))')}</div>`, cam), dx: V ? -0.27 : -0.32, dy: -0.07, w: smallW, d: 0.1 },
+      { n: el(`<div class="abs pack" style="width:${smallW}px">${brandSvg('angle_narenciye', 'width:100%;height:auto;filter:drop-shadow(0 24px 30px rgba(22,33,74,.16))')}</div>`, cam), dx: V ? 0.27 : 0.32, dy: -0.07, w: smallW, d: 0.22 },
+      { n: el(`<div class="abs pack" style="width:${bigW}px">${brandSvg('angle_lavanta', 'width:100%;height:auto;filter:drop-shadow(0 34px 40px rgba(22,33,74,.22))')}</div>`, cam), dx: 0, dy: 0.05, w: bigW, d: 0 },
     ]
     const fs = (V ? 200 : 168) * k
     const logo = el(
@@ -856,8 +861,8 @@
     )
     const leafR = logo.querySelector('.lr')
     const leafL = logo.querySelector('.ll')
-    const line = el(`<div class="abs serif nowrap" style="font-size:${(V ? 74 : 70) * k}px">${words(c.endLine)}</div>`, cam)
-    const brow = el(`<div class="abs nowrap" style="font:600 ${(V ? 30 : 27) * k}px Figtree;color:${C.inkSoft}">${c.eyebrow}</div>`, cam)
+    const line = fit(el(`<div class="abs serif nowrap" style="font-size:${(V ? 74 : 64) * k}px">${words(c.endLine)}</div>`, cam), V ? W * 0.86 : W * 0.38)
+    const brow = fit(el(`<div class="abs nowrap" style="font:600 ${(V ? 30 : 27) * k}px Figtree;color:${C.inkSoft}">${c.eyebrow}</div>`, cam), V ? W * 0.86 : W * 0.38)
     const cta = el(
       `<div class="abs pill" style="font:700 ${(V ? 42 : 38) * k}px Figtree;color:#fff;background:${C.ink};padding:${26 * k}px ${50 * k}px;gap:${18 * k}px;box-shadow:0 ${20 * k}px ${40 * k}px -${16 * k}px rgba(22,33,74,.5);overflow:hidden;position:absolute">
         ${svgIcon('ShoppingBag', '#fff', 40 * k, 2)}<span>${c.cta}</span>
@@ -878,7 +883,7 @@
       put(g3, W * 0.55, H * 0.05, {})
       bub(t, P(t, 28.4, 29.4))
       ribPaths.forEach((p, i) => p.setAttribute('stroke-dashoffset', (1 - P(t, 28.0 + i * 0.04, 29.3 + i * 0.04, E.io3)).toFixed(4)))
-      const bcx = V ? W / 2 : W * 0.7
+      const bcx = V ? W / 2 : W * 0.725
       const bcy = V ? H * 0.46 : H * 0.5
       boxes.forEach((b, i) => {
         const p = P(t, 28.15 + b.d, 28.95 + b.d, E.outBackSoft)
@@ -953,6 +958,10 @@
     await document.fonts.load(`800 100px Figtree`, 'ığşçöüİĞŞÇÖÜ')
     await document.fonts.load(`600 100px Figtree`, 'ığşçöüİĞŞÇÖÜ')
     await document.fonts.ready
+    for (const [n, max] of fits) {
+      const w = n.scrollWidth
+      if (w > max) n.style.fontSize = `${(parseFloat(getComputedStyle(n).fontSize) * max) / w}px`
+    }
     window.seek(0)
     return true
   })()

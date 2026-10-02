@@ -24,8 +24,8 @@ for l in tr en; do for r in 16x9 9x16; do [ -f "out/velmo-$l-$r.mp4" ] || render
 
 # Web versions (lighter) and posters (the end card) for the site.
 for l in tr en; do
-  ffmpeg -hide_banner -loglevel error -y -i out/velmo-$l-16x9.mp4 -vf scale=1280:-2 -c:v libx264 -preset slow -crf 22 -profile:v high -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 160k out/web-$l-16x9.mp4
-  ffmpeg -hide_banner -loglevel error -y -i out/velmo-$l-9x16.mp4 -vf scale=720:-2 -c:v libx264 -preset slow -crf 22 -profile:v high -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 160k out/web-$l-9x16.mp4
+  ffmpeg -hide_banner -loglevel error -y -i out/velmo-$l-16x9.mp4 -vf scale=1280:-2 -c:v libx264 -preset slow -crf 22 -profile:v high -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart -c:a aac -b:a 160k out/web-$l-16x9.mp4
+  ffmpeg -hide_banner -loglevel error -y -i out/velmo-$l-9x16.mp4 -vf scale=720:-2 -c:v libx264 -preset slow -crf 22 -profile:v high -pix_fmt yuv420p -colorspace bt709 -color_primaries bt709 -color_trc bt709 -movflags +faststart -c:a aac -b:a 160k out/web-$l-9x16.mp4
   ffmpeg -hide_banner -loglevel error -y -ss 23.2 -i out/velmo-$l-16x9.mp4 -frames:v 1 -vf scale=1280:-2 -q:v 3 out/poster-$l-16x9.jpg
   ffmpeg -hide_banner -loglevel error -y -ss 23.2 -i out/velmo-$l-9x16.mp4 -frames:v 1 -vf scale=720:-2 -q:v 3 out/poster-$l-9x16.jpg
 done

@@ -25,7 +25,8 @@ export function pageMetadata({
   const { t } = getI18n(locale)
   const other: Locale = locale === 'tr' ? 'en' : 'tr'
   return {
-    title,
+    // An explicit `title: undefined` would wipe the layout's default title (home page).
+    ...(title ? { title } : {}),
     description: description ?? t.meta.description,
     alternates: {
       canonical: path,
