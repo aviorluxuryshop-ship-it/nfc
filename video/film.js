@@ -942,6 +942,8 @@
   }
 
   window.DUR = DUR
+  // Settled moments of each scene, checked by qa/layout.js.
+  window.QA_MOMENTS = [2.9, 7.0, 10.7, 13.5, 15.5, 17.2, 21.0, 23.3, 25.3, 27.2, 31.0]
   window.seek = (t) => {
     for (const s of scenes) {
       const on = t >= s.a && t < s.b

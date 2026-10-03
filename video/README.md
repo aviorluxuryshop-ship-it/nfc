@@ -12,6 +12,7 @@ müzik, stok video veya ücretli program kullanılmaz.
 | `music.py` | Özgün müzik ve ses efektleri (numpy/scipy ile sentezlenir, 120 BPM, Fa majör) |
 | `render.js` | Kareleri paralel çizer, alt-kareleri karıştırıp hareket bulanıklığı verir, ffmpeg ile MP4 yapar |
 | `build.sh` | Hepsini sırayla çalıştırır |
+| `qa/layout.js`, `qa/sheets.py`, `qa/check.sh` | Kontroller: yazı taşması/çakışması, kare kare inceleme sayfaları, teknik kontrol (bozuk kare, ses seviyesi) |
 
 ## Üretmek
 
