@@ -1408,9 +1408,10 @@
     cue(capR, 24.5, 27.05, V ? H * 0.17 : H * 0.14)
     scene(23.98, 27.95, L, (t) => {
       const push = P(t, 26.2, 27.5, E.io2)
-      w.cam(mix(V ? 1150 : 1060, V ? 1240 : 1180, push), mix(V ? 600 : 560, 520, push), mix(V ? 1.25 : 1.02, V ? 1.45 : 1.22, push))
+      // vertical frames hold both characters and the box through the push
+      w.cam(mix(V ? 1170 : 1060, V ? 1195 : 1180, push), mix(V ? 600 : 560, V ? 560 : 520, push), mix(V ? 1.25 : 1.02, V ? 1.32 : 1.22, push))
       rb.forEach((n, i) => n.setAttribute('stroke-dashoffset', f2(1 - P(t, 24.0 + i * 0.04, 25.0 + i * 0.04, E.io3))))
-      const KX = 860
+      const KX = V ? 940 : 860
       const KY = 930
       const jump = (t0) => {
         const pp = clamp((t - t0) / 0.55)
