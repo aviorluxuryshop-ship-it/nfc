@@ -5,14 +5,15 @@ description: Make promo films, product videos, ads, explainers and social cuts (
 
 # Video production (code-drawn films, free tools only)
 
-A working pipeline already exists in `video/` (built for the VELMO film, 32 s, TR/EN, 16:9 + 9:16).
-Reuse it as the template for any new film rather than starting over.
+A working pipeline already exists in `video/` (two VELMO films, 32 s each, TR/EN, 16:9 + 9:16: the brand film `film.*` and the character-animated usage film `usage.*`).
+Reuse it as the template for any new film rather than starting over: copy the page and its music script, add a case to `build.sh`'s `FILM` switch.
 
 | File | Role |
 |---|---|
 | `video/film.html`, `video/film.js` | The film. `seek(t)` draws second t; everything is a pure function of time (no CSS animations), so frames render in any order |
 | `video/assets/brand.js`, `assets/fonts/` | Product art, icons and the site's fonts, extracted from the site build (Playwright `outerHTML` of the real SVG components) |
 | `video/music.py` | Original score + sound effects synthesised with numpy/scipy, every hit placed on the film's cue times |
+| `video/usage.js`, `video/music_usage.py` | Story film kit: SVG world + camera, IK-posed characters (`kid()`, `mom()`), props, a washing machine; captions on the film clock (`cue()`); score with Karplus–Strong ukulele, glockenspiel, whistle and Foley-style effects, mastered in-script to −13 LUFS / −1.3 dBTP |
 | `video/render.js` | Parallel Chromium workers → sub-frames → `tmix` motion blur → x264/AAC; `--snap` renders stills |
 | `video/build.sh` | Music → loudness (−13 LUFS) → all versions → web cuts (MP4 + VP9 WebM) → posters → copies into `public/video/` |
 | `video/qa/layout.js`, `qa/sheets.py`, `qa/check.sh` | QA tools (below) |
@@ -39,6 +40,7 @@ Playwright: `NODE_PATH=<dir with playwright-core> node video/render.js …`; Chr
 ```bash
 NODE_PATH=… ./video/build.sh            # all versions, ~7 min each for 32 s 1080p on 4 cores
 NODE_PATH=… ./video/build.sh tr 9x16    # one version
+FILM=usage NODE_PATH=… ./video/build.sh # the usage film (render.js/qa/layout.js take --page usage.html)
 ```
 
 - **Masters**: H.264 CRF 18, 30 fps, BT.709 tags, AAC 256k, `+faststart`, −13 LUFS, true peak ≤ −1 dB.
@@ -57,5 +59,7 @@ NODE_PATH=… ./video/build.sh tr 9x16    # one version
 ## Gotchas met before
 - `pkill -f "<pattern>"` also matches your own shell's command line and kills it; find PIDs with `ps -eo pid,args | awk …` instead.
 - Playwright's bundled Chromium has no H.264: test playback with the WebM or check `canPlayType`; real browsers play the MP4.
+- `fit()` must measure text while it is displayed: captions hidden with `display:none` report width 0 and never shrink.
+- Story films: give every action its own sound (latch, beep, splash, boing), then check each event's momentary loudness against the 2 s around it — a pure-tone whistle can jump 6 dB above the bed.
 - Live-site browser tests behind the agent proxy need its CA: pass `--ignore-certificate-errors-spki-list=<sha256 of /root/.ccr/agent-proxy-ca.crt's SPKI>` (pins only that CA).
 - Syncing large binaries through an API connector can hit request-size limits (~4 MB); verify the target repo's tree hash afterwards, and keep `build.sh`'s executable bit.

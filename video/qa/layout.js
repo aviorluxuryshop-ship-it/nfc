@@ -1,9 +1,9 @@
 /*
- * Layout QA for a film.html composition: at the settled moments it lists
+ * Layout QA for a film composition (film.html, usage.html, …): at the settled moments it lists
  * (window.QA_MOMENTS), every visible text block must sit inside the title-safe
  * area and must not collide with another text block or a product shot (.pack).
  *
- *   node qa/layout.js [--sizes 1920x1080,1080x1920] [--langs tr,en]
+ *   node qa/layout.js [--page usage.html] [--sizes 1920x1080,1080x1920] [--langs tr,en]
  *
  * Glyph boxes come from the text nodes' line boxes, which run a little taller
  * than the ink: a hit between a heavy logo and the line under it can be a
@@ -21,6 +21,7 @@ const arg = (k, d) => {
 const root = path.join(__dirname, '..')
 const sizes = arg('sizes', '1920x1080,1080x1920').split(',').map((s) => s.split('x').map(Number))
 const langs = arg('langs', 'tr,en').split(',')
+const PAGE = arg('page', 'film.html')
 const chrome = arg('chrome', process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome')
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2' }
 
@@ -39,7 +40,7 @@ const server = http.createServer((req, res) => {
   for (const lang of langs) {
     for (const [w, h] of sizes) {
       const page = await browser.newPage({ viewport: { width: w, height: h } })
-      await page.goto(`http://127.0.0.1:${port}/film.html?lang=${lang}&w=${w}&h=${h}`)
+      await page.goto(`http://127.0.0.1:${port}/${PAGE}?lang=${lang}&w=${w}&h=${h}`)
       await page.evaluate(() => window.ready)
       const moments = await page.evaluate(() => window.QA_MOMENTS || [window.DUR - 1])
       for (const t of moments) {

@@ -1,10 +1,11 @@
 /*
- * Renders film.html to video with headless Chromium + ffmpeg.
+ * Renders a film page (film.html by default, --page usage.html for the usage film)
+ * to video with headless Chromium + ffmpeg.
  *
  *   node render.js --lang tr --w 1920 --h 1080 --out out/velmo-tr-16x9.mp4
  *   node render.js --lang tr --snap 1.5,9,13.2 --outdir out/snaps    (stills)
  *
- * Options: --fps 30, --sub 4 (sub-frames blended per frame = motion blur),
+ * Options: --page usage.html, --fps 30, --sub 4 (sub-frames blended per frame = motion blur),
  * --shutter 0.5 (fraction of a frame the blur spans), --workers 4,
  * --from/--to (seconds), --chrome <path>, --audio <wav> (muxed in).
  */
@@ -31,6 +32,7 @@ const sub = +(args.sub || 4)
 const shutter = +(args.shutter || 0.5)
 const workers = +(args.workers || 4)
 const FORMAT = args.format || 'jpeg'
+const PAGE = args.page || 'film.html'
 const chrome = args.chrome || process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.json': 'application/json' }
@@ -48,7 +50,7 @@ function serve() {
 async function openPage(browser, port) {
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 })
   page.on('pageerror', (e) => console.error('page error:', e.message))
-  await page.goto(`http://127.0.0.1:${port}/film.html?lang=${lang}&w=${W}&h=${H}`)
+  await page.goto(`http://127.0.0.1:${port}/${PAGE}?lang=${lang}&w=${W}&h=${H}`)
   await page.evaluate(() => window.ready)
   const cdp = await page.context().newCDPSession(page)
   return { page, cdp }
