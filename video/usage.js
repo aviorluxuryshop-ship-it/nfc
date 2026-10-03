@@ -691,7 +691,7 @@
   const STEP = [C.lav, C.bah, C.nar]
   const chips = c.steps.map((txt, i) =>
     el(
-      `<div class="abs pill" style="display:none;z-index:60;font:700 ${(V ? 34 : 30) * k}px Figtree;color:${C.ink};background:rgba(255,255,255,.92);box-shadow:0 ${10 * k}px ${30 * k}px -${12 * k}px rgba(22,33,74,.35);padding:${10 * k}px ${26 * k}px ${10 * k}px ${10 * k}px;gap:${16 * k}px">
+      `<div class="abs pill" style="display:none;z-index:60;font:700 ${34 * k}px Figtree;color:${C.ink};background:rgba(255,255,255,.92);box-shadow:0 ${10 * k}px ${30 * k}px -${12 * k}px rgba(22,33,74,.35);padding:${10 * k}px ${26 * k}px ${10 * k}px ${10 * k}px;gap:${16 * k}px">
         <span style="display:flex;align-items:center;justify-content:center;width:${48 * k}px;height:${48 * k}px;border-radius:50%;background:${STEP[i]};color:#fff;font-weight:800">${i + 1}</span><span>${txt}</span>
       </div>`,
     ),
@@ -801,9 +801,9 @@
       `<g><path d="M -54 -40 Q -54 -64 -30 -64 L 30 -64 Q 54 -64 54 -40 L 54 4 Q 54 28 30 28 L 6 28 L -14 48 L -10 28 L -30 28 Q -54 28 -54 4 Z" fill="#FFFFFF" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/><text x="0" y="12" text-anchor="middle" font-family="Fraunces" font-weight="700" font-size="76" fill="${C.nar}">!</text></g>`,
     )
     const capA = caption(c.calm)
-    cue(capA, 5.0, 7.45, V ? H * 0.735 : H * 0.8)
+    cue(capA, 5.0, 7.2, V ? H * 0.735 : H * 0.8)
     const capB = caption(c.enough, { size: 1 })
-    cue(capB, 6.0, 7.45, V ? H * 0.795 : H * 0.895)
+    cue(capB, 6.0, 7.2, V ? H * 0.795 : H * 0.895)
     capB.style.color = C.lav
     KIT.layer = L
 
@@ -1280,9 +1280,9 @@
     const sprigs = Array.from({ length: 4 }, () => sv(w.g, `<g>${brandIn('emblem_lavanta', 0, 0, 90)}</g>`))
     const hearts = Array.from({ length: 3 }, (_, i) => sv(w.g, `<path d="M 0 10 C -24 -8 -22 -30 -6 -30 C 0 -30 0 -24 0 -22 C 0 -24 0 -30 6 -30 C 22 -30 24 -8 0 10 Z" fill="${['#F28BA8', '#8466C6', '#F7AE62'][i]}"/>`))
     const capF = caption(c.fresh)
-    cue(capF, 21.15, 22.45, V ? H * 0.76 : H * 0.88)
+    cue(capF, 20.85, 21.9, V ? H * 0.76 : H * 0.88)
     const capC = caption(c.colours)
-    cue(capC, 22.6, 23.95, V ? H * 0.76 : H * 0.88)
+    cue(capC, 22.45, 23.45, V ? H * 0.76 : H * 0.88)
     RES.layer = L
     const MX = 1240
     const MY = 930
@@ -1405,7 +1405,7 @@
     const kd = kid(w.g)
     const box = sv(w.g, `<g>${brandIn('angle_lavanta', 0, 0, 230)}</g>`)
     const capR = caption(c.forColour)
-    cue(capR, 24.5, 27.25, V ? H * 0.17 : H * 0.14)
+    cue(capR, 24.5, 27.05, V ? H * 0.17 : H * 0.14)
     scene(23.98, 27.95, L, (t) => {
       const push = P(t, 26.2, 27.5, E.io2)
       w.cam(mix(V ? 1150 : 1060, V ? 1240 : 1180, push), mix(V ? 600 : 560, 520, push), mix(V ? 1.25 : 1.02, V ? 1.45 : 1.22, push))
@@ -1457,7 +1457,7 @@
 
   // a white flash on the cut into the celebration
   {
-    const fl = el(`<div class="layer" style="z-index:46;background:#FFFFFF"></div>`)
+    const fl = el(`<div class="layer" style="z-index:65;background:#FFFFFF"></div>`)
     scene(23.9, 24.3, fl, (t) => (fl.style.opacity = f2(t < 24 ? P(t, 23.9, 24.0) : 1 - P(t, 24.0, 24.28, E.out2))))
   }
 
@@ -1579,7 +1579,7 @@
 
   window.DUR = DUR
   // Settled moments of each scene, checked by qa/layout.js.
-  window.QA_MOMENTS = [3.1, 7.0, 9.6, 11.7, 14.9, 18.0, 22.2, 23.7, 25.6, 31.0]
+  window.QA_MOMENTS = [3.1, 6.9, 9.6, 11.7, 14.9, 18.0, 21.7, 23.2, 25.6, 31.0]
   window.seek = (t) => {
     for (const s of scenes) {
       const on = t >= s.a && t < s.b
