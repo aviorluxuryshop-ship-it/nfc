@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socialp Media — Brand Film</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* preview player chrome (hidden while rendering) */
+  #player { position: fixed; inset: 0; display: grid; place-items: center; background: #050505; }
+  #frame { position: relative; transform-origin: 0 0; }
+  #ctrl { position: fixed; left: 16px; right: 16px; bottom: 12px; display: flex; gap: 12px; align-items: center; font: 13px/1 system-ui, sans-serif; color: #ccc; z-index: 999; }
+  #ctrl input[type=range] { flex: 1; }
+  #ctrl button { background: #222; color: #eee; border: 1px solid #444; border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+  body.render #ctrl { display: none; }
+  body.render #player { position: static; display: block; background: none; }
+</style>
+</head>
+<body>
+<div id="player"><div id="frame"><div id="stage"></div></div></div>
+<div id="ctrl">
+  <button id="play">▶︎</button>
+  <input id="scrub" type="range" min="0" max="64" step="0.0333" value="0">
+  <span id="time">0.00</span>
+  <button id="fmt">9:16</button>
+</div>
+<script src="engine.js"></script>
+<script src="scenes.js"></script>
+<script>
+(async function () {
+  const q = new URLSearchParams(location.search);
+  const render = q.has('render');
+  const vertical = q.get('format') === 'v';
+  if (render) document.body.classList.add('render');
+  const stage = document.getElementById('stage');
+  if (vertical) stage.classList.add('v');
+
+  const [tl, logoStacked, logoInline] = await Promise.all([
+    fetch('timeline.json').then((r) => r.json()),
+    fetch('assets/logo-stacked.svg').then((r) => r.text()),
+    fetch('assets/logo-inline.svg').then((r) => r.text()),
+  ]);
+  window.__TIMELINE = tl;
+  window.__LOGO_STACKED = logoStacked;
+  window.__LOGO_INLINE = logoInline;
+
+  const film = await window.buildFilm(stage, { vertical });
+  window.seek = film.seek;
+  window.duration = film.duration;
+
+  if (render) { window.__ready = true; return; }
+
+  // ---- preview player ----
+  const frame = document.getElementById('frame');
+  const fit = () => {
+    const W = vertical ? 1080 : 1920, H = vertical ? 1920 : 1080;
+    const s = Math.min(innerWidth / W, (innerHeight - 50) / H);
+    frame.style.transform = `scale(${s})`;
+    frame.style.width = W + 'px'; frame.style.height = H + 'px';
+    frame.parentElement.style.placeItems = 'start center';
+    frame.style.marginTop = '8px';
+    frame.style.marginLeft = ((innerWidth - W * s) / 2) + 'px';
+    frame.parentElement.style.display = 'block';
+  };
+  fit(); addEventListener('resize', fit);
+  const scrub = document.getElementById('scrub'), time = document.getElementById('time'), play = document.getElementById('play');
+  scrub.max = film.duration;
+  let t = Number(q.get('t') || 0), playing = false, last = 0;
+  const show = async () => { await film.seek(t); scrub.value = t; time.textContent = t.toFixed(2); };
+  scrub.oninput = () => { t = Number(scrub.value); show(); };
+  play.onclick = () => { playing = !playing; play.textContent = playing ? '❚❚' : '▶︎'; last = performance.now(); if (playing) loop(); };
+  document.getElementById('fmt').onclick = () => { q.set('format', vertical ? 'h' : 'v'); location.search = q.toString(); };
+  async function loop() {
+    if (!playing) return;
+    const now = performance.now(); t += (now - last) / 1000; last = now;
+    if (t >= film.duration) t = 0;
+    await show(); requestAnimationFrame(loop);
+  }
+  addEventListener('keydown', (e) => { if (e.code === 'Space') play.onclick(); if (e.code === 'ArrowRight') { t += 1 / 30; show(); } if (e.code === 'ArrowLeft') { t = Math.max(0, t - 1 / 30); show(); } });
+  show();
+})();
+</script>
+</body>
+</html>

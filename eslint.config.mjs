@@ -4,7 +4,7 @@ import typescript from 'eslint-config-next/typescript'
 /** Flat config — `next lint` was removed in Next 16, so ESLint runs directly. */
 const config = [
   {
-    ignores: ['.next/**', 'out/**', 'build/**', 'node_modules/**', 'next-env.d.ts'],
+    ignores: ['.next/**', 'out/**', 'build/**', 'node_modules/**', 'next-env.d.ts', 'promo/**'],
   },
   ...coreWebVitals,
   ...typescript,

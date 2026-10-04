@@ -1,0 +1,13 @@
+{
+  "name": "socialp-media-brand-film",
+  "private": true,
+  "description": "Code-driven brand film for Socialp Media — deterministic HTML timeline rendered frame-by-frame with headless Chromium, synthesized score.",
+  "scripts": {
+    "preview": "npx --yes serve src",
+    "build": "bash scripts/build.sh",
+    "stills": "node scripts/render.js --stills 2,6,12,18,30,38,44,50,54,60 --out build/stills"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}

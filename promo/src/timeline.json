@@ -1,0 +1,18 @@
+{
+  "title": "Socialp Media — Brand Film",
+  "duration": 64,
+  "bpm": 120,
+  "fps": 30,
+  "sections": [
+    { "id": "intro",       "t": 0,  "label": "Giriş" },
+    { "id": "hero",        "t": 4,  "label": "Ajans" },
+    { "id": "stats",       "t": 10, "label": "Biz kimiz" },
+    { "id": "services",    "t": 16, "label": "Hizmetler" },
+    { "id": "work",        "t": 28, "label": "Seçili proje" },
+    { "id": "production",  "t": 34, "label": "Prodüksiyon" },
+    { "id": "process",     "t": 42, "label": "Süreç" },
+    { "id": "testimonial", "t": 48, "label": "Referans" },
+    { "id": "cta",         "t": 52, "label": "İletişim" },
+    { "id": "end",         "t": 58, "label": "Socialp Media" }
+  ]
+}
