@@ -8,7 +8,7 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 page.on('pageerror', e => console.error('PAGEERR', e.message));
 page.on('console', m => { if (m.type() === 'error') console.error('CONSOLE', m.text()); });
-await page.goto('file://' + path.resolve('index.html'));
+await page.goto('file://' + path.resolve(opt('--page')||'index.html'));
 await page.evaluate(() => window.ready);
 const dur = await page.evaluate(() => window.DUR);
 if (opt('--at')) {
