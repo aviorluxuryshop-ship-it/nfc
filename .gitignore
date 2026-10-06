@@ -9,3 +9,4 @@ tsconfig.tsbuildinfo
 *.pem
 npm-debug.log*
 yarn-error.log*
+video/out/surec.mp4
