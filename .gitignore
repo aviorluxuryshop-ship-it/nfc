@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 npm-debug.log*
 yarn-error.log*
 video/out/surec.mp4
+video2/out/surec_v2_master.mp4
