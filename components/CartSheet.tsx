@@ -48,8 +48,7 @@ export function CartSheet() {
 
   if (!open) return null
 
-  const missing = restaurant.minOrder - subtotal
-  const belowMin = missing > 0
+  const belowMin = subtotal < restaurant.minOrder
   const progress = Math.min(100, Math.round((subtotal / restaurant.minOrder) * 100))
 
   const order = () => {
@@ -106,8 +105,8 @@ export function CartSheet() {
                 <div className="h-2 overflow-hidden rounded-full bg-marmara-50" role="progressbar" aria-label="Minimum sipariş tutarı" aria-valuemin={0} aria-valuemax={restaurant.minOrder} aria-valuenow={Math.min(subtotal, restaurant.minOrder)}>
                   <div className="h-full rounded-full bg-marmara transition-all" style={{ width: `${progress}%` }} />
                 </div>
-                <p className={`mt-2 text-sm font-semibold ${belowMin ? 'text-marmara' : 'text-green-700'}`}>
-                  {belowMin ? `Minimum sipariş ${tl(restaurant.minOrder)}: ${tl(missing)} daha ürün ekle.` : 'Minimum sipariş tutarına ulaştın ✓'}
+                <p className={`mt-2 text-sm font-semibold ${belowMin ? 'text-ink-soft' : 'text-green-700'}`}>
+                  {belowMin ? `Minimum sipariş tutarı ${tl(restaurant.minOrder)}` : 'Minimum sipariş tutarına ulaştın ✓'}
                 </p>
               </div>
             </div>
@@ -122,9 +121,11 @@ export function CartSheet() {
                 <b className="text-2xl text-marmara">{tl(total)}</b>
               </p>
               <button onClick={order} disabled={belowMin} className="mt-3 w-full rounded-xl bg-marmara px-6 py-4 text-lg font-bold text-white transition hover:bg-marmara-dim disabled:opacity-50">
-                {belowMin ? `${tl(missing)} daha ekle` : 'Sipariş ver'}
+                Sipariş ver
               </button>
-              <p className="mt-2 text-center text-xs text-ink-soft">Adres ve ödeme bilgilerini bir sonraki sayfada gireceksin.</p>
+              <p className="mt-2 text-center text-xs text-ink-soft">
+                {belowMin ? `Sipariş verebilmek için sepet tutarı en az ${tl(restaurant.minOrder)} olmalı.` : 'Adres ve ödeme bilgilerini bir sonraki sayfada gireceksin.'}
+              </p>
             </div>
           </>
         )}

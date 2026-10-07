@@ -6,7 +6,6 @@ import { formatOrderMessage, isPaymentMethod, isServedNeighborhood, priceOrder, 
 export const runtime = 'nodejs'
 
 const clean = (v: unknown, max: number) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max)
-const coord = (v: unknown, limit: number) => (typeof v === 'number' && Number.isFinite(v) && Math.abs(v) <= limit ? v : undefined)
 
 // Aynı ürün birden fazla satırda gelirse miktarlar birleştirilir; 50 pakete kadar kabul edilir.
 function mergeItems(raw: unknown): OrderInput['items'] {
@@ -46,8 +45,6 @@ export async function POST(req: Request) {
     business: clean(body.business, 80),
     note: clean(body.note, 200),
     payment: isPaymentMethod(body.payment) ? body.payment : 'nakit',
-    lat: coord(body.lat, 90),
-    lng: coord(body.lng, 180),
     items: mergeItems(body.items),
   }
 

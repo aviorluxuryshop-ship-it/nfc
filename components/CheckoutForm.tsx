@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { ArrowLeft, Banknote, CheckCircle2, CreditCard, MapPin, Minus, Phone, Plus, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Banknote, CheckCircle2, CreditCard, Minus, Phone, Plus, ShoppingBag } from 'lucide-react'
 
 import { imageOf, neighborhoods, restaurant } from '@/data/yemek'
 import { tl } from '@/lib/format'
@@ -50,10 +50,8 @@ export function CheckoutForm() {
   const [draft] = useState(loadDraft)
   const [form, setForm] = useState(draft.form)
   const [payment, setPayment] = useState<PaymentMethod>(draft.payment)
-  const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [geoError, setGeoError] = useState('')
   const [waLink, setWaLink] = useState('')
   const [done, setDone] = useState<{ code: string; total: number; payment: PaymentMethod } | null>(null)
   const alertRef = useRef<HTMLDivElement>(null)
@@ -71,23 +69,12 @@ export function CheckoutForm() {
     if (error || waLink) alertRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
   }, [error, waLink])
 
-  const missing = restaurant.minOrder - subtotal
-  const belowMin = missing > 0
+  const belowMin = subtotal < restaurant.minOrder
   const streets = neighborhoods.find((n) => n.name === form.neighborhood)?.streets ?? []
   const tel = restaurant.phoneDisplay.replace(/\s/g, '')
 
   const set = (k: keyof typeof empty) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value, ...(k === 'neighborhood' ? { street: '' } : {}) }))
-
-  const locate = () => {
-    setGeoError('')
-    if (!navigator.geolocation) return setGeoError('Tarayıcınız konum paylaşımını desteklemiyor. Adresi yazarak devam edebilirsiniz.')
-    navigator.geolocation.getCurrentPosition(
-      (p) => setCoords({ lat: p.coords.latitude, lng: p.coords.longitude }),
-      () => setGeoError('Konum alınamadı. Adresi yazarak devam edebilirsiniz.'),
-      { enableHighAccuracy: true, timeout: 10000 },
-    )
-  }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -96,7 +83,7 @@ export function CheckoutForm() {
       const res = await fetch('/api/siparis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, payment, ...coords, items: lines.map((l) => ({ id: l.id, qty: l.qty })) }),
+        body: JSON.stringify({ ...form, payment, items: lines.map((l) => ({ id: l.id, qty: l.qty })) }),
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok || typeof data.code !== 'string' || typeof data.total !== 'number') {
@@ -105,7 +92,7 @@ export function CheckoutForm() {
         return
       }
       setDone({ code: data.code, total: data.total, payment })
-      setForm(empty); setPayment('nakit'); setCoords(null)
+      setForm(empty); setPayment('nakit')
       clear()
       window.scrollTo({ top: 0 })
     } catch {
@@ -210,10 +197,6 @@ export function CheckoutForm() {
                 <Label htmlFor="f-isletme">İşletme / bina adı</Label>
                 <input id="f-isletme" className={field} placeholder="Varsa" maxLength={80} value={form.business} onChange={set('business')} />
               </div>
-              <button type="button" onClick={locate} className="flex w-full items-center justify-center gap-2 rounded-xl border border-ink/20 px-4 py-3 font-semibold transition hover:border-marmara hover:text-marmara">
-                <MapPin size={18} className="shrink-0" aria-hidden /> {coords ? 'Konum eklendi ✓' : 'Konumumu paylaş (isteğe bağlı, kurye daha kolay bulur)'}
-              </button>
-              {geoError && <p role="status" className="-mt-2 text-sm text-ink-soft">{geoError}</p>}
               <div>
                 <Label htmlFor="f-not">Sipariş notu</Label>
                 <textarea id="f-not" className={field} placeholder="İsteğe bağlı" rows={2} maxLength={200} value={form.note} onChange={set('note')} />
@@ -279,7 +262,7 @@ export function CheckoutForm() {
 
           {belowMin && (
             <p className="mt-4 rounded-xl bg-marmara-50 px-4 py-3 text-sm font-semibold text-marmara-dim">
-              Minimum sipariş {tl(restaurant.minOrder)}: {tl(missing)} daha ürün ekle. <Link href="/urunler" className="underline">Ürünlere dön</Link>
+              Minimum sipariş tutarı {tl(restaurant.minOrder)}. <Link href="/urunler" className="underline">Ürünlere dön</Link>
             </p>
           )}
 
@@ -299,7 +282,7 @@ export function CheckoutForm() {
           )}
 
           <button disabled={busy || belowMin} className="mt-4 w-full rounded-xl bg-marmara px-6 py-4 text-lg font-bold text-white transition hover:bg-marmara-dim disabled:opacity-50">
-            {busy ? 'Gönderiliyor…' : belowMin ? `${tl(missing)} daha ekle` : `Siparişi ver · ${tl(total)}`}
+            {busy ? 'Gönderiliyor…' : `Siparişi ver · ${tl(total)}`}
           </button>
         </aside>
       </form>
