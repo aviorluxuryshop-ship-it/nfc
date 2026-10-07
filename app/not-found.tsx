@@ -2,15 +2,12 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[70vh] items-center justify-center bg-paper px-5 pb-20 pt-28">
+    <section className="flex min-h-[60vh] items-center justify-center px-5">
       <div className="text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-royal">404</p>
-        <h1 className="mt-3 font-display text-2xl font-semibold text-ink">Bu sayfa yaklaştırınca açılmadı</h1>
-        <Link
-          href="/"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition hover:bg-royal"
-        >
-          Ana Sayfaya Dön
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-marmara">404</p>
+        <h1 className="mt-3 font-display text-2xl font-semibold text-ink">Sayfa bulunamadı</h1>
+        <Link href="/" className="mt-6 inline-block rounded-full bg-marmara px-6 py-3 text-sm font-semibold text-white">
+          Ürünlere dön
         </Link>
       </div>
     </section>

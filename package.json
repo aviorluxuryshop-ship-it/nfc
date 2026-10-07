@@ -1,8 +1,8 @@
 {
-  "name": "dijital-kartim",
+  "name": "marmara-gida",
   "version": "1.0.0",
   "private": true,
-  "description": "Dijital Kartım — işletmeler için NFC kart kataloğu",
+  "description": "Marmara Gıda Kahvaltı — online sipariş",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

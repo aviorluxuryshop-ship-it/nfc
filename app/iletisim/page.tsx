@@ -1,67 +1,19 @@
 import type { Metadata } from 'next'
-import { Instagram, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
-import { Reveal } from '@/components/Reveal'
-import { siteConfig } from '@/data/site'
+import { restaurant } from '@/data/yemek'
 
-export const metadata: Metadata = {
-  title: 'İletişim',
-  description: `${siteConfig.name} ile iletişime geç: telefon, WhatsApp, e-posta ve Instagram.`,
-  alternates: { canonical: '/iletisim' },
-}
+export const metadata: Metadata = { title: `İletişim — ${restaurant.name}` }
 
-const channels = [
-  { icon: Phone, label: 'Telefon', value: siteConfig.phone, href: `tel:${siteConfig.phone.replace(/\s/g, '')}` },
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    value: siteConfig.whatsapp,
-    href: `https://wa.me/${siteConfig.whatsapp.replace(/[^\d]/g, '')}`,
-  },
-  { icon: Mail, label: 'E-posta', value: siteConfig.email, href: `mailto:${siteConfig.email}` },
-  { icon: Instagram, label: 'Instagram', value: siteConfig.instagram.handle, href: siteConfig.instagram.url },
-  { icon: MapPin, label: 'Adres', value: siteConfig.address },
-]
-
-export default function ContactPage() {
+export default function Iletisim() {
   return (
-    <section className="bg-paper px-5 pb-20 pt-28 sm:pt-32">
-      <div className="container-prose">
-        <Reveal>
-          <h1 className="font-display text-3xl font-semibold text-ink sm:text-4xl">İletişim</h1>
-          <p className="mt-3 text-ink-mute">Kart, fiyat ya da teslimat hakkında sorun mu var? Aşağıdaki kanallardan bize ulaş.</p>
-        </Reveal>
-
-        <ul className="mt-10 space-y-4">
-          {channels.map(({ icon: Icon, label, value, href }, i) => (
-            <Reveal
-              as="li"
-              key={label}
-              delay={i * 60}
-              className="flex items-center gap-4 rounded-card border border-ink/10 bg-paper-raised p-5"
-            >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-ink text-paper">
-                <Icon className="h-[18px] w-[18px]" />
-              </span>
-              <div>
-                <p className="text-xs uppercase tracking-[0.15em] text-ink-mute">{label}</p>
-                {href ? (
-                  <a
-                    href={href}
-                    target={href.startsWith('http') ? '_blank' : undefined}
-                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-ink hover:text-royal"
-                  >
-                    {value}
-                  </a>
-                ) : (
-                  <p className="text-ink">{value}</p>
-                )}
-              </div>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <div className="container max-w-2xl py-12">
+      <h1 className="font-display text-3xl font-extrabold text-marmara">İletişim</h1>
+      <dl className="mt-6 space-y-4 text-lg">
+        <div><dt className="text-sm font-semibold text-ink-mute">Telefon</dt><dd><a className="font-bold" href={`tel:${restaurant.phoneDisplay.replace(/\s/g, '')}`}>{restaurant.phoneDisplay}</a></dd></div>
+        <div><dt className="text-sm font-semibold text-ink-mute">Adres</dt><dd className="font-bold">{restaurant.address}</dd></div>
+        <div><dt className="text-sm font-semibold text-ink-mute">Çalışma saatleri</dt><dd className="font-bold">{restaurant.hours}</dd></div>
+        <div><dt className="text-sm font-semibold text-ink-mute">Servis bölgesi</dt><dd>{restaurant.serviceArea}</dd></div>
+      </dl>
+    </div>
   )
 }

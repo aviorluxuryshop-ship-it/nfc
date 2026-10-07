@@ -19,7 +19,7 @@ export default function Hakkimizda() {
         <li>✅ Ödeme kapıda, nakit veya kartla</li>
         <li>✅ {restaurant.serviceArea}</li>
       </ul>
-      <Link href="/yemek" className="mt-8 inline-block rounded-full bg-marmara px-6 py-3 font-bold text-white">
+      <Link href="/" className="mt-8 inline-block rounded-full bg-marmara px-6 py-3 font-bold text-white">
         Ürünlere göz at
       </Link>
     </div>
