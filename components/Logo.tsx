@@ -1,6 +1,6 @@
 export function Logo({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex flex-col items-center leading-none text-marmara ${className}`} aria-label="Marmara Gıda Kahvaltı">
+    <span className={`inline-flex flex-col items-center leading-none text-marmara ${className}`}>
       <svg viewBox="0 0 48 34" className="mb-1 h-7 w-10" fill="currentColor" aria-hidden>
         <path d="M24 2c5.5 5 6.5 12 0 19-6.5-7-5.5-14 0-19Z" />
         <path d="M21.5 24C12 25 5.5 20 4 10c9-.5 16 5 17.5 14Z" />

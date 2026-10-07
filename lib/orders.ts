@@ -28,6 +28,7 @@ export function priceOrder(items: OrderInput['items']): PricedOrder | null {
   const lines: PricedOrder['lines'] = []
   let subtotal = 0
   for (const it of items) {
+    if (!it || typeof it.id !== 'string') return null
     const m = menu.find((x) => x.id === it.id)
     const qty = Math.floor(Number(it.qty))
     if (!m || !(qty >= 1 && qty <= 50)) return null

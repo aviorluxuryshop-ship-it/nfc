@@ -9,14 +9,15 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: { DEFAULT: '1.25rem', sm: '2rem', lg: '3rem', xl: '4rem' },
+      // Yan boşluk globals.css'te (lg ve üstü için genişletilir); 640–1023px'te sabit 1.25rem.
+      padding: '1.25rem',
       screens: { '2xl': '1360px' },
     },
     extend: {
       colors: {
         // Beyaz zemin, kırmızı vurgu.
         paper: { DEFAULT: '#FFFFFF', raised: '#FAF7F5' },
-        ink: { DEFAULT: '#1A1414', soft: '#5B5050', mute: '#8C8181' },
+        ink: { DEFAULT: '#1A1414', soft: '#5B5050', mute: '#6B6060' },
         marmara: { DEFAULT: '#B5121B', dim: '#8E0E15', 50: '#FDF2F2', 100: '#FBE3E3' },
       },
       fontFamily: {

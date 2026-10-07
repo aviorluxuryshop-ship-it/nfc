@@ -5,6 +5,8 @@ export const restaurant = {
   name: 'Marmara Gıda Kahvaltı',
   tagline: 'Kahvaltının her şeyi, kapınızda.',
   phoneDisplay: '0212 000 00 00',
+  // TODO(işletme): sipariş WhatsApp numarası (905xx… biçiminde). Boşsa BUSINESS_WHATSAPP_TO kullanılır.
+  whatsapp: '',
   address: 'Merter, Güngören / İstanbul',
   hours: 'Her gün 07:00 – 22:00',
   minOrder: 500,
@@ -25,7 +27,7 @@ export type Category = { slug: string; name: string; cover: string; description:
 export const categories: Category[] = [
   { slug: 'peynir', name: 'Peynir Çeşitleri', cover: 'beyaz-peynir', description: 'Kahvaltı sofralarınızın vazgeçilmezi, taptaze ve kaliteli peynir çeşitleri Marmara Gıda\'da.' },
   { slug: 'zeytin', name: 'Zeytin Çeşitleri', cover: 'siyah-zeytin', description: 'Sofranın baş tacı; yeşil, siyah ve yağlı zeytin çeşitleri bir arada.' },
-  { slug: 'tatli', name: 'Tatlı Çeşitleri', cover: 'bal-kaymak', description: 'Reçel, bal ve kaymak, helva ve fındık kreması ile kahvaltıya tatlı bir son.' },
+  { slug: 'tatli', name: 'Tatlı Çeşitleri', cover: 'bal-kaymak', description: 'Reçel, bal ve kaymak, helva, çikolata ve fındık kreması ile kahvaltıya tatlı bir son.' },
   { slug: 'salata', name: 'Salatalar', cover: 'sogus', description: 'Söğüş tabağından çoban salataya, kahvaltının ferah tamamlayıcıları.' },
   { slug: 'sicak', name: 'Sıcak Ürünler', cover: 'menemen', description: 'Menemen, yumurta çeşitleri, gözleme ve böreklerle sıcak sıcak bir kahvaltı.' },
   { slug: 'unlu', name: 'Unlu Mamüller', cover: 'simit', description: 'Simit, poğaça, açma ve kruvasan; sabahın en güzel eşlikçileri.' },
@@ -50,6 +52,7 @@ export const menu: MenuItem[] = [
   { id: 'bal-kaymak', name: 'Bal & Kaymak', price: P, category: 'tatli' },
   { id: 'helva', name: 'Tahin Helvası', price: P, category: 'tatli' },
   { id: 'findik-kremasi', name: 'Fındık Kreması', price: P, category: 'tatli' },
+  { id: 'cikolata', name: 'Çikolata', price: P, category: 'tatli' },
   { id: 'sogus', name: 'Söğüş Tabağı', price: P, category: 'salata' },
   { id: 'coban', name: 'Çoban Salata', price: P, category: 'salata' },
   { id: 'mevsim-salata', name: 'Mevsim Salata', price: P, category: 'salata' },

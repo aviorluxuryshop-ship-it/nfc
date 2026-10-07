@@ -5,7 +5,10 @@ import { ProductGrid } from '@/components/ProductGrid'
 import { restaurant } from '@/data/yemek'
 import { tl } from '@/lib/format'
 
-export const metadata: Metadata = { title: 'Tüm Ürünler' }
+export const metadata: Metadata = {
+  title: 'Tüm Ürünler',
+  description: 'Peynir, zeytin, tatlı, salata, sıcak ürünler, unlu mamüller ve sandviçler. Paket paket sepete ekle, Merter\'e kapıda ödemeli getirelim.',
+}
 
 export default function UrunlerPage() {
   return (

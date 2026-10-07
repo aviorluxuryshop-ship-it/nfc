@@ -6,12 +6,15 @@ import { Banknote, Leaf, Truck } from 'lucide-react'
 import { SectionTitle } from '@/components/SectionTitle'
 import { restaurant } from '@/data/yemek'
 
-export const metadata: Metadata = { title: 'Hakkımızda' }
+export const metadata: Metadata = {
+  title: 'Hakkımızda',
+  description: 'Marmara Gıda Kahvaltı, Merter ve Güngören\'de aile sofraları için taze kahvaltılık ürünleri kapıya getirir.',
+}
 
 const values = [
   { icon: Leaf, title: 'Taze ürün', text: 'Peynirden zeytine, unlu mamüllerden sıcak ürünlere kadar her şey taze ve özenle hazırlanır.' },
   { icon: Truck, title: 'Kapına kadar', text: 'Siparişin hazırlanır, kuryemizle Merter ve çevresinde kapına getirilir.' },
-  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok. Ürünü teslim alırken nakit ya da kartla ödersin.' },
+  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok. Siparişini teslim alırken kapıda ödersin.' },
 ]
 
 export default function Hakkimizda() {
@@ -19,7 +22,7 @@ export default function Hakkimizda() {
     <>
       <section className="container grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
         <div>
-          <SectionTitle>Hakkımızda</SectionTitle>
+          <SectionTitle as="h1">Hakkımızda</SectionTitle>
           <p className="mt-6 text-lg leading-relaxed text-ink-soft">
             {restaurant.name}, Merter&apos;de aile sofralarının kahvaltı ihtiyacını tek adreste karşılar. İstediğin ürünü, istediğin paket kadar seçersin; biz hazırlar, kuryemizle kapına getiririz.
           </p>

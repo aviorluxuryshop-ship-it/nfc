@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { ArrowRight, Search, ShoppingCart } from 'lucide-react'
 
 import { restaurant } from '@/data/yemek'
@@ -23,9 +24,17 @@ export function SiteHeader() {
   const router = useRouter()
   const { count, subtotal, setOpen, query, setQuery } = useCart()
 
+  // Arama her zaman "Tüm Ürünler" sayfasında sonuç gösterir; başka sayfaya geçilince temizlenir.
+  const [prevPath, setPrevPath] = useState(pathname)
+  if (pathname !== prevPath) {
+    setPrevPath(pathname)
+    if (pathname !== '/urunler') setQuery('')
+  }
+
+  const goAll = () => pathname !== '/urunler' && router.push('/urunler')
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!pathname.startsWith('/urunler')) router.push('/urunler')
+    goAll()
   }
 
   const search = (cls: string) => (
@@ -33,22 +42,28 @@ export function SiteHeader() {
       <Search size={18} className="shrink-0 text-marmara" aria-hidden />
       <input
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value)
+          if (e.target.value.trim()) goAll()
+        }}
+        type="search"
+        enterKeyHint="search"
         placeholder="Ürün ara…"
         aria-label="Ürün ara"
-        className="w-full bg-transparent text-sm outline-none placeholder:text-ink-mute"
+        className="w-full bg-transparent text-base outline-none placeholder:text-ink-mute sm:text-sm"
       />
     </form>
   )
 
   return (
-    <>
+    <header className="bg-white">
       <div className="bg-marmara px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-        Sadece Merter civarına servis · Minimum sipariş {tl(restaurant.minOrder)} · Ödeme kapıda
+        <span className="sm:hidden">Merter · Min. {tl(restaurant.minOrder)} · Kapıda ödeme</span>
+        <span className="hidden sm:inline">Sadece Merter civarına servis · Minimum sipariş {tl(restaurant.minOrder)} · Ödeme kapıda</span>
       </div>
-      <header className="bg-white">
-        <div className="container flex items-center justify-between gap-6 py-4">
-          <Link href="/" aria-label="Ana sayfa">
+      <div>
+        <div className="container flex items-center justify-between gap-6 py-3 sm:py-4">
+          <Link href="/" aria-label="Marmara Gıda Kahvaltı, ana sayfa">
             <Logo />
           </Link>
 
@@ -67,18 +82,20 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {search('hidden w-72 items-center gap-2 rounded-full bg-paper-raised px-5 py-3 ring-1 ring-ink/5 focus-within:ring-marmara/40 lg:flex')}
+          {search('hidden w-72 items-center gap-2 rounded-full bg-paper-raised px-5 py-3 ring-1 ring-ink/10 focus-within:ring-2 focus-within:ring-marmara lg:flex')}
 
           <button
             onClick={() => setOpen(true)}
             className="flex items-center gap-3 rounded-xl bg-marmara px-4 py-2.5 text-left text-white shadow-soft transition hover:bg-marmara-dim"
-            aria-label={`Sepeti aç, ${count} ürün`}
+            aria-label={`Sepetim, ${count} ürün, ${tl(subtotal)}`}
           >
             <span className="relative">
               <ShoppingCart size={26} aria-hidden />
-              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[0.7rem] font-extrabold text-marmara">
-                {count}
-              </span>
+              {count > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[0.7rem] font-extrabold text-marmara">
+                  {count}
+                </span>
+              )}
             </span>
             <span className="hidden leading-tight sm:block">
               <span className="block text-xs font-semibold opacity-90">Sepetim</span>
@@ -88,17 +105,21 @@ export function SiteHeader() {
           </button>
         </div>
 
-        <div className="container space-y-3 pb-4 md:hidden">
-          <nav className="flex justify-between text-sm font-semibold" aria-label="Ana menü">
+        <div className="container space-y-2 pb-4 lg:hidden">
+          <nav className="flex justify-between text-sm font-semibold md:hidden" aria-label="Ana menü (mobil)">
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className={pathname === l.match || pathname.startsWith(`${l.match}/`) ? 'text-marmara' : ''}>
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`-mx-2 inline-flex min-h-10 items-center px-2 ${pathname === l.match || pathname.startsWith(`${l.match}/`) ? 'text-marmara' : ''}`}
+              >
                 {l.label}
               </Link>
             ))}
           </nav>
-          {search('flex items-center gap-2 rounded-full bg-paper-raised px-4 py-3 ring-1 ring-ink/5 lg:hidden')}
+          {search('flex items-center gap-2 rounded-full bg-paper-raised px-4 py-3 ring-1 ring-ink/10 focus-within:ring-2 focus-within:ring-marmara')}
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   )
 }

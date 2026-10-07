@@ -10,7 +10,7 @@ import { tl } from '@/lib/format'
 const perks = [
   { icon: Leaf, title: 'Taze ve kaliteli', text: 'Her gün taze hazırlanan ürünler' },
   { icon: ClipboardList, title: '3 adımda sipariş', text: 'Seç, adresini yaz, kapıda öde' },
-  { icon: Banknote, title: 'Kapıda ödeme', text: 'Nakit ya da kartla, kapıda' },
+  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok, kapıda öde' },
   { icon: Truck, title: 'Merter\'e kurye', text: `Minimum sipariş ${tl(restaurant.minOrder)}` },
 ]
 
@@ -20,18 +20,18 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-white">
         <div className="container relative z-10">
-          <div className="max-w-xl py-10 lg:py-24">
+          <div className="max-w-xl py-10 lg:py-14">
             <p className="flex animate-fade-up items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-ink-soft">
               <span className="h-0.5 w-10 bg-marmara" aria-hidden />
               Kalite ve tazelik
             </p>
-            <h1 className="mt-5 animate-fade-up font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight [animation-delay:80ms] sm:text-6xl xl:text-7xl">
+            <h1 className="mt-5 animate-fade-up font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight [animation-delay:80ms] [text-wrap:balance] sm:text-6xl xl:text-[4.25rem]">
               Lezzet dolu <span className="text-marmara">kahvaltılar</span> her zaman yanınızda.
             </h1>
-            <p className="mt-6 max-w-md animate-fade-up text-lg text-ink-soft [animation-delay:160ms]">
+            <p className="mt-5 max-w-md animate-fade-up text-lg text-ink-soft [animation-delay:160ms]">
               Marmara Gıda&apos;nın taze ve kaliteli ürünleriyle sofralarınızı zenginleştirin. Peynirden zeytine, sıcak ürünlerden tatlılara kadar aradığınız her şey tek yerde.
             </p>
-            <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
+            <div className="mt-7 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
               <Link href="/urunler" className="inline-flex items-center gap-3 rounded-xl bg-marmara px-7 py-4 text-lg font-bold text-white shadow-card transition hover:bg-marmara-dim">
                 Hemen Sipariş Ver <ArrowRight size={20} />
               </Link>
@@ -64,9 +64,9 @@ export default function HomePage() {
       </section>
 
       {/* Kategoriler */}
-      <section className="container py-14">
+      <section className="container py-12">
         <SectionTitle>Kategoriler</SectionTitle>
-        <div className="no-scrollbar -mx-5 mt-8 flex snap-x gap-4 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-7 lg:overflow-visible lg:px-0">
+        <div className="no-scrollbar -mx-5 mt-8 flex snap-x gap-4 overflow-x-auto px-5 pb-3 lg:mx-0 lg:grid lg:grid-cols-7 lg:overflow-visible lg:px-0">
           {categories.map((c) => (
             <Link
               key={c.slug}
