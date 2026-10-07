@@ -10,7 +10,7 @@ import { tl } from '@/lib/format'
 const perks = [
   { icon: Leaf, title: 'Taze ve kaliteli', text: 'Her gün taze hazırlanan ürünler' },
   { icon: ClipboardList, title: '3 adımda sipariş', text: 'Seç, adresini yaz, kapıda öde' },
-  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok, kapıda öde' },
+  { icon: Banknote, title: 'Kapıda ödeme', text: 'Nakit ya da kartla, kapıda' },
   { icon: Truck, title: 'Merter\'e kurye', text: `Minimum sipariş ${tl(restaurant.minOrder)}` },
 ]
 

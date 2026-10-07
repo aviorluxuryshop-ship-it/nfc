@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { ShoppingBag } from 'lucide-react'
 
 import { restaurant } from '@/data/yemek'
@@ -9,7 +10,8 @@ import { useCart } from './CartProvider'
 
 export function FloatingCart() {
   const { count, subtotal, open, setOpen } = useCart()
-  if (!count || open) return null
+  const pathname = usePathname()
+  if (!count || open || pathname === '/siparis') return null
   const missing = restaurant.minOrder - subtotal
   return (
     <button
@@ -25,5 +27,6 @@ export function FloatingCart() {
 // Yüzen sepet butonu sayfanın son satırlarını örtmesin diye altta boşluk bırakır.
 export function CartSpacer() {
   const { count } = useCart()
-  return <div aria-hidden className={count ? 'h-24' : 'h-0'} />
+  const pathname = usePathname()
+  return <div aria-hidden className={count && pathname !== '/siparis' ? 'h-24' : 'h-0'} />
 }

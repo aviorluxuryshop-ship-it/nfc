@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Manrope, Playfair_Display } from 'next/font/google'
 
 import { CartProvider } from '@/components/CartProvider'
-import { CheckoutSheet } from '@/components/CheckoutSheet'
+import { CartSheet } from '@/components/CartSheet'
 import { CartSpacer, FloatingCart } from '@/components/FloatingCart'
 import { Footer } from '@/components/Footer'
 import { SiteHeader } from '@/components/SiteHeader'
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <CartSpacer />
           <FloatingCart />
-          <CheckoutSheet />
+          <CartSheet />
         </CartProvider>
       </body>
     </html>

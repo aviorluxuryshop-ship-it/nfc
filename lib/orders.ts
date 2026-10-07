@@ -1,5 +1,14 @@
 import { menu, neighborhoods, restaurant } from '@/data/yemek'
 
+export const paymentMethods = [
+  { id: 'nakit', label: 'Nakit', hint: 'Kuryeye kapıda nakit ödersin' },
+  { id: 'kart', label: 'Kredi / Banka kartı', hint: 'Kurye kart cihazıyla gelir' },
+] as const
+
+export type PaymentMethod = (typeof paymentMethods)[number]['id']
+
+export const isPaymentMethod = (v: unknown): v is PaymentMethod => paymentMethods.some((m) => m.id === v)
+
 export type OrderInput = {
   name: string
   phone: string
@@ -10,6 +19,7 @@ export type OrderInput = {
   apt?: string
   business?: string
   note?: string
+  payment: PaymentMethod
   lat?: number
   lng?: number
   items: { id: string; qty: number }[]
@@ -58,7 +68,7 @@ export function formatOrderMessage(code: string, o: OrderInput, p: PricedOrder):
     `Ara toplam: ${p.subtotal} TL`,
     `Teslimat: ${p.deliveryFee} TL`,
     `TOPLAM: ${p.total} TL`,
-    `💵 Ödeme: Kapıda ödeme`,
+    o.payment === 'kart' ? '💳 Ödeme: Kapıda KART (kart cihazı götür)' : '💵 Ödeme: Kapıda NAKİT',
     o.note ? `📝 Not: ${o.note}` : '',
   ]
     .filter((l, i, a) => l !== '' || a[i - 1] !== '')

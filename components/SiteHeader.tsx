@@ -64,7 +64,7 @@ export function SiteHeader() {
       <div>
         <div className="container flex items-center justify-between gap-6 py-3 sm:py-4">
           <Link href="/" aria-label="Marmara Gıda Kahvaltı, ana sayfa">
-            <Logo />
+            <Logo className="h-12 sm:h-16" />
           </Link>
 
           <nav className="hidden items-center gap-9 text-[0.95rem] font-semibold md:flex" aria-label="Ana menü">
@@ -86,7 +86,7 @@ export function SiteHeader() {
 
           <button
             onClick={() => setOpen(true)}
-            className="flex items-center gap-3 rounded-xl bg-marmara px-4 py-2.5 text-left text-white shadow-soft transition hover:bg-marmara-dim"
+            className="flex items-center gap-4 rounded-xl bg-marmara px-4 py-2.5 text-left text-white shadow-soft transition hover:bg-marmara-dim"
             aria-label={`Sepetim, ${count} ürün, ${tl(subtotal)}`}
           >
             <span className="relative">
