@@ -12,14 +12,17 @@ export function FloatingCart() {
   const { count, subtotal, open, setOpen } = useCart()
   const pathname = usePathname()
   if (!count || open || pathname === '/siparis') return null
-  const missing = restaurant.minOrder - subtotal
+  const belowMin = subtotal < restaurant.minOrder
   return (
     <button
       onClick={() => setOpen(true)}
-      className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 mx-auto flex max-w-md animate-fade-up items-center justify-between gap-3 whitespace-nowrap rounded-full bg-marmara px-5 py-4 text-sm font-bold text-white shadow-lift transition hover:bg-marmara-dim sm:px-6 sm:text-base"
+      className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 mx-auto flex max-w-md animate-fade-up items-center justify-between gap-3 whitespace-nowrap rounded-full bg-marmara px-5 py-3 text-sm font-bold text-white shadow-lift transition hover:bg-marmara-dim sm:px-6 sm:text-base"
     >
       <span className="flex items-center gap-2"><ShoppingBag size={20} aria-hidden /> Sepetim ({count})</span>
-      <span>{missing > 0 ? `${tl(missing)} daha ekle` : `Tamamla · ${tl(subtotal)}`}</span>
+      <span className="text-right leading-tight">
+        <b className="block text-base font-extrabold sm:text-lg">{tl(subtotal)}</b>
+        <span className="block text-[0.7rem] font-semibold">{belowMin ? `Min. sipariş ${tl(restaurant.minOrder)}` : 'Siparişi tamamla'}</span>
+      </span>
     </button>
   )
 }

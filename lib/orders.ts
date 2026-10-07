@@ -20,8 +20,6 @@ export type OrderInput = {
   business?: string
   note?: string
   payment: PaymentMethod
-  lat?: number
-  lng?: number
   items: { id: string; qty: number }[]
 }
 
@@ -50,10 +48,6 @@ export function priceOrder(items: OrderInput['items']): PricedOrder | null {
 }
 
 export function formatOrderMessage(code: string, o: OrderInput, p: PricedOrder): string {
-  const loc =
-    typeof o.lat === 'number' && typeof o.lng === 'number'
-      ? `https://maps.google.com/?q=${o.lat},${o.lng}`
-      : 'Paylaşılmadı'
   return [
     `🛎️ YENİ SİPARİŞ #${code}`,
     `👤 ${o.name}`,
@@ -61,7 +55,6 @@ export function formatOrderMessage(code: string, o: OrderInput, p: PricedOrder):
     `🏢 İşletme: ${o.business || '-'}`,
     `📍 ${o.neighborhood} Mah. ${o.street}`,
     `No: ${o.no} Kat: ${o.floor || '-'} Daire: ${o.apt || '-'}`,
-    `🗺️ Konum: ${loc}`,
     '',
     ...p.lines.map((l) => `• ${l.qty} x ${l.name} — ${l.total} TL`),
     '',
