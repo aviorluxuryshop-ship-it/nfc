@@ -84,18 +84,18 @@ export function CartSheet() {
             <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
               <ul className="divide-y divide-ink/10 rounded-2xl border border-ink/10">
                 {lines.map((l) => (
-                  <li key={l.id} className="flex items-center gap-3 p-3">
+                  <li key={l.id} className="flex items-start gap-3 p-3">
                     <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-marmara-50">
                       <Image src={imageOf(l.id)} alt="" fill sizes="56px" className="object-cover" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate font-semibold">{l.name}</span>
-                      <span className="text-sm text-ink-mute">{tl(l.price)} / Paket</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <button type="button" aria-label={`${l.name} azalt`} onClick={() => change(l.id, -1)} className={stepBtn}><Minus size={16} /></button>
-                      <span className="w-6 text-center font-bold" aria-label={`${l.qty} paket`}>{l.qty}</span>
-                      <button type="button" aria-label={`${l.name} arttır`} onClick={() => change(l.id, 1)} className={stepBtn}><Plus size={16} /></button>
+                      <span className="block line-clamp-2 font-semibold leading-snug">{l.name}</span>
+                      <span className="block whitespace-nowrap text-sm text-ink-mute">{tl(l.price)} / Paket</span>
+                      <span className="mt-1 flex items-center gap-1">
+                        <button type="button" aria-label={`${l.name} azalt`} onClick={() => change(l.id, -1)} className={stepBtn}><Minus size={16} /></button>
+                        <span className="w-6 text-center font-bold" aria-label={`${l.qty} paket`}>{l.qty}</span>
+                        <button type="button" aria-label={`${l.name} arttır`} onClick={() => change(l.id, 1)} className={stepBtn}><Plus size={16} /></button>
+                      </span>
                     </span>
                     <b className="w-16 shrink-0 text-right">{tl(l.price * l.qty)}</b>
                   </li>

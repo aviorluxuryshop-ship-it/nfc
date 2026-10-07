@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className={`${display.variable} ${sans.variable}`}>
+    <html lang="tr" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a href="#icerik" className="sr-only z-[60] rounded-b-lg bg-marmara px-4 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-0">
           İçeriğe geç

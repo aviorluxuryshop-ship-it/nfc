@@ -63,7 +63,7 @@ export function SiteHeader() {
       </div>
       <div>
         <div className="container flex items-center justify-between gap-6 py-3 sm:py-4">
-          <Link href="/" aria-label="Marmara Gıda Kahvaltı, ana sayfa">
+          <Link href="/" aria-label="Marmara Gıda Kahvaltı, ana sayfa" className="shrink-0">
             <Logo className="h-12 sm:h-16" />
           </Link>
 
@@ -82,7 +82,7 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {search('hidden w-72 items-center gap-2 rounded-full bg-paper-raised px-5 py-3 ring-1 ring-ink/10 focus-within:ring-2 focus-within:ring-marmara lg:flex')}
+          {search('hidden items-center gap-2 rounded-full bg-paper-raised px-5 py-3 ring-1 ring-ink/10 focus-within:ring-2 focus-within:ring-marmara lg:flex lg:w-56 xl:w-72')}
 
           <button
             onClick={() => setOpen(true)}
@@ -98,8 +98,8 @@ export function SiteHeader() {
               )}
             </span>
             <span className="hidden leading-tight sm:block">
-              <span className="block text-xs font-semibold opacity-90">Sepetim</span>
-              <span className="block text-base font-extrabold">{tl(subtotal)}</span>
+              <span className="block text-xs font-semibold">Sepetim</span>
+              <span className="block whitespace-nowrap text-base font-extrabold">{tl(subtotal)}</span>
             </span>
             <ArrowRight size={18} className="hidden sm:block" aria-hidden />
           </button>

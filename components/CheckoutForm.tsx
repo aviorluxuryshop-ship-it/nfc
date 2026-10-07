@@ -18,6 +18,23 @@ const card = 'rounded-2xl bg-white p-5 shadow-soft ring-1 ring-ink/10 sm:p-6'
 
 const payIcons = { nakit: Banknote, kart: CreditCard } as const
 
+// Form taslağı sekme kapanana kadar saklanır: geri/ileri ya da "Alışverişe devam et" bilgileri silmesin.
+const DRAFT = 'marmara-siparis-taslak'
+function loadDraft(): { form: typeof empty; payment: PaymentMethod } {
+  const fallback = { form: empty, payment: 'nakit' as PaymentMethod }
+  if (typeof window === 'undefined') return fallback
+  try {
+    const d = JSON.parse(sessionStorage.getItem(DRAFT) ?? 'null')
+    if (!d || typeof d !== 'object') return fallback
+    const form = { ...empty }
+    for (const k of Object.keys(empty) as (keyof typeof empty)[]) if (typeof d.form?.[k] === 'string') form[k] = d.form[k]
+    form.hp_url = ''
+    return { form, payment: paymentMethods.some((m) => m.id === d.payment) ? d.payment : 'nakit' }
+  } catch {
+    return fallback
+  }
+}
+
 function Label({ htmlFor, children, required }: { htmlFor: string; children: React.ReactNode; required?: boolean }) {
   return (
     <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold">
@@ -30,17 +47,25 @@ function Label({ htmlFor, children, required }: { htmlFor: string; children: Rea
 // Sepetten "Sipariş ver" denince gelinen sayfa: teslimat bilgileri, ödeme yöntemi ve sipariş özeti.
 export function CheckoutForm() {
   const { lines, subtotal, total, change, clear } = useCart()
-  const [form, setForm] = useState(empty)
-  const [payment, setPayment] = useState<PaymentMethod>('nakit')
+  const [draft] = useState(loadDraft)
+  const [form, setForm] = useState(draft.form)
+  const [payment, setPayment] = useState<PaymentMethod>(draft.payment)
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [geoError, setGeoError] = useState('')
   const [waLink, setWaLink] = useState('')
   const [done, setDone] = useState<{ code: string; total: number; payment: PaymentMethod } | null>(null)
   const alertRef = useRef<HTMLDivElement>(null)
 
   // Sepet localStorage'dan istemcide okunur; ilk karede boş görünüp sıçramasın diye bekle.
   const hydrated = useSyncExternalStore(() => () => {}, () => true, () => false)
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(DRAFT, JSON.stringify({ form: { ...form, hp_url: '' }, payment }))
+    } catch {}
+  }, [form, payment])
 
   useEffect(() => {
     if (error || waLink) alertRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
@@ -55,10 +80,11 @@ export function CheckoutForm() {
     setForm((f) => ({ ...f, [k]: e.target.value, ...(k === 'neighborhood' ? { street: '' } : {}) }))
 
   const locate = () => {
-    if (!navigator.geolocation) return setError('Tarayıcınız konum paylaşımını desteklemiyor.')
+    setGeoError('')
+    if (!navigator.geolocation) return setGeoError('Tarayıcınız konum paylaşımını desteklemiyor. Adresi yazarak devam edebilirsiniz.')
     navigator.geolocation.getCurrentPosition(
-      (p) => { setCoords({ lat: p.coords.latitude, lng: p.coords.longitude }); setError('') },
-      () => setError('Konum alınamadı. İzin verin ya da adresi yazın.'),
+      (p) => setCoords({ lat: p.coords.latitude, lng: p.coords.longitude }),
+      () => setGeoError('Konum alınamadı. Adresi yazarak devam edebilirsiniz.'),
       { enableHighAccuracy: true, timeout: 10000 },
     )
   }
@@ -79,6 +105,7 @@ export function CheckoutForm() {
         return
       }
       setDone({ code: data.code, total: data.total, payment })
+      setForm(empty); setPayment('nakit'); setCoords(null)
       clear()
       window.scrollTo({ top: 0 })
     } catch {
@@ -106,7 +133,7 @@ export function CheckoutForm() {
         <p className="mt-3 max-w-md text-lg text-ink-soft">
           Sipariş no: <b>#{done.code}</b>. İşletmeye iletildi; hazırlanıp kuryeyle yola çıkacak.
         </p>
-        <p className="mt-6 rounded-xl bg-marmara-50 px-6 py-4 text-lg font-bold text-marmara">
+        <p className="mt-6 rounded-xl bg-marmara-50 px-6 py-4 text-lg font-bold text-marmara-dim">
           Kapıda ödenecek tutar: {tl(done.total)} · {method?.label}
         </p>
         <Link href="/urunler" className="mt-9 rounded-xl bg-marmara px-8 py-4 font-bold text-white shadow-card transition hover:bg-marmara-dim">
@@ -148,7 +175,7 @@ export function CheckoutForm() {
                 </div>
                 <div>
                   <Label htmlFor="f-tel" required>Telefon</Label>
-                  <input id="f-tel" className={field} placeholder="05xx xxx xx xx" required type="tel" maxLength={20} autoComplete="tel" value={form.phone} onChange={set('phone')} />
+                  <input id="f-tel" className={field} placeholder="05xx xxx xx xx" required type="tel" maxLength={20} autoComplete="tel" pattern="(\D*\d){10,13}\D*" title="Telefon numaranızı eksiksiz yazın (örn. 0532 123 45 67)" value={form.phone} onChange={set('phone')} />
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -184,8 +211,9 @@ export function CheckoutForm() {
                 <input id="f-isletme" className={field} placeholder="Varsa" maxLength={80} value={form.business} onChange={set('business')} />
               </div>
               <button type="button" onClick={locate} className="flex w-full items-center justify-center gap-2 rounded-xl border border-ink/20 px-4 py-3 font-semibold transition hover:border-marmara hover:text-marmara">
-                <MapPin size={18} aria-hidden /> {coords ? 'Konum eklendi ✓' : 'Konumumu paylaş (isteğe bağlı, kurye daha kolay bulur)'}
+                <MapPin size={18} className="shrink-0" aria-hidden /> {coords ? 'Konum eklendi ✓' : 'Konumumu paylaş (isteğe bağlı, kurye daha kolay bulur)'}
               </button>
+              {geoError && <p role="status" className="-mt-2 text-sm text-ink-soft">{geoError}</p>}
               <div>
                 <Label htmlFor="f-not">Sipariş notu</Label>
                 <textarea id="f-not" className={field} placeholder="İsteğe bağlı" rows={2} maxLength={200} value={form.note} onChange={set('note')} />
@@ -230,7 +258,7 @@ export function CheckoutForm() {
                   <Image src={imageOf(l.id)} alt="" fill sizes="56px" className="object-cover" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate font-semibold">{l.name}</span>
+                  <span className="block line-clamp-2 font-semibold leading-snug">{l.name}</span>
                   <span className="mt-1 flex items-center gap-1">
                     <button type="button" aria-label={`${l.name} azalt`} onClick={() => change(l.id, -1)} className={stepBtn}><Minus size={16} /></button>
                     <span className="w-6 text-center font-bold" aria-label={`${l.qty} paket`}>{l.qty}</span>
@@ -250,7 +278,7 @@ export function CheckoutForm() {
           <p className="mt-1 text-xs text-ink-soft">Kapıda ödenir · {paymentMethods.find((m) => m.id === payment)?.label}</p>
 
           {belowMin && (
-            <p className="mt-4 rounded-xl bg-marmara-50 px-4 py-3 text-sm font-semibold text-marmara">
+            <p className="mt-4 rounded-xl bg-marmara-50 px-4 py-3 text-sm font-semibold text-marmara-dim">
               Minimum sipariş {tl(restaurant.minOrder)}: {tl(missing)} daha ürün ekle. <Link href="/urunler" className="underline">Ürünlere dön</Link>
             </p>
           )}

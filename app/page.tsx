@@ -106,7 +106,7 @@ export default function HomePage() {
         <div className="container grid gap-10 py-16 lg:grid-cols-2 lg:items-center">
           <div>
             <SectionTitle light>Servis bölgemiz</SectionTitle>
-            <p className="mt-5 max-w-md text-lg text-white/85">
+            <p className="mt-5 max-w-md text-lg text-white">
               Merter ve çevresine, Güngören&apos;deki üç mahalleye kapıda ödemeli teslimat yapıyoruz. Sipariş verirken mahallenizi ve sokağınızı seçmeniz yeterli.
             </p>
             <Link href="/urunler" className="mt-7 inline-flex items-center gap-3 rounded-xl bg-white px-7 py-4 font-bold text-marmara transition hover:bg-marmara-50">
@@ -115,12 +115,12 @@ export default function HomePage() {
           </div>
           <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             {neighborhoods.map((n) => (
-              <div key={n.name} className="flex items-center gap-4 rounded-2xl bg-white/10 px-5 py-4 ring-1 ring-white/20 backdrop-blur">
+              <div key={n.name} className="flex items-center gap-4 rounded-2xl bg-white/5 px-5 py-4 ring-1 ring-white/20 backdrop-blur">
                 <MapPin className="shrink-0" />
                 <span className="font-bold">{n.name} Mahallesi</span>
               </div>
             ))}
-            <p className="px-1 text-sm text-white/80 sm:col-span-3 lg:col-span-1">Minimum sipariş {tl(restaurant.minOrder)} · {restaurant.hours}</p>
+            <p className="px-1 text-sm text-white sm:col-span-3 lg:col-span-1">Minimum sipariş {tl(restaurant.minOrder)} · {restaurant.hours}</p>
           </div>
         </div>
       </section>

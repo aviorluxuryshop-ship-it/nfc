@@ -56,8 +56,11 @@ export async function POST(req: Request) {
   }
 
   const digits = phone.replace(/\D/g, '')
-  if (order.name.length < 2 || !isServedNeighborhood(order.neighborhood) || order.street.length < 2 || !order.no || digits.length < 10 || digits.length > 13) {
-    return NextResponse.json({ error: 'Ad, telefon, mahalle, sokak ve bina no alanlarını eksiksiz doldurun. Sadece Merter civarına servis var.' }, { status: 400 })
+  if (digits.length < 10 || digits.length > 13) {
+    return NextResponse.json({ error: 'Telefon numaranızı alan koduyla birlikte eksiksiz yazın (örn. 0555 123 45 67).' }, { status: 400 })
+  }
+  if (order.name.length < 2 || !isServedNeighborhood(order.neighborhood) || order.street.length < 2 || !order.no) {
+    return NextResponse.json({ error: 'Ad, mahalle, sokak ve bina no alanlarını eksiksiz doldurun. Sadece Merter civarına servis var.' }, { status: 400 })
   }
   const priced = priceOrder(order.items)
   if (!priced) {
