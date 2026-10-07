@@ -181,14 +181,8 @@ export function Shop() {
                 <option value="">Mahalle seçin</option>
                 {neighborhoods.map((n) => <option key={n.name} value={n.name}>{n.name} Mah.</option>)}
               </select>
-              {streets.length ? (
-                <select className={field} required value={form.street} onChange={set('street')}>
-                  <option value="">Sokak seçin</option>
-                  {streets.map((s) => <option key={s} value={s}>{s}</option>)}
-                </select>
-              ) : (
-                <input className={field} placeholder="Cadde / Sokak" required disabled={!form.neighborhood} value={form.street} onChange={set('street')} />
-              )}
+              <input className={field} placeholder="Cadde / Sokak (listeden seç ya da yaz)" required list="sokaklar" disabled={!form.neighborhood} value={form.street} onChange={set('street')} />
+              <datalist id="sokaklar">{streets.map((st) => <option key={st} value={st} />)}</datalist>
               <div className="grid grid-cols-3 gap-3">
                 <input className={field} placeholder="No" required value={form.no} onChange={set('no')} />
                 <input className={field} placeholder="Kat" value={form.floor} onChange={set('floor')} />
