@@ -18,7 +18,8 @@ module.exports = {
         // Beyaz zemin, kırmızı vurgu.
         paper: { DEFAULT: '#FFFFFF', raised: '#FAF7F5' },
         ink: { DEFAULT: '#1A1414', soft: '#5B5050', mute: '#6B6060' },
-        marmara: { DEFAULT: '#B5121B', dim: '#8E0E15', 50: '#FDF2F2', 100: '#FBE3E3' },
+        // Logo kırmızısı (#EC0000) ile aynı; beyaz üstünde 4.6:1 kontrast.
+        marmara: { DEFAULT: '#EC0000', dim: '#B80000', 50: '#FFF1F1', 100: '#FFE0E0' },
       },
       fontFamily: {
         display: ['var(--font-display)', 'Georgia', 'serif'],

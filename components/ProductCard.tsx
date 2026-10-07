@@ -38,7 +38,7 @@ export function ProductCard({ item, level = 3, priority = false }: { item: MenuI
             <button type="button" aria-label={`${item.name} azalt`} onClick={() => change(item.id, -1)} className={stepBtn}>
               <Minus size={18} />
             </button>
-            <span className="text-center font-bold" aria-live="polite">{inCart} paket</span>
+            <span className="whitespace-nowrap text-center font-bold" aria-live="polite">{inCart}<span className="max-[430px]:sr-only"> paket</span></span>
             <button type="button" aria-label={`${item.name} arttır`} onClick={() => change(item.id, 1)} className={stepBtn}>
               <Plus size={18} />
             </button>
@@ -50,7 +50,7 @@ export function ProductCard({ item, level = 3, priority = false }: { item: MenuI
             onClick={() => add(item.id, 1)}
             className="mt-3 flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-marmara px-3 text-sm font-bold text-white transition hover:bg-marmara-dim active:scale-[0.98]"
           >
-            <ShoppingCart size={18} aria-hidden />
+            <ShoppingCart size={18} className="shrink-0" aria-hidden />
             Sepete Ekle
           </button>
         )}

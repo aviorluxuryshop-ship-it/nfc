@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import { restaurant } from '@/data/yemek'
-import { formatOrderMessage, isServedNeighborhood, priceOrder, type OrderInput } from '@/lib/orders'
+import { formatOrderMessage, isPaymentMethod, isServedNeighborhood, priceOrder, type OrderInput } from '@/lib/orders'
 
 export const runtime = 'nodejs'
 
@@ -45,14 +45,22 @@ export async function POST(req: Request) {
     apt: clean(body.apt, 10),
     business: clean(body.business, 80),
     note: clean(body.note, 200),
+    payment: isPaymentMethod(body.payment) ? body.payment : 'nakit',
     lat: coord(body.lat, 90),
     lng: coord(body.lng, 180),
     items: mergeItems(body.items),
   }
 
+  if (!isPaymentMethod(body.payment)) {
+    return NextResponse.json({ error: 'Ödeme yöntemini seçin (nakit ya da kart).' }, { status: 400 })
+  }
+
   const digits = phone.replace(/\D/g, '')
-  if (order.name.length < 2 || !isServedNeighborhood(order.neighborhood) || order.street.length < 2 || !order.no || digits.length < 10 || digits.length > 13) {
-    return NextResponse.json({ error: 'Ad, telefon, mahalle, sokak ve bina no alanlarını eksiksiz doldurun. Sadece Merter civarına servis var.' }, { status: 400 })
+  if (digits.length < 10 || digits.length > 13) {
+    return NextResponse.json({ error: 'Telefon numaranızı alan koduyla birlikte eksiksiz yazın (örn. 0555 123 45 67).' }, { status: 400 })
+  }
+  if (order.name.length < 2 || !isServedNeighborhood(order.neighborhood) || order.street.length < 2 || !order.no) {
+    return NextResponse.json({ error: 'Ad, mahalle, sokak ve bina no alanlarını eksiksiz doldurun. Sadece Merter civarına servis var.' }, { status: 400 })
   }
   const priced = priceOrder(order.items)
   if (!priced) {

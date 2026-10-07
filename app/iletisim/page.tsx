@@ -38,15 +38,15 @@ export default function Iletisim() {
 
         <div className="rounded-3xl bg-marmara p-8 text-white shadow-card">
           <h2 className="font-display text-2xl font-bold">Servis bölgemiz</h2>
-          <p className="mt-3 text-white/85">Sadece Merter civarına, Güngören&apos;deki şu mahallelere teslimat yapıyoruz:</p>
+          <p className="mt-3 text-white">Sadece Merter civarına, Güngören&apos;deki şu mahallelere teslimat yapıyoruz:</p>
           <ul className="mt-5 space-y-2.5">
             {neighborhoods.map((n) => (
-              <li key={n.name} className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 font-semibold ring-1 ring-white/20">
+              <li key={n.name} className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-3 font-semibold ring-1 ring-white/20">
                 <MapPin size={18} aria-hidden /> {n.name} Mahallesi
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-sm text-white/85">Minimum sipariş {tl(restaurant.minOrder)} · Ödeme kapıda</p>
+          <p className="mt-5 text-sm text-white">Minimum sipariş {tl(restaurant.minOrder)} · Ödeme kapıda</p>
           <Link href="/urunler" className="mt-6 inline-flex items-center gap-3 rounded-xl bg-white px-7 py-4 font-bold text-marmara transition hover:bg-marmara-50">
             Sipariş ver <ArrowRight size={20} aria-hidden />
           </Link>

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const values = [
   { icon: Leaf, title: 'Taze ürün', text: 'Peynirden zeytine, unlu mamüllerden sıcak ürünlere kadar her şey taze ve özenle hazırlanır.' },
   { icon: Truck, title: 'Kapına kadar', text: 'Siparişin hazırlanır, kuryemizle Merter ve çevresinde kapına getirilir.' },
-  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok. Siparişini teslim alırken kapıda ödersin.' },
+  { icon: Banknote, title: 'Kapıda ödeme', text: 'Online ödeme yok. Siparişini teslim alırken nakit ya da kredi/banka kartıyla kapıda ödersin.' },
 ]
 
 export default function Hakkimizda() {

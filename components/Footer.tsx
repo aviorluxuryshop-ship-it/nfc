@@ -9,7 +9,7 @@ export function Footer() {
     <footer className="border-t border-ink/10 bg-white">
       <div className="container grid gap-10 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <Logo />
+          <Logo className="h-14" />
           <p className="mt-5 max-w-xs text-sm text-ink-soft">{restaurant.tagline} Merter&apos;e kapıda ödemeli teslimat.</p>
         </div>
         <nav aria-label="Alt menü" className="space-y-2 text-sm font-semibold">
