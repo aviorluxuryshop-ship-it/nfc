@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
-import { Manrope, Sora } from 'next/font/google'
-import Link from 'next/link'
+import { Manrope, Playfair_Display } from 'next/font/google'
 
+import { CartProvider } from '@/components/CartProvider'
+import { CheckoutSheet } from '@/components/CheckoutSheet'
+import { FloatingCart } from '@/components/FloatingCart'
+import { Footer } from '@/components/Footer'
+import { SiteHeader } from '@/components/SiteHeader'
 import { restaurant } from '@/data/yemek'
 
 import './globals.css'
 
-const sora = Sora({ subsets: ['latin'], variable: '--font-display', weight: ['600', '700', '800'], display: 'swap' })
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const display = Playfair_Display({ subsets: ['latin', 'latin-ext'], variable: '--font-display', weight: ['600', '700', '800'], display: 'swap' })
+const sans = Manrope({ subsets: ['latin', 'latin-ext'], variable: '--font-sans', display: 'swap' })
 
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -16,37 +20,21 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: `${restaurant.name} — Online Sipariş`, template: `%s — ${restaurant.name}` },
-  description: restaurant.tagline,
+  description: `${restaurant.tagline} Peynir, zeytin, sıcak ürünler, tatlılar ve unlu mamüller; Merter'e kapıda ödemeli teslimat.`,
+  openGraph: { type: 'website', title: restaurant.name, description: restaurant.tagline, images: ['/images/hero.webp'], locale: 'tr_TR' },
 }
-
-const links = [
-  { href: '/', label: 'Ürünler' },
-  { href: '/hakkimizda', label: 'Hakkımızda' },
-  { href: '/iletisim', label: 'İletişim' },
-]
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className={`${sora.variable} ${manrope.variable}`}>
-      <body>
-        <div className="bg-marmara px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-          Sadece Merter civarına servis · Minimum sipariş {restaurant.minOrder} ₺ · Ödeme kapıda
-        </div>
-        <header className="sticky top-0 z-20 border-b border-ink/10 bg-white/95 backdrop-blur">
-          <div className="container flex items-center justify-between gap-4 py-3">
-            <Link href="/" className="font-display text-lg font-extrabold leading-tight text-marmara sm:text-xl">
-              {restaurant.name}
-            </Link>
-            <nav className="flex gap-4 text-sm font-semibold text-ink sm:gap-6">
-              {links.map((l) => (
-                <Link key={l.href} href={l.href} className="hover:text-marmara">
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </header>
-        <main>{children}</main>
+    <html lang="tr" className={`${display.variable} ${sans.variable}`}>
+      <body className="flex min-h-screen flex-col">
+        <CartProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <FloatingCart />
+          <CheckoutSheet />
+        </CartProvider>
       </body>
     </html>
   )
