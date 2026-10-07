@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { formatOrderMessage, priceOrder, type OrderInput } from '@/lib/orders'
+import { formatOrderMessage, isServedNeighborhood, priceOrder, type OrderInput } from '@/lib/orders'
 
 export const runtime = 'nodejs'
 
@@ -21,15 +21,20 @@ export async function POST(req: Request) {
   const order: OrderInput = {
     name: clean(body.name, 60),
     phone,
-    address: clean(body.address, 300),
+    neighborhood: clean(body.neighborhood, 60),
+    street: clean(body.street, 80),
+    no: clean(body.no, 10),
+    floor: clean(body.floor, 10),
+    apt: clean(body.apt, 10),
+    business: clean(body.business, 80),
     note: clean(body.note, 200),
     lat: typeof body.lat === 'number' ? body.lat : undefined,
     lng: typeof body.lng === 'number' ? body.lng : undefined,
     items: Array.isArray(body.items) ? (body.items as OrderInput['items']).slice(0, 40) : [],
   }
 
-  if (order.name.length < 2 || order.address.length < 10 || phone.replace(/\D/g, '').length < 10) {
-    return NextResponse.json({ error: 'Ad, telefon ve adres alanlarını eksiksiz doldurun.' }, { status: 400 })
+  if (order.name.length < 2 || !isServedNeighborhood(order.neighborhood) || order.street.length < 2 || !order.no || phone.replace(/\D/g, '').length < 10) {
+    return NextResponse.json({ error: 'Ad, telefon, mahalle, sokak ve bina no alanlarını eksiksiz doldurun. Sadece Merter civarına servis var.' }, { status: 400 })
   }
   const priced = priceOrder(order.items)
   if (!priced) {

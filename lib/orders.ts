@@ -1,9 +1,14 @@
-import { menu, restaurant } from '@/data/yemek'
+import { menu, neighborhoods, restaurant } from '@/data/yemek'
 
 export type OrderInput = {
   name: string
   phone: string
-  address: string
+  neighborhood: string
+  street: string
+  no: string
+  floor?: string
+  apt?: string
+  business?: string
   note?: string
   lat?: number
   lng?: number
@@ -16,6 +21,8 @@ export type PricedOrder = {
   deliveryFee: number
   total: number
 }
+
+export const isServedNeighborhood = (n: string) => neighborhoods.some((x) => x.name === n)
 
 export function priceOrder(items: OrderInput['items']): PricedOrder | null {
   const lines: PricedOrder['lines'] = []
@@ -40,7 +47,9 @@ export function formatOrderMessage(code: string, o: OrderInput, p: PricedOrder):
     `🛎️ YENİ SİPARİŞ #${code}`,
     `👤 ${o.name}`,
     `📞 ${o.phone}`,
-    `📍 ${o.address}`,
+    `🏢 İşletme: ${o.business || '-'}`,
+    `📍 ${o.neighborhood} Mah. ${o.street}`,
+    `No: ${o.no} Kat: ${o.floor || '-'} Daire: ${o.apt || '-'}`,
     `🗺️ Konum: ${loc}`,
     '',
     ...p.lines.map((l) => `• ${l.qty} x ${l.name} — ${l.total} TL`),
