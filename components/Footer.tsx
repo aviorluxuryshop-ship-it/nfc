@@ -14,7 +14,7 @@ export function Footer() {
         </div>
         <nav aria-label="Alt menü" className="space-y-2 text-sm font-semibold">
           <p className="mb-3 font-display text-lg font-bold">Sayfalar</p>
-          <Link href="/#urunler" className="block hover:text-marmara">Ürünler</Link>
+          <Link href="/urunler" className="block hover:text-marmara">Ürünler</Link>
           <Link href="/hakkimizda" className="block hover:text-marmara">Hakkımızda</Link>
           <Link href="/iletisim" className="block hover:text-marmara">İletişim</Link>
         </nav>

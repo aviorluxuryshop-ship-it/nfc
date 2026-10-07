@@ -26,7 +26,7 @@ export default function Hakkimizda() {
           <p className="mt-4 text-lg leading-relaxed text-ink-soft">
             Amacımız basit: sabah sofrası kolay, taze ve güvenilir olsun. Kalabalık bir kahvaltı da olsa, küçük bir atıştırmalık da olsa birkaç dokunuşla siparişin hazır.
           </p>
-          <Link href="/#urunler" className="mt-8 inline-block rounded-xl bg-marmara px-7 py-4 font-bold text-white shadow-card transition hover:bg-marmara-dim">
+          <Link href="/urunler" className="mt-8 inline-block rounded-xl bg-marmara px-7 py-4 font-bold text-white shadow-card transition hover:bg-marmara-dim">
             Ürünlere göz at
           </Link>
         </div>

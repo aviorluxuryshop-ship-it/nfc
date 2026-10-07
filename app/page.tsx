@@ -1,9 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowRight, Banknote, ClipboardList, Leaf, MapPin, Truck } from 'lucide-react'
 
-import { Products } from '@/components/Products'
+import { ProductCard } from '@/components/ProductCard'
 import { SectionTitle } from '@/components/SectionTitle'
-import { categories, imageOf, neighborhoods, restaurant } from '@/data/yemek'
+import { categories, featuredIds, imageOf, menu, neighborhoods, restaurant } from '@/data/yemek'
 import { tl } from '@/lib/format'
 
 const perks = [
@@ -31,9 +32,9 @@ export default function HomePage() {
               Marmara Gıda&apos;nın taze ve kaliteli ürünleriyle sofralarınızı zenginleştirin. Peynirden zeytine, sıcak ürünlerden tatlılara kadar aradığınız her şey tek yerde.
             </p>
             <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-4 [animation-delay:240ms]">
-              <a href="#urunler" className="inline-flex items-center gap-3 rounded-xl bg-marmara px-7 py-4 text-lg font-bold text-white shadow-card transition hover:bg-marmara-dim">
+              <Link href="/urunler" className="inline-flex items-center gap-3 rounded-xl bg-marmara px-7 py-4 text-lg font-bold text-white shadow-card transition hover:bg-marmara-dim">
                 Hemen Sipariş Ver <ArrowRight size={20} />
-              </a>
+              </Link>
               <span className="text-sm font-semibold text-ink-soft">Kapıda ödeme · Sadece Merter civarı</span>
             </div>
           </div>
@@ -67,21 +68,38 @@ export default function HomePage() {
         <SectionTitle>Kategoriler</SectionTitle>
         <div className="no-scrollbar -mx-5 mt-8 flex snap-x gap-4 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-7 lg:overflow-visible lg:px-0">
           {categories.map((c) => (
-            <a
+            <Link
               key={c.slug}
-              href={`#kategori-${c.slug}`}
+              href={`/urunler/${c.slug}`}
               className="group w-36 shrink-0 snap-start rounded-2xl bg-marmara-50/70 p-3 text-center ring-1 ring-marmara/10 transition duration-300 hover:-translate-y-1 hover:shadow-card lg:w-auto"
             >
               <span className="relative block aspect-square overflow-hidden rounded-xl">
                 <Image src={imageOf(c.cover)} alt="" fill sizes="(min-width:1024px) 14vw, 144px" className="object-cover transition duration-700 group-hover:scale-110" />
               </span>
               <span className="mt-3 block text-sm font-bold">{c.name}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
 
-      <Products />
+      {/* Öne çıkanlar */}
+      <section className="container pb-16">
+        <div className="flex items-end justify-between gap-4">
+          <SectionTitle>Öne Çıkan Ürünler</SectionTitle>
+          <Link href="/urunler" className="hidden shrink-0 items-center gap-2 font-bold text-marmara hover:underline sm:flex">
+            Tüm Ürünleri Gör <ArrowRight size={18} />
+          </Link>
+        </div>
+        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+          {featuredIds.map((id) => {
+            const item = menu.find((m) => m.id === id)
+            return item ? <ProductCard key={id} item={item} /> : null
+          })}
+        </div>
+        <Link href="/urunler" className="mt-8 flex items-center justify-center gap-2 rounded-xl border border-marmara/30 py-4 font-bold text-marmara sm:hidden">
+          Tüm Ürünleri Gör <ArrowRight size={18} />
+        </Link>
+      </section>
 
       {/* Teslimat bölgesi */}
       <section className="bg-marmara text-white">
@@ -91,9 +109,9 @@ export default function HomePage() {
             <p className="mt-5 max-w-md text-lg text-white/85">
               Merter ve çevresine, Güngören&apos;deki üç mahalleye kapıda ödemeli teslimat yapıyoruz. Sipariş verirken mahallenizi ve sokağınızı seçmeniz yeterli.
             </p>
-            <a href="#urunler" className="mt-7 inline-flex items-center gap-3 rounded-xl bg-white px-7 py-4 font-bold text-marmara transition hover:bg-marmara-50">
+            <Link href="/urunler" className="mt-7 inline-flex items-center gap-3 rounded-xl bg-white px-7 py-4 font-bold text-marmara transition hover:bg-marmara-50">
               Sipariş ver <ArrowRight size={20} />
-            </a>
+            </Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             {neighborhoods.map((n) => (

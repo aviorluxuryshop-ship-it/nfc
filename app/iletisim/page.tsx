@@ -30,7 +30,7 @@ export default function Iletisim() {
           </li>
         ))}
       </ul>
-      <Link href="/#urunler" className="mt-10 inline-block rounded-xl bg-marmara px-7 py-4 font-bold text-white shadow-card transition hover:bg-marmara-dim">Sipariş ver</Link>
+      <Link href="/urunler" className="mt-10 inline-block rounded-xl bg-marmara px-7 py-4 font-bold text-white shadow-card transition hover:bg-marmara-dim">Sipariş ver</Link>
     </section>
   )
 }

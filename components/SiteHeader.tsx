@@ -11,7 +11,7 @@ import { useCart } from './CartProvider'
 import { Logo } from './Logo'
 
 const links = [
-  { href: '/#urunler', label: 'Ürünler', match: '/' },
+  { href: '/urunler', label: 'Ürünler', match: '/urunler' },
   { href: '/hakkimizda', label: 'Hakkımızda', match: '/hakkimizda' },
   { href: '/iletisim', label: 'İletişim', match: '/iletisim' },
 ]
@@ -25,8 +25,7 @@ export function SiteHeader() {
 
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (pathname !== '/') router.push('/#urunler')
-    else document.getElementById('urunler')?.scrollIntoView({ behavior: 'smooth' })
+    if (!pathname.startsWith('/urunler')) router.push('/urunler')
   }
 
   const search = (cls: string) => (
@@ -55,7 +54,7 @@ export function SiteHeader() {
 
           <nav className="hidden items-center gap-9 text-[0.95rem] font-semibold md:flex" aria-label="Ana menü">
             {links.map((l) => {
-              const active = pathname === l.match
+              const active = pathname === l.match || pathname.startsWith(`${l.match}/`)
               return (
                 <Link
                   key={l.href}
@@ -92,7 +91,7 @@ export function SiteHeader() {
         <div className="container space-y-3 pb-4 md:hidden">
           <nav className="flex justify-between text-sm font-semibold" aria-label="Ana menü">
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className={pathname === l.match ? 'text-marmara' : ''}>
+              <Link key={l.href} href={l.href} className={pathname === l.match || pathname.startsWith(`${l.match}/`) ? 'text-marmara' : ''}>
                 {l.label}
               </Link>
             ))}

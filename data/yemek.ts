@@ -20,16 +20,16 @@ export const neighborhoods: { name: string; streets: string[] }[] = [
   { name: 'Tozkopan', streets: ['Ezher Sokak'] },
 ]
 
-export type Category = { slug: string; name: string; cover: string }
+export type Category = { slug: string; name: string; cover: string; description: string }
 
 export const categories: Category[] = [
-  { slug: 'peynir', name: 'Peynir Çeşitleri', cover: 'beyaz-peynir' },
-  { slug: 'zeytin', name: 'Zeytin Çeşitleri', cover: 'siyah-zeytin' },
-  { slug: 'tatli', name: 'Tatlı Çeşitleri', cover: 'bal-kaymak' },
-  { slug: 'salata', name: 'Salatalar', cover: 'sogus' },
-  { slug: 'sicak', name: 'Sıcak Ürünler', cover: 'menemen' },
-  { slug: 'unlu', name: 'Unlu Mamüller', cover: 'simit' },
-  { slug: 'sandvic', name: 'Sandviçler', cover: 'karisik-sandvic' },
+  { slug: 'peynir', name: 'Peynir Çeşitleri', cover: 'beyaz-peynir', description: 'Kahvaltı sofralarınızın vazgeçilmezi, taptaze ve kaliteli peynir çeşitleri Marmara Gıda\'da.' },
+  { slug: 'zeytin', name: 'Zeytin Çeşitleri', cover: 'siyah-zeytin', description: 'Sofranın baş tacı; yeşil, siyah ve yağlı zeytin çeşitleri bir arada.' },
+  { slug: 'tatli', name: 'Tatlı Çeşitleri', cover: 'bal-kaymak', description: 'Reçel, bal ve kaymak, helva ve fındık kreması ile kahvaltıya tatlı bir son.' },
+  { slug: 'salata', name: 'Salatalar', cover: 'sogus', description: 'Söğüş tabağından çoban salataya, kahvaltının ferah tamamlayıcıları.' },
+  { slug: 'sicak', name: 'Sıcak Ürünler', cover: 'menemen', description: 'Menemen, yumurta çeşitleri, gözleme ve böreklerle sıcak sıcak bir kahvaltı.' },
+  { slug: 'unlu', name: 'Unlu Mamüller', cover: 'simit', description: 'Simit, poğaça, açma ve kruvasan; sabahın en güzel eşlikçileri.' },
+  { slug: 'sandvic', name: 'Sandviçler', cover: 'karisik-sandvic', description: 'Güne hızlı ve doyurucu başlamak isteyenler için sandviç ve tost çeşitleri.' },
 ]
 
 export type MenuItem = { id: string; name: string; price: number; category: string }
@@ -66,5 +66,7 @@ export const menu: MenuItem[] = [
   { id: 'tost', name: 'Kaşarlı Tost', price: P, category: 'sandvic' },
   { id: 'tavuk-sandvic', name: 'Tavuklu Sandviç', price: P, category: 'sandvic' },
 ]
+
+export const featuredIds = ['beyaz-peynir', 'kasar', 'siyah-zeytin', 'simit', 'karisik-sandvic', 'sucuklu-yumurta']
 
 export const imageOf = (id: string) => `/images/urunler/${id}.webp`
