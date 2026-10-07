@@ -39,6 +39,11 @@ module.exports = {
           dim: '#C41F55',
           50: '#FDE9F0',
         },
+        marmara: {
+          DEFAULT: '#D62828',
+          dim: '#B01E1E',
+          50: '#FDECEC',
+        },
         gold: {
           DEFAULT: '#F2B705',
           dim: '#D19E00',

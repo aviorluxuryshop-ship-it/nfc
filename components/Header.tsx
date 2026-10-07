@@ -31,6 +31,8 @@ export function Header() {
     ? 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]'
     : 'text-ink'
 
+  if (pathname.startsWith('/yemek')) return null
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
