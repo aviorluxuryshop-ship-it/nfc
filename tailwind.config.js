@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,65 +9,35 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: { DEFAULT: '1.25rem', sm: '2rem', lg: '3rem', xl: '4rem' },
+      // Yan boşluk globals.css'te (lg ve üstü için genişletilir); 640–1023px'te sabit 1.25rem.
+      padding: '1.25rem',
       screens: { '2xl': '1360px' },
     },
     extend: {
       colors: {
-        // Ink/paper: the neutral ground the catalog sits on. Bright white,
-        // near-black text — a catalog is read, not stared into.
-        paper: {
-          DEFAULT: '#FFFFFF',
-          raised: '#F7F7FA',
-        },
-        ink: {
-          DEFAULT: '#12131A',
-          soft: '#4B4C58',
-          mute: '#84858F',
-        },
-        // The two card platforms get their own colors, matching the actual
-        // card designs: Google's blue, Instagram's magenta. Gold is the
-        // shared accent (the stars on every card).
-        royal: {
-          DEFAULT: '#2B3E8C',
-          dim: '#22316E',
-          50: '#EBEEFA',
-        },
-        magenta: {
-          DEFAULT: '#E8306B',
-          dim: '#C41F55',
-          50: '#FDE9F0',
-        },
-        marmara: {
-          DEFAULT: '#D62828',
-          dim: '#B01E1E',
-          50: '#FDECEC',
-        },
-        gold: {
-          DEFAULT: '#F2B705',
-          dim: '#D19E00',
-          50: '#FEF6DC',
-        },
+        // Beyaz zemin, kırmızı vurgu.
+        paper: { DEFAULT: '#FFFFFF', raised: '#FAF7F5' },
+        ink: { DEFAULT: '#1A1414', soft: '#5B5050', mute: '#6B6060' },
+        marmara: { DEFAULT: '#B5121B', dim: '#8E0E15', 50: '#FDF2F2', 100: '#FBE3E3' },
       },
       fontFamily: {
-        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
-      borderRadius: {
-        card: '1.25rem',
-      },
       boxShadow: {
-        card: '0 30px 60px -30px rgba(18,19,26,0.25)',
+        card: '0 24px 50px -24px rgba(26,20,20,0.28)',
+        soft: '0 8px 30px -18px rgba(26,20,20,0.25)',
         lift: '0 40px 80px -32px rgba(0,0,0,0.35)',
       },
       keyframes: {
-        'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+        'fade-up': { '0%': { opacity: '0', transform: 'translateY(18px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        'slide-in': { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } },
+        'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
       },
       animation: {
-        'fade-up': 'fade-up 0.7s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-up': 'fade-up 0.8s cubic-bezier(0.16,1,0.3,1) both',
+        'slide-in': 'slide-in 0.35s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-in': 'fade-in 0.25s ease-out both',
       },
     },
   },

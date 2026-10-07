@@ -1,8 +1,7 @@
-# Dijital Kartım
+# Marmara Gıda Kahvaltı
 
-İşletmeler için NFC kart kataloğu — Google değerlendirme ve Instagram takip kartları.
-Bu bir online mağaza değil, katalog sitesi: sepet, ödeme ya da kargo akışı yok; satış
-yerinde/civarda yapılıyor. Next.js (App Router) + Tailwind CSS.
+Merter'e kapıda ödemeli kahvaltılık sipariş sitesi. Next.js (App Router) + Tailwind CSS.
+Online ödeme yok; sipariş fişi WhatsApp Business Cloud API ile işletmeye iletilir.
 
 ## Geliştirme
 
@@ -13,13 +12,17 @@ npm run dev
 
 ## Sayfalar
 
-- `/` — ana sayfa: resepsiyon fotoğraflı hero + kartların ne işe yaradığı, ardından
-  ürün kataloğu satır satır (fiyat/sipariş butonu yok)
-- `/katalog` — tüm kartların grid görünümü (boyut, fiyat, renk seçenekleri)
-- `/nfc-kart-nedir` — NFC kart nedir, nasıl çalışır, nerede kullanılır
-- `/iletisim` — telefon, WhatsApp, e-posta, Instagram, adres
+- `/` — hero, kategoriler, tüm ürünler (sepete ekle), servis bölgesi
+- `/hakkimizda`, `/iletisim`
+- `/api/siparis` — siparişi doğrular (mahalle, minimum tutar, fiyat) ve WhatsApp'a gönderir
 
-## Ürünler
+## İçerik
 
-`data/products.ts` içinde tanımlı. Ürün fotoğrafları `public/images/products/`
-altında — gerçek kart tasarımları.
+Menü, fiyatlar, telefon, adres, mahalle/sokak listesi: `data/yemek.ts`.
+Ürün fotoğrafları: `public/images/urunler/<ürün-id>.webp` (kaynaklar `public/images/CREDITS.md`).
+
+## WhatsApp
+
+`.env.example` dosyasındaki değişkenleri Vercel'e girin (`WHATSAPP_TOKEN`,
+`WHATSAPP_PHONE_NUMBER_ID`, `BUSINESS_WHATSAPP_TO`). Girilmezse sipariş iletilemez ve
+müşteriye wa.me yedek butonu gösterilir.
